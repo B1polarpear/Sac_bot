@@ -1,0 +1,29 @@
+#new int autoBlind 0;
+#new int blinded;
+#new int blinding;
+#new int blindProcess 0;
+
+#action {% screams in frustration and begins to grope around blindly!} {
+        #if {$groupList.find("%1")==-1 && $autoBlind==1} {
+                #$blinded 1;
+                #$blinding 0;
+                #$blindProcess 0
+        };
+};
+
+#action {Your blindness spell shimmers around your target, but fades away quickly.} {
+        #if {$autoBlind==1} {
+                #$blinded 0;
+                #$blinding 0;
+                #$blindProcess 1;
+        };
+};
+#//action {You lost your concentration!} {
+        #if {$autoBlind==1} {
+                #$blinded 0;
+                #$blinding 0;
+                #$blindProcess 1;
+        };
+	
+};
+

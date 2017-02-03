@@ -1,0 +1,32 @@
+#action {% min : '%'} {
+          #//if {"%2"==""} {};
+         #if {"%2"=="font"} {#$font 1};
+         #if {"%2"=="armor"} {#$armor 1};
+         #if {"%2"=="endure"} {#$endure 1};
+        #if {"%2"=="strength"} {#$strength 1};
+        #if {"%2"=="shrink"} {#shrink 1};
+        #if {"%2"=="enlarge"} {#$enlarge 1};
+        #if {"%2"=="sanctuary"} {#$sanc 1};
+	 #if {"%2"=="fire shield"} {#$fs 1};
+        #if {"%2"=="regeneration"} {#$regen 1};
+        #if {"%2"=="haste"} {#$haste 1};
+	 #if {"%2"=="shillelagh"} {#$shille 1};
+        #if {"%2"=="negative plane protection"} {#$npp 1};
+        #if {"%2"=="bless"} {#$bless 1};
+        #if {"%2"=="blessing of hades"} {#$bless 1};
+        #if {"%2"=="blessing of tzeentch"} {#$bless 1};
+        #if {"%2"=="piezomagical barrier"} {#$piezo 1};
+         #if {"%2"=="regeneration"} {#$regen 1};
+        #if {"%2"=="heart of the bear"} {#$hob 1};
+        #if {"%2"=="resist acid"} {#$ra 1 };
+        #if {"%2"=="resist poison"} {#$rp 1};
+	 #if {"%2"=="protection from lightning"} {#$pfl 1};
+	 #if {"%2"=="protection from fire"} {#$pff 1};
+
+
+};
+	
+#action {% hours: '%'} {
+          #//if {"%2"==""} {};
+         #if {"%2"=="font"} {#$font 1};
+};

@@ -1,0 +1,861 @@
+#new int leadBot 0;
+
+#new int autoLead;
+#new int i;
+#new int b;
+#new int autoMob;
+#new int autoStabbing 1;
+#new int stabTemp 1;
+#new int okToWalk 1;
+#new int moved;
+#new int goingOnBlind 1;
+#new int goingOnDebi;
+#new int goingOnSight;
+
+#new int leadWalk 0;
+#new int x;             
+#new string tempPath;
+#new string nextStep;
+#new int pathSize;   
+#new int isWalked;
+#new int mobOnWay;
+#new int speedWalking;
+
+#new string walkTarget;
+#new list upAreas;
+#new string tempLeadArea "";
+
+#alias {leadcome} {
+	#if {$leader=="Etana"} {
+		irc_spam z spell rel etana;
+		irc_spam z cgsum;
+		gt come;
+	};
+};
+
+#alias {startcmd %} {
+	#if {$leader=="Etana"} {
+		#if {"%1"=="sight"} {
+			irc_spam g stabsight;
+			#echo ** Stab on sight;
+		};
+		 #if {"%1"=="web"} {
+                        irc_spam g stabweb;
+                        #echo ** Stab on web;
+                };
+
+	};
+};
+#alias {checkmobs} {
+	cast locate c lavawight;
+	cast locate c skittering;
+	cast locate c council cleric;
+	cast locate c breeze;
+	cast locate c spite;
+	cast locate c unas;
+	cast locate c storm demon;
+	cast locate c keeper magic;
+};
+
+#alias {startArea} {
+	#$tempLeadArea $upAreas.get(0);
+	$upAreas.delete(0);
+	#if {$autoLeadPaths.has($tempLeadArea)!=-1} {
+		autolead $tempLeadArea.get();
+	};
+};
+#alias {checkUpAreas} {
+	$upAreas.pushBack("selene");
+	$upAreas.pushBack("demonwars");
+	$upAreas.pushBack("coliseum");
+	$upAreas.pushBack("oharan");
+};
+
+#alias {startArea} {
+
+};
+
+#alias {swkaytos} {#$saakavella 0};
+#alias {mobikaytos} {
+        #$canStep 0;
+	#if {$autoKill==1} {wait $.rand(1,2) checkAutoStab};
+};
+#alias {checkAutoStab} {
+	#if {$fightStatus==0} {sp}
+};
+#new int tempX;
+#alias {_suunta} {
+        $stepDirection;
+        #$promptTrigu 1;
+        #$canStep 1;
+};
+#new int goTemp 1;
+
+
+
+#action {%The classroom of the college of alchemy%} {dhamovicheck};
+#action {%The practice room of the college of alchemy%} {dhamovicheck};
+#action {%The classroom for the college of magic%} {dhamovicheck};
+#action {%The practice room of the college of battle magic%} {dhamovicheck};
+#action {%The classroom of the illusionist college%} {dhamovicheck};
+#action {%The illusionist practice room%} {dhamovicheck};
+#action {%The elementalist classroom%} {dhamovicheck};
+#action {%The elemental practice room%} {dhamovicheck};
+
+#alias {dhamovicheck} {
+        #if {$leadWalk==1 && $leader==$me && $area=="Darkirham"} {close door}
+};
+
+#action {It seems to be closed.} {
+        #if {$leadWalk==1 && $leader==$me && $area=="Darkirham"} {
+                open door;$nextStep
+        };
+};
+
+#alias {startCommand} {
+	#if {$groupList.find("Gawk")>=0} {
+		irc_spam g backstab $target.get()
+	};
+
+};
+
+
+#alias {leadreset} {
+	#$autoLead 0;
+	#$autoStabbing 0;
+	#echo Lead reset;
+};
+
+#alias {kill_lead} {
+	leadreset;
+};
+
+#alias {% has summoned you!} {#if {$autoLead==1} {kill_lead}};
+
+
+#new int aLeadTempKey;
+#new string aLeadPath;
+#new int aLeadSize;
+
+#alias {lead %} {
+	#$aLeadTempKey $autoLeadPaths.has("%1");
+	#if {$aLeadTempKey>0 && $leadWalk==0} {
+		#$sortLoot 1;
+		#echo ** Path %1 found!;
+		#//if {$leadPrefix.has(%1)>0} {
+			#echo ** Executing prefix commands for %1;
+			getLeadCmd %1
+		};
+		#$tempPath $autoLeadPaths.find("%1");		
+		#$pathSize $tempPath.size();
+		_ekastep;				
+	} else {
+		#echo ** Path not found!;
+	};
+
+
+};
+#alias {null} {};
+
+#new map leadPrefix;
+$leadPrefix.set("venden","startcmd sight|null|null");
+$leadPrefix.set("shrineofgods","startcmd sight|true etana|true gawk");
+$leadPrefix.set("wights","startcmd web|null|null");
+$leadPrefix.set("earths","startcmd web|null|null");
+$leadPrefix.set("airs","startcmd web|null|null");
+$leadPrefix.set("waters","startcmd web|null|null");
+$leadPrefix.set("fires","startcmd web|null|null");
+$leadPrefix.set("naggarond","startcmd sight|null|null");
+$leadPrefix.set("stormfront","startcmd sight|gt fly on|null");
+
+#new string parseLead1;
+#new string parseLead2;
+#new string parseLead3;
+
+#alias {getLeadCmd %} {
+	parseLeadPrefix $leadPrefix.find(%1);
+};
+#alias {parseLeadPrefix %|%|%} {
+	#$parseLead1 "%1";
+	#$parseLead2 "%2";
+	#$parseLead3 "%3";
+	$parseLead1;
+	$parseLead2;
+	$parseLead3;
+};
+
+
+#new int obvioussi 0;
+#new int obEx;
+
+#new int swSafe 1;
+
+#//--------------------TO DO--------------------------------;
+
+#new int obvi 1;
+#new int promptTrigu;
+#new int saakavella 1;
+#new int swX;
+#new int swSize;
+
+#action {%Obvious Exits%} {
+	#$obvioussi 1;
+	#if {$mobisdead==1} {#$mobOnWay 0;#$canStep 1;#$mobisdead 0};
+	#//if {$speedWalking==1} {
+			#$swX $swX+1;
+			infoecho $b $swX $swSize;
+			#if {$swSize==$swX} {
+				#$speedWalking 0;	   
+		        	#$promptTrigu 1;
+       				#$saakavella 0;
+        			#$obvi 1;
+		
+			};
+	};
+			
+	#$promptTrigu 1;
+	#$saakavella 1;
+};
+
+
+#//alias {liiku} {
+	#if {$swSafe==0} {infoecho triggasi liiku;#$swSafe 1;#$speedWalking 0;count_step;l};
+};
+
+
+
+#action {%On the Reik River%} {paussi;leadreset;walkreset;s};
+
+#alias {ovi} {op door};
+#alias {lukko} {unl door};
+
+
+#alias {walkdebug} {
+	infoecho leadWalk: $leadWalk;
+	infoecho x: $b;
+	infoecho mobOnWay: $mobOnWay;
+	infoecho isWalked: $isWalked;
+	infoecho autoLead: $autoLead;
+	infoecho assisted: $assisted;
+};	
+
+#alias {walkreset} {
+	#$leadWalk 0;
+	#$b 0;
+	#$tempPath "";
+	#$nextStep "";
+	#$pathSize 0;
+	#$isWalked 0;
+	#$mobOnWay 0;
+	infoecho Walk reset;
+};
+
+#alias {eva_path %} {
+	#$isWalked 0;
+	#$b 0;
+	#if {%1==oharan} {
+		#$pathSize $oharan.size();
+		#$tempPath $oharan;
+		infoecho Test Path Evaluated: %1;
+	};
+	#if {%1==ironhome} {
+		 #$pathSize $ironhome.size();
+                #$tempPath $ironhome;
+                infoecho Test Path Evaluated: %1;
+	};
+	  #if {%1==serpents} {
+                 #$pathSize $serpents.size();
+                #$tempPath $serpents;
+                infoecho Test Path Evaluated: %1;
+        };
+
+	#if {%1==dreamisle} {
+                 #$pathSize $dreamisle.size();
+                #$tempPath $dreamisle;
+                infoecho Test Path Evaluated: %1;
+        };
+
+	#if {%1==woodhaven} {
+		#$pathSize $woodPath.size();
+		#$tempPath $woodPath;
+		infoecho Test Path Evaluated: %1;
+	};
+	#if {%1==conundrum} {
+		#$pathSize $conodPath.size();
+		#$tempPath $conodPath;
+		infoecho Test Path Evaluated: %1;
+	};
+	#if {%1==aainadordal} {
+		#$pathSize $aaina.size();
+		#$tempPath $aaina;
+		infoecho Test Path Evaluated: %1;
+	};
+	#if {%1==darkirham} {
+		#$pathSize $darkirham1.size();
+		#$tempPath $darkirham1;
+		infoecho Test Path Evaluated: %1;
+	};
+	#if {%1==naggarond} {
+		#$pathSize $naggarondpath.size();
+                #$tempPath $naggarondpath;
+                infoecho Test Path Evaluated: %1;
+        };
+	#if {%1==sf1} {
+		 #$pathSize $sf_alakerta.size();
+                #$tempPath $sf_alakerta;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==sf2} {
+                 #$pathSize $sf_ylakerta.size();
+                #$tempPath $sf_ylakerta;
+                infoecho Test Path Evaluated: %1;
+        };
+
+	#if {%1==kialtest} {
+                 #$pathSize $kialtest.size();
+                #$tempPath $kialtest;
+                infoecho Test Path Evaluated: %1;
+        };
+	#if {%1==pillars} {
+                 #$pathSize $pillars.size();
+                #$tempPath $pillars;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==council} {
+                 #$pathSize $councilpath.size();
+                #$tempPath $councilpath;
+                infoecho Test Path Evaluated: %1;
+        };
+	#if {%1==vortex} {
+                 #$pathSize $vortex.size(); 
+                #$tempPath $vortex;
+                infoecho Test Path Evaluated: %1;
+        };
+	#if {%1==marienburg} {
+		#$pathSize $marienburg.size();
+                #$tempPath $marienburg;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==wights} {
+                #$pathSize $wights.size();
+                #$tempPath $wights;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==greatwar} {
+                #$pathSize $greatwar.size();
+                #$tempPath $greatwar;
+                infoecho Test Path Evaluated: %1;
+        };
+	      #if {%1==fires} {
+                #$pathSize $fires.size();
+                #$tempPath $fires;
+                infoecho Test Path Evaluated: %1;
+        };
+	      #if {%1==earths} {
+                #$pathSize $earths.size();
+                #$tempPath $earths;
+                infoecho Test Path Evaluated: %1;
+        };
+	      #if {%1==airs} {
+                #$pathSize $airs.size();
+                #$tempPath $airs;
+                infoecho Test Path Evaluated: %1;
+        };
+	      #if {%1==waters} {
+                #$pathSize $waters.size();
+                #$tempPath $waters;
+                infoecho Test Path Evaluated: %1;
+        };
+	          #if {%1==selene} {
+                #$pathSize $selene.size();
+                #$tempPath $selene;
+                infoecho Test Path Evaluated: %1;
+        };
+           #if {%1==venden} {
+                #$pathSize $venden.size();
+                #$tempPath $venden;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==daughir1} {
+                #$pathSize $daughir2.size();
+                #$tempPath $daughir1;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==daughir2} {
+                #$pathSize $daughir2.size();
+                #$tempPath $daughir2;
+                infoecho Test Path Evaluated: %1;
+        };
+	#if {%1==corne} {
+	 #$pathSize $corne.size();
+                #$tempPath $corne;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==gronaker} {
+         #$pathSize $gronaker.size();
+                #$tempPath $gronaker;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==thiloza} {
+         #$pathSize $thiloza.size();
+                #$tempPath $thiloza;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==gpob} {
+         #$pathSize $gpob.size();
+                #$tempPath $gpob;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==hidala} {
+         #$pathSize $hidala.size();
+                #$tempPath $hidala;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==logger} {
+         #$pathSize $logger.size();
+                #$tempPath $logger;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==peta} {
+         #$pathSize $peta.size();
+                #$tempPath $peta;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==peron} {
+         #$pathSize $peron.size();
+                #$tempPath $peron;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==terian} {
+         #$pathSize $terian.size();
+                #$tempPath $terian;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==dgrove} {
+         #$pathSize $dgrove.size();
+                #$tempPath $dgrove;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==orccamp} {
+        	 #$pathSize $orccamp.size();
+                #$tempPath $orccamp;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==wyvern} {
+        	 #$pathSize $wyvern.size();
+                #$tempPath $wyvern;
+                infoecho Test Path Evaluated: %1;
+        };
+	 #if {%1==moose} {
+        	 #$pathSize $moose.size();
+                #$tempPath $moose;
+                infoecho Test Path Evaluated: %1;
+        };  
+	#if {%1==toho} {
+        	 #$pathSize $toho.size();
+                #$tempPath $toho;
+                infoecho Test Path Evaluated: %1;
+        };
+  	#if {%1==brute} {
+        	 #$pathSize $brute.size();
+                #$tempPath $brute;
+                infoecho Test Path Evaluated: %1;
+        };
+  	#if {%1==troy} {
+        	 #$pathSize $troy.size();
+                #$tempPath $troy;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==templesun} {
+         	#$pathSize $templesun.size();
+                #$tempPath $templesun;
+                infoecho Test Path Evaluated: %1;
+        };
+	  #if {%1==ark} {
+        	 #$pathSize $ark.size();
+                #$tempPath $ark;
+                infoecho Test Path Evaluated: %1;
+        };
+
+	l;                        
+
+};	
+
+#alias {paths} {
+	#echo SOLO paths done: terian, peta, peron, dgrove, templesun, logger, moose, toho, gpob;
+	#echo GROUP paths done: orccamp, thiloza, gronaker, brute, troy, ark, vortex, oharan;
+};
+
+#new string speedWalkPath;
+#new string swTemp;
+#new int x1;
+
+#new list naggarondOviLista;
+$naggarondOviLista.pushBack(22);
+$naggarondOviLista.pushBack(28);
+$naggarondOviLista.pushBack(53);
+$naggarondOviLista.pushBack(55);
+$naggarondOviLista.pushBack(61);
+$naggarondOviLista.pushBack(63);
+$naggarondOviLista.pushBack(81);
+#new int autoLoot;
+
+#new list pillarsDrop;
+$pillarsDrop.pushBack(7);
+
+#//alias {obvi} {
+	#if {$obvi==0} {
+		wait 2 _kavely;
+	};
+};
+#new int canStep 1;
+#new string stepDirection;
+
+#new int promptista 1;
+#new list pTouch;
+$pTouch.pushBack(4);
+$pTouch.pushBack(16);
+$pTouch.pushBack(28);
+$pTouch.pushBack(40);
+
+#new int mobKerrat;
+#// 1 gate, ,8 indoors,12 op door,18 op door;
+
+#action {You get A large metal key.} {
+	unl gate;
+	op gate;
+};
+
+
+
+#action {It seems to be closed.} {
+	#if {$currentArea=="Naggarond" && $leadWalk==1} {
+		#$b $b-1;
+		op door;
+		etene;
+	};
+	#if {$currentArea=="Chulak" && $leadWalk==1} {
+		#$b $b-1;
+		op doorway $stepDirection;
+		etene;
+	};
+	#if {$currentArea=="Shrine of the Gods" && $leadWalk==1} {
+		#$b $b-1;
+		#if {$stepDirection=="n"} {op crystal};
+		#if {$stepDirection=="s"} {op seal};
+		#if {$stepDirection=="w"} {unl gateway w;op gateway w};
+		etene;
+	};
+	#if {$currentArea=="Imperial Ancient Arena" && $leadWalk==1} {
+		#$b $b-1;
+		unl gate;
+		op gate;
+		etene
+	};
+
+
+};
+#alias {count_step} {
+	#if {$leadWalk==1} {
+		
+		#if {$b<=$pathSize && $mobOnWay==0} {
+			#$mobKerrat $mobKerrat+1;
+			#$nextStep $tempPath.get($b);
+			#if {$currentArea=="Naggarond" && $b==8} {gt indoors};
+			#//if {$area=="Naggarond" && ($b==12 || $b==29 || $b==47 || $b==52 || $b==75)} {open door};
+			
+			#//if {$currentArea=="Storm Front" && $b==3} {lukko;ovi};
+			#if {$area=="Pillars of Light" && $pTouch.find($b)>=0} {touch stones};
+			#if {$currentArea=="Land of Venden" && $b==2} {op gate};
+			#if {$currentArea=="Land of Venden" && $b==14} {op gate};
+			#//if {$area=="Chulak" && $b==3 && $target=="jaffa"} {open doorway e};
+			#//if {$area=="Chulak" && $b==4 && $target=="jaffa"} {open doorway n;open doorway s};
+
+			#//if {$currentArea=="Shrine of Selene and Den of Darkness" && ($b==0 || $b==43 || $b==69 || $b==94)} {gt indoors};
+                        #//if {$currentArea=="Shrine of Selene and Den of Darkness" && ($b==32 || $b==48 || $b==74 || $b==96)} {gt outdoors};
+			#if {$autoLoot==1} {loot};
+			infoecho Path: $tempPath, size: $pathSize, x: $b, STEP: $nextStep;
+			#if {$nextStep=="," && $speedWalking==0} {
+				#$speedWalking 1;
+				#$b $b+1;
+				#while {$tempPath.get($b)!=","} {
+					$tempPath.get($b);
+					#$b $b+1;
+					#$swSize $swSize+1;
+				};
+				#$b $b+1;
+			};
+			#if {$nextStep!=","} {
+				#$b $b+1
+			};
+			#if {$speedWalking==0} {
+				#if {$canStep==0} {#$canStep 1};
+				#$stepDirection $nextStep;
+			};
+			#//$nextStep;
+			#if {$b>$pathSize} {
+				walkreset;
+				#$isWalked 1;
+				infoecho Path Done - need to re-evaluate.;
+				#//irc Autolead - path done. ($area.get());
+				#if {$autoLead==1} {leadreset;areadone}
+				#$sortLoot 0;
+				#//$leadTimer.stop();
+				#//infoecho $leadTimer secs, $leadMobCount mobs, $leadTotalExp xp - $.math($leadTotalExp/$leadTimer) xp per sec.;
+				#//$leadMobCount 0;
+				#//$leadTotalExp 0;
+				#//$leadTimer 0.00;
+			};
+			#$alreadyLoop 0;
+		};
+	};
+};
+
+
+#new int alreadyLoop;
+
+#action {Alas, you cannot go that way...} {
+	#if {$leadWalk==1} {
+		#echo Walk Error!!;
+		#$leadWalk 0;
+	};
+};
+
+#alias {_ekastep} {
+	#if {$leadWalk==0} {#$leadWalk 1};
+	#if {$sacced==0} {#$sacced 1};
+	#//$leadTimer.start();
+	l;
+};
+
+#alias {_kavely} {
+
+	#if {$okToWalk==0} {#$okToWalk 1};
+	#if {$promptTrigu==0} {#$promptTrigu 1};
+	#if {$speedWalking==0} {
+		#if {$obvi==1} {#//wait $.rand(1,2) count_step;};
+		#if {$obvi==0} {obvi};
+	};
+};
+
+#new int goTemp2 1;
+#alias {goCheck} {
+	#if {$goTemp2==1 && $mobOnWay==1 && $leadWalk==1} {
+		#$goTemp2 0;
+		$.cr();
+	};
+};
+#alias {mobOW} {
+	#if {$leadWalk==1 && $mobOnWay==0} {
+		#$mobOnWay 1;
+		#if {$target!=$walkTarget} {set $walkTarget};
+		#$canStep 0;
+		#$saakavella 0;
+		#$okToWalk 0;
+		infoecho MOB!;
+		#sing {% is dead! R%} {
+			#if {$groupList.find("%1")==-1} {		
+				mobisdead_;l  
+			} else {
+				#$leadWalk 0;
+			};
+		};
+	};
+};
+
+#new int stopped;
+#alias {stop} {
+	#if {$leadWalk==1} {
+		#$stopped 1;
+		#$leadWalk 0;
+		irc INFO: Leadbot stopped.
+	} else {
+		#echo Leadbot not active;
+		irc INFO: Leadbot not active!
+	};
+};
+
+#alias {proceed} {
+	#if {$stopped==1} {
+		#$stopped 0;
+		etene;
+		irc INFO: Continuing leadbot.
+	};
+};
+
+#new int omaDeath;
+
+#//action {% is dead! R%} {domobdeath};
+
+#alias {domobdeath} {
+	#if {$mobOnWay==1 && $groupList.find("%1")==-1 && $omaDeath==0} {
+		mobisdead_;
+	};
+}; 
+
+#new int mobisdead 0;
+
+#alias {mobisdead_} {
+	#$mobisdead 1;
+	
+};
+
+#alias {paussi} {
+	#$mobOnWay 1;
+	infoecho MobOnWay: 1;
+	
+};
+
+#alias {etene} {
+	#$leadWalk 1;
+	#$omaDeath 0;
+	mobisdead_;
+	wait $.rand(1,2) l;
+};
+
+#//action {% east.} {#if {$leadWalk==1} {mobisdead_;l}};
+#//action {% west.} {#if {$leadWalk==1} {mobisdead_;l}};
+#//action {% north.} {#if {$leadWalk==1} {mobisdead_;l}};
+#//action {% south.} {#if {$leadWalk==1} {mobisdead_;l}};
+
+
+#alias {infoecho %} {#echo %1};
+
+
+
+
+#new int autotarget 0;
+#new int setauto;
+
+#alias {autotarget} {
+	#if {$leader==you} {
+		#if {$autotarget==0} {
+			#$autotarget 1;
+			infoecho Autotarget enabled.;
+			
+		};
+		#if {$autotarget==1} {
+			#$autotarget 0;
+			infoecho Autotarget disabled.;
+		};	
+
+	} else {
+		infoecho Et liidaa.
+	};
+};
+
+#new int killTargetSetTemp 0;
+#alias {_set_auto_target} {
+	#if {$autotarget==1} {
+		
+		#if {$target!=$walkTarget && $killTargetSetTemp==0} {#$killTargetSetTemp 1;set $walkTarget}
+	};
+};
+
+#action {%A deformed, hideous creature walks the forest, its eyes glowing a fervent red in the gloom%} {#$walkTarget creature;_set_auto_target};
+#action {%An unrecognizable curled tube of flesh unwinds itself on the side of the-snake%} {#$walkTarget snake;_set_auto_target};
+#action {%A hunched-over mutilated figure readies himself for battle.%} {#$walkTarget figure;_set_auto_target};
+#action {%A horribly twisted, demonic creature walks the endless paths of the%} {#$walkTarget creature;_set_auto_target};
+#action {%Writhing in expectation of your arrival, the branches of a tree lust for%} {#$walkTarget tree;_set_auto_target};
+#action {%A deformed, hideous creature walks the forest, its eyes glowing a fervent red in the gloom.%} {#$walkTarget creature;_set_auto_target};
+#action {%A creature with hundreds of tiny limbs, awaits its next meal, hissing in%} {#$walkTarget creature;_set_auto_target};
+#action {%Patiently spinning a web in one of the decaying trees, a gigantic spider%} {#$walkTarget spider;_set_auto_target};
+#action {%A gaunt figure, wrapped in tattered robes, glares balefully at his%} {#$walkTarget figure;_set_auto_target};
+#action {%A cowled figure has taken up a position on the path, glaring about him%} {#$walkTarget cleric;_set_auto_target};
+#action {%A powerful shark glides here, camouflaged by the darkness of the waters.%} {#$walkTarget shark;_set_auto_target};
+#action {%An unrecognizable curled tube of flesh unwinds itself on the side of the%} {#$walkTarget snake;_set_auto_target};
+
+
+
+
+
+#alias {pako} {
+	wait $.rand(2,3) recall
+};
+
+#action {% is here, fighting %} {
+	#if {$leadWalk==1} {
+		#if {$groupList.find("%2")>=0} {mobOW};
+	};
+};
+#action {% is here, fighting % (Invul)} {
+        #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+
+#action {% is here, fighting % (Sanc)} {
+        #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+#action {% is here, fighting % (Sanc) (Invul)} {
+        #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+#action {% is here, fighting % (Wounded) (Sanc) (Invul)} {
+        #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+#action {% is here, fighting % (Wounded)} {
+        #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+#action {% is here, fighting % (% Aura) (Sanc) (Invul)} {
+ #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+#action {% is here, fighting % (% Aura)} {
+ #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+#action {% is here, fighting % (% Aura) (Sanc)} {
+ #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+#action {% is here, fighting % (% Aura) (Invul)} {
+ #if {$leadWalk==1} {
+                #if {$groupList.find("%2")>=0} {mobOW};
+        };
+};
+
+#action {% notices %'s intentions, and quickly attacks % !} {
+	#if {$leadWalk==1} {
+		#if {$groupList.find("%1")>=0} {mobOW};
+	};
+};
+#//action {% % the % is here, fighting%} {
+		#if {$groupList.find("%2")==-1 && $leadWalk==1} {walkreset;#$isWalked 1;pako};
+};
+
+#action {% is here, fighting  YOU!%} {
+        #if {$leadWalk==1} {mobOW};
+};
+
+#action {% is sitting here. %} {
+	#if {$leadWalk==1} {mobOW};
+};
+
+#action {% is sitting here.} {
+	#if {$leadWalk==1} {mobOW};
+};
+
+
+#//alias {autolead %} {
+	#if {$leader==$me && $leadWalk==0} {
+
+		#if {"%1"=="vortex"} {
+			nilaah;
+			gt nilaah;
+			#$
+		
+		};
+
+	};
+};	

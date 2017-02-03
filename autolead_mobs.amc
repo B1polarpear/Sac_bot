@@ -1,0 +1,420 @@
+#action {%A silly looking jester is standing here just waiting for a target.%} {#$walkTarget jester;mobOW};
+
+#action {%A crowd of people is sitting here, enjoying the games.%} {#$walkTarget crowd;mobOW};
+
+#action {%Strong warrior dressed in gold armor is guarding the mine entrance.%} {#$walkTarget jaffa;mobOW};
+#action {%Strong warrior dressed in gold armor grabs his staff as he notices you.%} {#$walkTarget jaffa;mobOW};
+#action {%Strong warrior dressed in gold armor is standing motionlesly.%} {#$walkTarget jaffa;mobOW};
+#action {%Unas walks slowly towards you, waiting for a perfect time to jump.%} {#$walkTarget unas;mobOW};
+#action {%Unas is here%} {#$walkTarget unas;mobOW};
+#action {%Strong warrior dressed in gold armor is guarding a cell door.%} {#$walkTarget jaffa;mobOW};
+
+#action {%Jaffa slave is changing crystals in a strange device.%} {#$walkTarget jaffa;mobOW};
+#//action {%Chulak citizen walks past you, minding his own business%} {#$walkTarget chulak;mobOW};
+#//action {%Chulak child is playing here with friends.%} {#$walkTarget chulak;mobOW};
+#//action {%Chulak citizen walks past you, running her errands.%} {#$walkTarget chulak;mobOW};
+#//action {%Fat merchant is trying to sell you his useless wares.%} {#$walkTarget chulak;mobOW};
+
+
+#//savannah;
+#action {%This fluffy little bundle of love is popping its head out of a nearby hole.%} {#$walkTarget love;mobOW};
+
+#//demonwars;
+#action {%A beast covered in black, shiny scales is crouching here, drooling blood.%} {#$walkTarget demon;mobOW};
+#action {%A muscular, red-skinned demon is flying here, observing you closely.%} {#$walkTarget demon;mobOW};
+#action {%A dark angelic figure, hideously twisted with rage, is hovering overhead.%} {#$walkTarget demon;mobOW};
+#action {%A demonic wolf is crouching here, its coat slick with freshly drawn blood.%} {#$walkTarget demon;mobOW};
+
+
+#//assu;
+#action {%A logger is here stripping trees for transport.%} {#$walkTarget logger;mobOW};
+#action {%A hefty logger leans on his axe and sneers at you.%} {#$walkTarget logger;mobOW};
+#action {%A Lumberjack is singing and sawing his way through work.%} {#$walkTarget lumberjack;mobOW};
+#action {%White Callimorpha Quadripunctaria with black stripes is flapping its wings here.%} {#$walkTarget morpha;mobOW};
+#action {%Black and white Callimorpha Quadripunctaria is flapping its wings here.%} {#$walkTarget morpha;mobOW};
+#action {%Black Callimorpha Quadripunctaria with white stripes is flapping its wings here.%} {#$walkTarget morpha;mobOW};
+#action {%White Callimorpha Quadripunctaria with black stripes is flapping its wings here.%} {#$walkTarget morpha;mobOW};
+#action {%Here is Reinhard Elger, a German entomologist studying butterflies.%} {#$walkTarget elger;mobOW};
+
+#action {%A Castleguard is stood before you in ever lasting vigilance.%} {#$walkTarget castle;mobOW};
+#action {%This large beetle blends into the background as it looks like a pile of%} {#$walkTarget oak;mobOW};
+#action {%Buzzing around your head irritatingly, this bug is the size of a small%} {#$walkTarget bug;mobOW};
+#action {%A fine specimen of insect, the swamp wasp silently flies about looking for%} {#$walkTarget insect;mobOW};
+#action {%Darting from her hiding spot, this large spider looks for her next meal.%} {#$walkTarget spider;mobOW};
+#action {%Spiney tentacles probe around for food from this strange striped fish.%} {#$walkTarget striped;mobOW};
+#action {%A gleaming fish darts past you, nearly slicing deep cuts into your skin.%} {#$walkTarget fish;mobOW};
+#action {%Drawn by the sounds of his favorite food, a black dragon swims out of his%} {#$walkTarget dragon;mobOW};
+#action {%A true bottom-feeder, this catfish probes the rocks for smaller prey.%} {#$walkTarget catfish;mobOW};
+#action {%A beautiful rose bush blossoms brightly here.%} {#$walkTarget bush;mobOW};
+#action {%A young oak tree stands firmly in this place.%} {#$walkTarget tree;mobOW};
+#action {%A tall, slender birch tree stands here, waving slightly in the wind.%} {#$walkTarget tree;mobOW};
+#action {%A tangle of thorny vines blocks your quick escape.%} {#$walkTarget bush;mobOW};
+#action {%A shaggy moose grazes here, checking the skies from time to time as it eats.%} {#$walkTarget moose;mobOW};
+#action {%A mule trudges miserably down the trail hauling a load of gems.%} {#$walkTarget mule;mobOW};
+#action {%A big tumbleweed rolls down the path in the breeze.%} {#$walkTarget tumbleweed;mobOW};
+
+#action {%A young man who has recently been elected to the cabal works in the hall.%} {#$walkTarget apprentice;mobOW};
+
+
+
+#//orccamp;
+#action {%A simple minded orc wanders the forest looking for the entrance to the camp.%} {#$walkTarget wandering;mobOW};
+#action {%A trained orcish warrior stands here practicing and training for the%} {#$walkTarget warrior;mobOW};
+#action {%A young orc oblivious that soon he will be killed in battle plays around the%} {#$walkTarget young;mobOW};
+#//wyvern;
+#action {%A Wyvern is standing here, upset by your presence.%} {#$walkTarget wyvern;mobOW};
+#action {%A Wyvern is pleasantly asleep after his meal.%} {#$walkTarget wyvern;mobOW};
+#action {%The young wyvern is here, wandering through the forest.%} {#$walkTarget wyvern;mobOW};
+#action {%A hungry Wyvern is here, waiting for his prey.%} {#$walkTarget wyvern;mobOW};
+#//thiloza;
+#action {%An undead castleguard walks the courtyard, trying to justify his failure.%} {#$walkTarget castle;mobOW};
+#action {%An undead raider is here, looking for living things to kill.%} {#$walkTarget raider;mobOW};
+#action {%An undead gatekeeper is standing here, waiting for more raiders to come.%} {#$walkTarget gatekeeper;mobOW};
+#action {%An undead peasant is here, looking for his slayer.%} {#$walkTarget peasant;mobOW};
+#action {%An undead farmer walks around, looking for a way to end his mortal life.%} {#$walkTarget farmer;mobOW};
+#action {%The undead towermaster is sitting here, looking over the fields.%} {#$walkTarget towermaster;mobOW};
+
+
+
+#action {%A dwarf with a heavy crossbow stands here.%} {#$walkTarget archer;mobOW};
+#action {%A dwarven warrior patrols the area.%} {#$walkTarget warrior;mobOW};
+#action {%A dwarven miner with a large sack on his shoulder stands here.%} {#$walkTarget miner;mobOW};
+
+#action {%A lizardman hunter is here, stalking his prey.%} {#$walkTarget hunter;mobOW};
+
+#action {%This flamingo is quite lazy and is taking a nap with its head tucked%} {#$walkTarget flamingo;mobOW};
+#action {%A large sea bird called a Tern is fishing in the shallow waters%} {#$walkTarget tern;mobOW};
+#action {%A macaw flies overhead and lands on a nearby branch.%} {#$walkTarget macaw;mobOW};
+#action {%A toucan flies around looking for fresh fruits or nuts.%} {#$walkTarget toucan;mobOW};
+#action {%A multicolored parrot flies overhead.%} {#$walkTarget parrot;mobOW};
+
+
+
+
+#action {%Whooshy spinner spins around the Vaponic fields%} {#$walkTarget whooshy;mobOW};
+#action {%A reversed Fzeeker rolls the fields bluntly.%} {#$walkTarget fzeeker;mobOW};
+#action {%Fzeeker floats around%} {mobOW};
+
+#action {%A villager notices you%} {#$walkTarget woodhaven;mobOW};   
+#action {%This Woodhaven resident%} {#$walkTarget woodhaven;mobOW};
+#action {%This resident of Woodhaven%} {#$walkTarget woodhaven;mobOW};
+#action {%Joodie smiles as you enter her boarding house.%} {#$walkTarget joodie;mobOW};
+#action {%Lindsey Marie is daydreaming as she is dusting around the house.%} {#$walkTarget marie;mobOW};
+#action {%Morita Anne is in the kitchen cleaning up.%} {#$walkTarget anne;mobOW};
+#action {%Geoffry the village smithy, has his hammer in his hand pounding on a%} {#$walkTarget smithy;mobOW};
+#action {%Vayanate the candlemaker is busy filling his molds with hot wax.%} {#$walkTarget vayanate;mobOW};
+#action {%Gonlar the tailor is busy working on the mayor's new trousers.%} {#$walkTarget tailor;mobOW};
+#action {%Tavos the baker is decorating a tray of pastries.%} {#$walkTarget tavos;mobOW};
+#action {%Jopshen the butcher looks at you in anticipation of a sale.%} {#$walkTarget jopshen;mobOW};
+#action {%Sheriff Izzlun greets you as you enter the office.%} {#$walkTarget woodhaven;mobOW};
+#action {%Mayor Atherton greets the public like the consumate politician.%} {#$walkTarget woodhaven;mobOW};
+#action {%Amber Atherton looks startled by your appearance in her home.%} {#$walkTarget amber;mobOW};
+#action {%The wise woman reaches up for a packet of dried herbs for her brew.%} {#$walkTarget wise;mobOW};
+
+
+
+#action {%fabled Terrak Wolf%} {#$walkTarget wolf;mobOW};
+#action {%Beneath the blizzard which rages overhead%} {#$walkTarget elmo;mobOW};
+#action {%High above the mountainside screeches a winged Nkharus.%} {#$walkTarget nkharus;mobOW};
+#//A black dot is all that can be seen of a polar bear in a snowstorm.;
+
+
+#//action {%A stalwart dwarf walks around on patrol.%} {#$walkTarget dwarf;mobOW};        
+#//action {%The dwarven blacksmith works quickly over his forge.%} {#$walkTarget blacksmith;mobOW};
+#//action {%A dwarf mutters to himself as he wanders about the town.%} {#$walkTarget dwarf;mobOW};
+#//action {%A well muscled dwarf that looks like he could slay a giant is here.%} {#$walkTarget dwarf;mobOW};
+#//action {%A dwarven troll slayer stands guard for the giant slayer.%} {#$walkTarget dwarf;mobOW};
+#//action {%A dwarf sits here hunched over a small anvil tapping away with a small hammer.%} {#$walkTarget dwarf;mobOW};
+#//action {%The dwarven stonesmith is here shaping a statue of marble.%} {#$walkTarget stonesmith;mobOW};
+#//action {%A large dwarf wearing some well used platemail.%} {#$walkTarget dwarf;mobOW};
+#//action {%An ancient dwarf looks troubled, as if he is making an important decision.%} {#$walkTarget dwarf;mobOW};
+#//action {%The master of alchemy is fiddling with his vials and potions.%} {#$walkTarget master;mobOW};
+#//action {%The teacher of alchemy is here teaching his students%} {#$walkTarget teacher;mobOW};
+#//action {%The master of battle magic is sitting behind his desk, teaching his%} {#$walkTarget master;mobOW};
+#//action {%The teacher of elemental magic is teaching his students about elemental magic.%} {#$walkTarget teacher;mobOW};
+#//action {%The teacher of illusion magic is here teaching his students.%} {#$walkTarget teacher;mobOW};
+#//action {%The master of illusion is before you, or you think so anyway.%} {#$walkTarget master;mobOW};
+#//action {%The teacher of battle magic is here teaching his students.%} {#$walkTarget teacher;mobOW};
+#//action {%The master student is here studying old books of magic.%} {#$walkTarget master;mobOW};
+#//action {%A librarian sits here, reading some old books.%} {#$walkTarget librarian;mobOW};
+#action {%A poor man who struggles to get by day to day is walking around here.%} {#$walkTarget poor;mobOW};
+#action {%A poor woman is grumbling to herself while trying to clean.%} {#$walkTarget poor;mobOW};
+#action {%A bawd is trying to get a job from you, showing you around the town.%} {#$walkTarget bawd;mobOW};
+#action {%A student sits here learning all about magic.%} {#$walkTarget student;mobOW};
+#action {%A student is here practicing his magic.%} {#$walkTarget student;mobOW};
+
+
+#action {%A Dark Elf warrior stands here fully equipped, sizing you up.%} {#$walkTarget druchii;mobOW};
+#action {%A tall elven knight stands here without his mount.%} {#$walkTarget druchii;mobOW};
+#action {%A strong Corsair warrior glares at you with contempt.%} {#$walkTarget druchii;mobOW};
+#action {%A savage reptile senses your warm blood and starts moving closer.%} {#$walkTarget cold;mobOW};
+#action {%Spite the Cold One has smelled your blood and intends to taste it.%} {#$walkTarget spite;mobOW};
+#action {%An elite warrior of Malekith's personal bodyguard unit stands in your%} {#$walkTarget black;mobOW};
+#action {%An elite warrior grabs the hilt of his blade as he sees you approaching.%} {#$walkTarget executioner;mobOW};
+#action {%An old elf dressed in plain robes is reading a book here.%} {#$walkTarget druchii;mobOW};
+#action {%A female elf of dazzling beauty stands here dressed in plain robes.%} {#$walkTarget witch;mobOW};
+#action {%A strong elf stands here with an armorers hammer in his hand.%} {#$walkTarget blacksmith;mobOW};
+#action {%Captain of the black guard stands here dressed in fine armor.%} {#$walkTarget druchii;mobOW};
+#action {%Captain of the Executioners seems displeased with your intrusion.%} {#$walkTarget druchii;mobOW};
+#action {%A gateguard is stationed here to protect the gate.%} {#$walkTarget druchii;mobOW};
+#action {%Beastlord Rakarth stands here, annoyed by your presence.%} {#$walkTarget druchii;mobOW};
+#action {%A burly man stands here with a large whip in each hand%} {#$walkTarget druchii;mobOW};
+#action {%A winged creature with the body of a lion stares at you in hunger.%} {#$walkTarget manticore;mobOW};
+#action {%A large creature stands here, smoke belching from its many serpentine%} {#$walkTarget hydra;mobOW}; 
+#action {%The mighty black dragon Bracchus raises its head in anticipation of%} {#$walkTarget bracchus;mobOW};
+#action {%Beastlord Rakarth stands here, annoyed by your presence.%} {#$walkTarget rakarth;mobOW};
+
+#action {%A small dust devil scurries by.%} {#$walkTarget dust;mobOW};
+#action {%A shifting figure confuses your senses.%} {#$walkTarget breeze;mobOW};
+#action {%A loyal sentry guards the passage.%} {#$walkTarget sentry;mobOW};
+#action {%A wind demon was dispatched from Hell to do the Master's bidding.%} {#$walkTarget vortex;mobOW};
+#action {%A fiery wind draws its attention towards you.%} {mobOW};
+#action {%A sudden wind shear threatens to rip right through you.%} {#$walkTarget wind;mobOW};
+#action {%A cyclone whips your face.%} {#$walkTarget cyclone;mobOW};
+#action {%A sudden draft sends chills down your spine%} {#$walkTarget wind;mobOW};
+#action {%Stratos has made his home in the clouds.%} {#$walkTarget stratos;mobOW};
+#action {%Tropos has made her home in the clouds.%} {#$walkTarget tropos;mobOW};
+#action {%The cold blast of a Chinook wind freezes you to the bone.%} {#$walkTarget wind;mobOW};
+#action {%A coiling spiral of wind twists and moves quite hypnotically.%} {#$walkTarget wind;mobOW};
+#action {%A light tropical wind known as a Zephyr covers you with warm air.%} {#$walkTarget wind;mobOW};
+#action {%Hail from a passing storm pelts you with bits of ice.%} {#$walkTarget hail;mobOW};
+#action {%A fiery wind draws its attention towards you.%} {#$walkTarget wind;mobOW};
+#action {%A gust of wind threatens to knock you off your feet.%} {#$walkTarget wind;mobOW};
+#action {%Whirlwind spends his time shredding the thick clouds.%} {#$walkTarget whirlwind;mobOW};
+#action {%Helix twists and curves in the most interesting formations.%} {#$walkTarget helix;mobOW};
+#action {%The power of Typhoon drenches you in rain and whips strongly around you.%} {#$walkTarget wind;mobOW};
+#action {%Squall is teaching his disciples.%} {#$walkTarget squall;mobOW};
+#action {%A disciple is here to learn the ways of treachery.%} {#$walkTarget disciple;mobOW};
+
+#//action {%Hail is here, fighting%} {mobOW};
+
+#action {%A member of the High Council is here, leading a hearing.%} {#$walkTarget council;mobOW};
+#action {%One of the councils clerics is here, wandering around the corridors.%} {#$walkTarget council;mobOW};
+
+#action {%Charged lightning crackles around the floating form of this powerful man.%} {#$walkTarget defender;mobOW};
+#action {%A man, wreathed in crimson-hued magic, floats here, prepared to defend%} {#$walkTarget defender;mobOW};
+#action {%A man, wreathed in spikes of sapphire magic, floats here%} {#$walkTarget defender;mobOW};
+#action {%Clothed in pure crystal magic, a man floats here, waiting for your%} {#$walkTarget defender;mobOW};
+#action {%A man, wreathed in spikes of emerald magic, floats here, prepared to%} {#$walkTarget defender;mobOW};
+
+#action {%The guardian of the emerald pillar waits for you to ascend.%} {#$walkTarget guardian;mobOW};
+#action {%The guardian of the sapphire pillar fully occupies his dais.%} {#$walkTarget guardian;mobOW};
+#action {%The Guardian of this pillar is wreathed in magic energies, waiting for%} {#$walkTarget guardian;mobOW};
+#action {%the guardian of the ruby pillar rests comfortably upon his dais.%} {#$walkTarget guardian;mobOW};
+
+#action {%Vrorg the Dwarfthrottler kicks angrily at the failing bonfire, trying to%} {#$walkTarget council;mobOW};
+#action {%Rak the Beastdragger sits ignorantly here, his cracked and blitzed armour%} {#$walkTarget council;mobOW};
+#action {%Ponderous, ill-suited bones that comprise Bigdush the Eyeslicer are%} {#$walkTarget council;mobOW};
+#action {%An amazingly built goblin, Gznash the Ratdrinker has been included in%} {#$walkTarget council;mobOW};
+
+
+#action {%An Acolyte of storms slowly floats by, ignoring your presence.%} {#$walkTarget storm;mobOW};
+#action {%A demon, pulsating with electrical power, stands guard here.%} {#$walkTarget storm;mobOW};
+#action {%A disciple of storms is here, chanting an ancient prayer.%} {#$walkTarget storm;mobOW};
+
+
+#//action {%Knowing his importance in the city, this wealthy merchant strides about%} {#$walkTarget man;mobOW};
+#action {%The caretaker of the orphanage rests here for a moment%} {#$walkTarget sister;mobOW};
+#action {%The high-priest of Shallya wanders about the temple%} {#$walkTarget brother;mobOW};
+#//action {%In full platemail, the captain looks as if he is trying to impress someone%} {#$walkTarget man;mobOW};
+#action {%A well-dressed man smirks as you walk past him, sizing him up%} {#$walkTarget man;mobOW};
+#action {%A burly man that looks more like a bouncer than a bartender serves drinks%} {#$walkTarget man;mobOW};
+#action {%Knowing all the affairs of all her customers, this woman chuckles at a joke%} {#$walkTarget woman;mobOW};
+#action {%The head of the pilot's guild settles in for a drink.%} {#$walkTarget man;mobOW};
+#action {%Completely enamored with Loretta, this man slowly drinks his ale%} {#$walkTarget hoogtoran;mobOW};
+#action {%Wearing a lighter version of the guard's uniform this woman waits here%} {#$walkTarget woman;mobOW};
+#action {%The busy waitress serves the entire tavern and still has time to flirt%} {#$walkTarget woman;mobOW};
+#action {%The owner wanders from table to table, trying to make guest feel at home%} {#$walkTarget man;mobOW};
+#action {%Sneaking a break, this harbor captain looks around warily%} {#$walkTarget man;mobOW};
+#action {%The head of the physicians guild looks as if he expects trouble%} {#$walkTarget jolle;mobOW};
+#action {%Wearing the standard uniform of the harbor guard, this captain keeps watch.%} {#$walkTarget johannes;mobOW};
+#action {%An older man huffs and puffs as he wanders about the city.%} 			{#$walkTarget goot;mobOW};
+#action {%Standing behind his desk, this man looks too young to be in this office.%} {#$walkTarget odvaal;mobOW};
+#//action {%A well-dressed man of no import strides toward the shaded table.%} 		{#$walkTarget man;mobOW};
+#//action {%A judge wearing expensive robes sits down to have a drink.%} 		{#$walkTarget man;mobOW};
+#//action {%Sitting at a shaded table, this man looks as if he is waiting for someone.%} {#$walkTarget man;mobOW};
+#//action {%An elegant waitress looks more like a lady of the court than a waitress.%} 	{#$walkTarget woman;mobOW};
+#//action {%The owner smiles warmly at the guests she greets at the door.%} 		{#$walkTarget woman;mobOW};
+#action {%Standing here to make the guild feel important, this man guards the door.%} 	{#$walkTarget eric;mobOW};
+#//action {%This man is walking around the city making sure the guards are working.%} 	{#$walkTarget man;mobOW};
+#action {%An initiate of Manann is keeping an eye on Agnetha.%} 		{#$walkTarget wilhelmina;mobOW};
+#action {%The high-priestess of Manann feebly wanders about the temple.%} 	{#$walkTarget agnetha;mobOW};
+#action {%A well-dressed gateguard waves you on, into the city.} 		{#$walkTarget gateguard;mobOW};
+
+#action {%A giant elemental, formed from a massive boulder stands here.%} {#$walkTarget greater;mobOW};
+#action {%A gigantic being formed from the water below, treads here on the surface.%} {#$walkTarget greater;mobOW};
+#action {%A giant stream of lightning swirls here, forming a vaguely humanoid shape.%} {#$walkTarget greater;mobOW};
+#action {%A giant elemental, formed from living fire is looming here.%} {#$walkTarget greater;mobOW};
+#action {%A hulking skeletal creatures looms here, covered in slabs of molten lava.%} {#$walkTarget wight;mobOW};
+#action {%A hulking skeletal creatures looms here, covered in plates of ice.%} {#$walkTarget wight;mobOW};
+#action {%An enormous cloud of fire floats here, bearing a vaguely humanoid form.%} {#$walkTarget elder;mobOW};
+#action {%An enormous elemental formed from the foundation of the earth stands here.%} {#$walkTarget elder;mobOW};
+#action {%An enormous being formed from water and contained by magic floats here.%} {#$walkTarget elder;mobOW};
+#action {%An enormous storm cloud floats here, electricity rippling throughout.%} {#$walkTarget elder;mobOW};
+#action {%A monstrosity made from the mountain's tip looms over everything in sight.%} {#$walkTarget primal;mobOW};
+#action {%A monstrosity of evil magic floats in the darkness, seething with acidity.%} {#$walkTarget primal;mobOW};
+#action {%An unholy conjuration of fire floats here, whips of flame spewing outward.%} {#$walkTarget primal;mobOW};
+#action {%A purely malevolent cloud of lightning floats here, brooding in darkness.%} {#$walkTarget primal;mobOW};
+
+#action {%An Acieldan archer is here, scanning the area for possible targets.%} {#$walkTarget noble;mobOW};
+#action {%One of the elders is here, keeping the morale up.%} {#$walkTarget elder;mobOW};
+#action {%The king of the Tunai Erabal is sitting hereupon his bloody throne.%} {#$walkTarget king;mobOW};
+
+
+#action {%A young woman rests comfortably here, beckoning you to approach.%} {#$walkTarget selene;mobOW};
+#action {%A young woman nearly completely concealed by shadows waits here.%} {#$walkTarget nyx;mobOW};
+#action {%A young man floats amongst some wispy clouds that ever change.%} {#$walkTarget orpheus;mobOW};
+#action {%A young man is standing here, surrounded by a powerful aura.%} {#$walkTarget cythos;mobOW};
+#action {%Floating crosslegged, and seeming to be meditating, the Keeper of Dreams is here.%} {#$walkTarget keeper;mobOW};
+#action {%Swirls of crystalline magic arc around this being, The Keeper of Magic.%} {#$walkTarget keeper;mobOW};
+#action {%Standing here, The Keeper of Darkness awaits the next challenger.%} {#$walkTarget keeper;mobOW};
+#action {%Standing proudly before you is the mighty Garnet Dragon.%} {#$walkTarget dragon;mobOW};
+#action {%Glimmering in the soft light, the Diamond Dragon glares at you.%} {#$walkTarget dragon;mobOW};
+#action {%A dragon, scales studded in blood red stones, stands here.%} {#$walkTarget dragon;mobOW};
+#action {%Larger than the dragonlings, this Dragon has mixture of light blue and white gems upon his scales.%} {#$walkTarget dragon;mobOW};
+#action {%An amethyst dragon stands here, wings flexed defensively.%} {#$walkTarget dragon;mobOW};
+#action {%A cold seems to wash over you as you stare at a Sapphire Dragon.%} {#$walkTarget dragon;mobOW};
+#action {%A sleek form moves through the room as you catch the gaze of a Peridot Dragon.%} {#$walkTarget dragon;mobOW};
+#action {%Glistening green gemstones stud the scales of the this mighty dragon.%} {#$walkTarget dragon;mobOW};
+
+
+#action {%Fire serpent you saw from the distance is merely a Wendol cavalry.%} {#$walkTarget wendol;mobOW};
+#action {%Skeld the superstitious is staring into the distance without noticing%} {#$walkTarget skeld;mobOW};
+#action {%Hyglak the quarrelsome checks you and ponders to pick a fight.%} {#$walkTarget hyglak;mobOW};
+#action {%Weath the musician is standing in the mud, drinking mead from a large%} {#$walkTarget weath;mobOW};
+#action {%Egdtho the silent smiles at you while he passes by you.%} {#$walkTarget egdtho;mobOW};
+#action {%Haltaf the boy is walking around the palace swinging with his sword.%} {#$walkTarget haltaf;mobOW};
+#action {%Helfdane the large is pointing heavy poles with his sword.%} {#$walkTarget helfdane;mobOW};
+#action {%Ragnar the dour looks at you with a tired look.%} {#$walkTarget ragnar;mobOW};
+#action {%Herger the joyous is talking to Ibn Fadlan here.%} {#$walkTarget herger;mobOW};
+#action {%Ahmed Ibn Fadlan is laughing loudly while talking with Herger.%} {#$walkTarget ibn;mobOW};
+#action {%Rethel the archer is sitting on the branch, checking the plains for%} {#$walkTarget rethel;mobOW};
+
+#action {%An undead gateguard is standing in front of a gate.%} {#$walkTarget gateguard;mobOW};
+#action {%An undead warrior is desperately fighting against an unseen foe here.%} {#$walkTarget warrior;mobOW};
+
+#action {%A savvy street thief watches you carefully on your way through town.%} {#$walkTarget thief;mobOW};
+#action {%A logger is here stripping trees for transport.%} {#$walkTarget logger;mobOW};
+
+#action {%A villager looks at you as she sets up her stall.%} {#$walkTarget villager;mobOW};
+#action {%A villager from the village of Hidala welcomes you.%} {#$walkTarget villager;mobOW};
+#action {%This Hidala villager is traveling between the two villages.%} {#$walkTarget villager;mobOW};
+#action {%A fisherman is sorting the fish that he caught today.%} {#$walkTarget villager;mobOW};
+#action {%This villager is mending a net that was damaged recently.%} {#$walkTarget villager;mobOW};
+
+#action {%A female ogre is here, shopping at the vast amounts of stands.%} {#$walkTarget woman;mobOW};
+#action {%An ogre is here waiting for his wife to finish shopping.%} {#$walkTarget man;mobOW};
+#action {%A female ogre is walking the streets of Gronaker.%} {#$walkTarget woman;mobOW};
+#action {%An ogre passes you on the street, on his way home to his house.%} {#$walkTarget man;mobOW};
+#action {%An ogre guard has been posted here to protect the gate.%} {#$walkTarget guard;mobOW};
+#action {%An ogre guard is here patrolling the streets.%} {#$walkTarget guard;mobOW};
+
+
+#action {%A soldier carrying the sigil of the Armies of the World prepares for battle.%} {#$walkTarget world;mobOW};
+
+#//oharan;
+#action {%An oaken cabinet moves about the room.%} {#$walkTarget animated;mobOW};
+#//action {%A long whiskered rat is looking around for something to eat.%} {#$walkTarget rat;mobOW};
+#action {%A foot rest moves around quite agilely.%} {#$walkTarget animated;mobOW};
+#//action {%This large lizard lounges here ignoring your presence.%} {#$walkTarget fat;mobOW};
+#action {%A pale ferret sits quietly in the shadows.%} {#$walkTarget pale;mobOW};
+
+
+#//troy;
+#action {%Achaean charioteer rides toward the group of Trojan soldiers.%} {#$walkTarget charioteer;mobOW};
+#action {%Trojan charioteer is riding over battlefield, throwing spears at%} {#$walkTarget charioteer;mobOW};
+#action {%Trojan soldier is preparing for next attack on Achaeans.%} {#$walkTarget soldier;mobOW};
+#action {%Achaean soldier is waiting for the next attack on Troy.%} {#$walkTarget soldier;mobOW};
+#//brute;
+#action {%A wingless, soft bee sits motionless amidst the foliage.%} {#$walkTarget ant;mobOW};
+#action {%A revolting cross between a scorpion and a spider sits on a rock.%} {#$walkTarget whip;mobOW};
+#action {%A scorpion with massive claws scuttles through the Garden.%} {#$walkTarget emperor;mobOW};
+#action {%A wart-encrusted toad hides from the heat beneath a nearby shrub%} {#$walkTarget toad;mobOW};
+#//templeofsun;
+#action {%A paladin's apprentice is patrolling here%} {#$walkTarget errant;mobOW};
+#action {%A pious clergyman is here helping people with their quest to find the final%} {#$walkTarget cleric;mobOW};
+#//ark;
+#action {%A pack of seagulls is here scavaging the ark for meat on the bones.%} {#$walkTarget undead;mobOW};
+#action {%An undead beaver is here searching for wood.%} {#$walkTarget undead;mobOW};
+#action {%An undead elephant is wailing here trying to protect its ivory horns.%} {#$walkTarget undead;mobOW};
+#action {%A wolf is here searching for food he never got.%} {#$walkTarget undead;mobOW};
+#action {%An undead horse is here searching for some grass he will never find..%} {#$walkTarget undead;mobOW};
+#action {%An undead camel is searching for some water to lesson his thirst.%} {#$walkTarget undead;mobOW};
+#action {%An undead monkey is here hanging on a branch of the tree.%} {#$walkTarget undead;mobOW};
+
+
+#//talislantia;
+
+#action {%A hunter just returned from his trip through the force field into the sea.%} {#$walkTarget hunter;mobOW};
+
+#// Delenel;
+#action {%The sandy floor suddenly twists beneath your feet and the angel shark bites you!%} {#$walkTarget shark;mobOW};
+#action {%A large stonefish rests on the sandy seafloor waiting for its next meal.%} {#$walkTarget stonefish;mobOW};
+#action {%Suddenly the dark spot of sand swims away revealing itself to be a black%} {#$walkTarget skate;mobOW};
+#action {%A bristle worm burrows out of the sand in front of you.%} {#$walkTarget worm;mobOW};
+#action {%A large blue wrasse moves swiftly through the water.%} {#$walkTarget wrasse;mobOW};
+#action {%A sea snake writhes along the sandy sea floor.%} {#$walkTarget snake;mobOW};
+
+
+#// Lorien;
+#//action {%The Guardian training master is here waiting eagerly for his trainees to;mobOW};
+#//action {%The head of the craftsmen is standing here, carving some wood;mobOW};
+#action {%The Elven sailor stands here, dreaming of life at sea.%} {#$walkTarget sailor;mobOW};
+
+#//Pyradmid;
+#action {%An artisan specializing in marble is working here.%} {#$walkTarget marble;mobOW};
+#action {%A scribe busily reading through a pile of scrolls is standing here.%} {#$walkTarget scribe;mobOW};
+#//A small scarab skitters just out of reach spitting at you.;
+
+#action {%One of the councils clerics is here, wandering around the corridors.%} {#$walkTarget council;mobOW};
+#action {%A member of the High Council is here, leading a hearing.%} {#$walkTarget council;mobOW};
+
+#action {%A humanoid beast emerges from the vegetation.%} {#$walkTarget beast;mobOW};
+#action {%A cat lounges, completely ignoring you.%} {#$walkTarget cat;mobOW};
+#action {%The outline of a bird sweeps over the land.%} {#$walkTarget bird;mobOW};
+#action {%A salmon-coloured flamingo steps between the weeds.%} {#$walkTarget flamingo;mobOW};
+#action {%Above your head, climbing a flight of invisible stairs, is a man.%} {#$walkTarget man;mobOW};
+#action {%An ant crawls painstakingly over the surface of reality.%} {#$walkTarget ant;mobOW};
+
+
+#action {%Before you stands a horror of ancient days - the mighty Mirror Monster!%} {#$walkTarget mirror;mobOW};
+#action {%A creature of dripping, frozen blood has emerged from the fountain!%} {#$walkTarget golem;mobOW};
+
+#action {%A pale, slightly transparent creature is glowing in the corner.%} {#$walkTarget child;mobOW};
+
+#action {%An enormous dragon rests here, her tail wrapped around the glowing portal.%} {#$walkTarget portal;mobOW};
+
+#action {%A Titan stands here, exuding venomous gas from pores in his enormous body.%} {#$walkTarget titan;mobOW};
+#action {%A Titan of living flame is flying here, incinerating all in her path.%} {#$walkTarget titan;mobOW};
+#action {%A Titan covered in spiny thorns is roaring in a fit of rage here.%} {#$walkTarget titan;mobOW};
+#action {%A Titan stands before you, crackling with electricity.%} {#$walkTarget titan;mobOW};
+#action {%A Titan as bright as the sun itself is standing here, beaming.%} {#$walkTarget titan;mobOW};
+#action {%A Titan with flesh dripping from her bones stands here, moaning.%} {#$walkTarget titan;mobOW};
+#action {%A frost-covered Titan is resting here, eyeing you carefully.%} {#$walkTarget titan;mobOW};
+#action {%A Titan covered in rocky clay is here, throwing boulders around like flies.%} {#$walkTarget titan;mobOW};
+#action {%A Titan, wrapped in dusty bandages, is peeling off a layer of dead skin.%} {#$walkTarget titan;mobOW};
+#action {%A mighty Titan stands before you, forging a sickle of adamantine.%} {#$walkTarget titan;mobOW};
+#action {%A Titan, born from mithril itself, is standing here, unmoving.%} {#$walkTarget titan;mobOW};
+#action {%One of the Titans, covered in razor-like blades, is grinning at you.%} {#$walkTarget titan;mobOW};
+
+
+#action {%An Arena Guardian steps in front of you, preventing you from entering the%} {#$walkTarget guardian;mobOW};
+
+#action {%A very enchanting man rises to meet you.%} {#$walkTarget enchanter;mobOW};
+#action {%A brilliant flash of colurful magic explodes in front of you.%} {#$walkTarget conjurer;mobOW};
+#action {%A fragile form of man clambers difficultly to his feet.%} {#$walkTarget necromancer;mobOW};
+#action {%A short, lanky fellow invites you to hear a sweet melody.%} {#$walkTarget bard;mobOW};
+#action {%A cloaked man waits for your approach before making his move.%} {#$walkTarget rogue;mobOW};
+#action {%A dark, mysterious man stands here, half concealed by shadow.%} {#$walkTarget assassin;mobOW};
+#action {%A man armored in plates of brilliant silver stands here with no movement.%} {#$walkTarget paladin;mobOW};
+#action {%A dark clothed ranger waits here to do battle with his bow at ready.%} {#$walkTarget ranger;mobOW};
+#action {%A mighty warrior wearing a skull shaped helmet runs in for the attack!%} {#$walkTarget avenger;mobOW};
+#action {%A tribal healer begins a ritual that may spell your demise!%} {#$walkTarget healer;mobOW};
+#action {%A plain robed monk, bathed in magic, rises to meet your entrance.%} {#$walkTarget druid;mobOW};
+#action {%A figure, clad in black and adorned with golden jewels, laughs as you%} {#$walkTarget dogma;mobOW};
+
+#action {%A tall armored figure blocks your passage up.%} {#$walkTarget guardian;mobOW};
+
+#action {%The Lord of the Arena towers over you menacingly, grimacing with anger.%} {#$walkTarget lord;mobOW};
+
+

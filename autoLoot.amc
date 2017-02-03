@@ -1,0 +1,13 @@
+#new int autoSort 1;
+
+#// #if {$autoLoot==1 && %1==""} {don };
+
+#action {You get %.} {
+	#if {$autoSort==1 && "%1"=="Forked Spear"} {don spear};
+	#if {$autoSort==1 && "%1"=="DragonHide Armor"} {don armor};
+	#if {$autoSort==1 && "%1"=="The spine of a Stonefish"} {don spine};
+	#if {$autoSort==1 && "%1"=="a pair of working sleeves"} {don working};
+	
+};
+
+

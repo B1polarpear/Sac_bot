@@ -1,0 +1,35 @@
+#//variables for save: dayexp expDate;
+
+#new ticker expday 1800;
+$expday.setText(checkExpDay);
+$expday.setLoop(1);
+$expday.start();
+
+#new int currentHour;
+
+#new string expDate;
+#new string expDateTemp;
+#new string lastExpDate;
+
+#alias {expday} {};
+
+#alias {checkExpDay} {
+	#$currentHour $.date("<h>");
+	#if {$currentHour>3 && $currentHour<5} {
+		#$expDateTemp $.date("<d>.<mi>.<y>");
+		#if {$expDate!=$expDateTemp} {
+			
+
+			#write {exp.txt} {$expDate.get(),$dayexp.get()};
+			#$dayexp 0.00;
+			#$expDate $expDateTemp;
+
+			$xpList.clear();
+		};
+	};
+
+};	
+
+#new double dayexp;
+$dayexp.decimals(2);
+

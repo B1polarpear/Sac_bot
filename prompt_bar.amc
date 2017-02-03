@@ -1,0 +1,53 @@
+#// Statuslinen ja promptin maarittely;
+
+#new int sessionRate;
+#new int sessionMH;
+
+#new double goalExp;
+$goalExp.decimals(2);
+
+#new double sessionExp 0.00;
+$sessionExp.decimals(2);
+
+#mudprompt {< %(%)hp %(%)mana %(%)mv > };
+
+#statusline 	{Exp: $.math($expon/1000000)M | Gold: $goldon[$.math($goldbank/1000000)M] | Level: $jsonEmplevel | Meta $metastat $metaamount @ $.math($metaexp/1000000)M [$.math(($expon*100)/$metaexp)%] | $cheapest @ $.math($cheapExp/1000000)M [$.math(($expon*100)/$cheapExp)%] }
+		{[$statusFlags] $affectFlags | Potions: Ha $hasteLeft/Ma $manaPotionsLeft/Pz $piezoLeft /E $elixirLeft | Leader: $leader | Target: $target}
+		{Shape: $shapeName | Form: $dragon  | $dragonskill @ $.math($dragonxp/1000000)M [$.math(($expon*100)/$dragonxp)%]};
+
+#//new ticker updatesession 1;
+#//$updatesession.setText(update_session_rate);
+#//$updatesession.setLoop(1);
+#//$updatesession.start();
+
+#new timer sessiontime;
+
+#new int sessionTimeTemp;
+
+#alias {update_session_rate} {
+        #$sessionTimeTemp $sessiontime;
+        #$sessionRate $.math($sessionExp/$sessionTimeTemp);
+        #$sessionMH $.math(($sessionExp/$sessionTimeTemp)*3600/1000000);
+        countMetaLeft;
+        convertTime $sessiontime;
+};
+
+
+#//alias {update_session_rate} {
+	#$sessionTimeTemp $sessiontime;
+	#$sessionRate $.math($sessionExp/$sessionTimeTemp);
+	#$sessionMH $.math(($sessionExp/$sessionTimeTemp)*3600/1000000);
+};
+
+#alias {session} {
+update_session_rate;
+infoecho Exp: $.math($sessionExp/1000000) M, Time: $sessionTimeTemp seconds, Rate: $sessionRate xp/s, $sessionMH M/h;
+};
+
+#alias {resetsession} {
+	#$sessionExp 0.00;
+	#$sessionRate 0;
+	#$sessionTimeTemp 0;
+	$sessiontime.start();
+};
+#//jes;

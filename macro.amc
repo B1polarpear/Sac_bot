@@ -1,0 +1,19 @@
+#//KEY MACROS;
+#//13:26 <@Gunnar> F5=12853, F6=12855, F7=12856, F8=12857;
+#//13:26 <@DuuniPhilo> mihin jäi 12854?;
+#//13:26 <@DuuniPhilo> F5.5;
+#//13:27 <@PhiloBot> INFO: Pillar combination RSSDRE failed. 8310/15625 (53.184%) done.;
+#//13:27 <@Gunnar> F9=13104, F10=13105, F11=13107, F12=13108;
+
+#macro {12853} {blind};
+#//macro {12855} {};
+#//macro {12856} {turn};
+#macro {12857} {sp};
+
+
+#//macro {13104} {heb};
+#//macro {13105} {gkill};
+#//macro {13107} {cms};
+#macro {13108} {resetsession};
+
+

@@ -1,0 +1,50 @@
+#new int autotrain 0;
+
+#new list trainSkills;
+$trainSkills.pushBack("spell resistance");
+$trainSkills.pushBack("spell mastery");
+#//$trainSkills.pushBack("perceive vulnerability");
+#//$trainSkills.pushBack("mental focus");
+#//$trainSkills.pushBack("improve save petrification");
+#//$trainSkills.pushBack("improve save spell");
+#//$trainSkills.pushBack("improve save prayer");
+#//$trainSkills.pushBack("improve save breath");
+#//$trainSkills.pushBack("improve save paralysis");
+#//$trainSkills.pushBack("wand mastery");
+#//$trainSkills.pushBack("staff mastery");
+#//$trainSkills.pushBack("invulnerability");
+#//$trainSkills.pushBack("rod mastery");
+
+#new double cheapExp 10000000;
+$cheapExp.decimals(2);
+#new int trainExp;
+#new int skillSize;
+#new string trainSkillTemp;
+#new string trainSkill;
+#new string cheapest nada;
+
+#action {%, +1 will cost % xp.} {
+        #$trainSkillTemp "%1";
+        #$skillSize $trainSkillTemp.size();
+        $trainSkillTemp.remove($skillSize-1);
+        $trainSkillTemp.remove($skillSize-2);
+        $trainSkillTemp.trim();
+        #$trainSkill $trainSkillTemp;
+        #if {$trainSkills.find($trainSkillTemp)>=0} {
+                #if {%2<$cheapExp} {
+                        #$cheapest $trainSkillTemp;
+                        #$cheapExp %2;
+                };
+        };
+
+};
+
+#action {You spend%} {
+        #$cheapExp 10000000;
+        train;
+};
+#action {You train%} {
+        #$cheapExp 10000000;
+        train;
+};
+

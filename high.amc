@@ -1,0 +1,219 @@
+#action {Affecting Spells:}
+{
+	#group {affects_grp}
+	{
+		#new string tmp_blessing;
+		#action {%: 'blessing of %'} {#$tmp_blessing %%2};
+		#high {: 'cause disease'} {bright magenta};
+		#high {: 'silence'} {bright magenta};
+		#high {: 'curse'} {bright magenta};
+		#high {: 'blindess'} {bright magenta};
+		#high {: 'poison'} {bright magenta};
+		#high {: 'paralyze'} {bright magenta};
+		#high {: 'web'} {bright magenta};
+		#high {: 'font'} {bright green};
+		#high {: 'shrink'} {bright green};
+		#high {: 'spell turning'} {bright green};
+ 		#high {: 'guardian of steel'} {bright green};
+ 		#high {: 'haste'} {bright green};
+ 		#high {: 'elemental aura'} {bright green};
+		#high {: 'stoneskin'} {bright green};
+		#high {: 'elixir'} {bright green};
+		#high {: 'vampiric aura'} {bright green};
+		#high {: 'blessing of slaanesh'} {bright green};
+		#high {: 'blessing of %'} {bright magenta} {$tmp_blessing!=slaanesh};
+		#high {: 'sanctuary'} {bright yellow};
+		#high {: 'song of sanctuary'} {bright yellow};
+		#high { secs} {bright magenta}
+	};
+	#singleaction {<%} {#groupdelete affects_grp}
+};
+
+#high {(Red Aura)} 	{red};
+#high {(Yellow Aura)} 	{yellow};
+#high {(Black Aura!)} {bright magenta};
+#high {(blue)} 		{cyan};
+#high {(invisible)}	{magenta};
+#high {(anti)} 		{bright red};
+#high {(Sanc)} 		{bright yellow};
+#high {(Invul)}         {bright green};
+#high {(limit)}         {red};
+
+#high {Emperor }		{bright black};
+#high {Empress }		{bright black};
+#high {King }		{bright black};
+#high {Queen } 		{bright black};
+#high {Prince } 		{bright black};
+#high {Princess }		{bright black};
+#high {Grand } 		{bright black};
+#high {Duke } 		{bright black};
+#high {Duchess }		{bright black};
+#high {Lord } 		{bright black};
+#high {Lady } 		{bright black};
+#high {Baron } 		{bright black};
+#high {Baroness } 	{bright black};
+#high {Viscount } 	{bright black};
+#high {Viscountess } 	{bright black};
+#high {Earl } 		{bright black};
+#high {Countess } 	{bright black};
+#high {Marquess } 	{bright black};
+#high {Marchioness } 	{bright black};
+#high {:healthy}		{bright green};
+#high {:fine}		{bright green};
+#high {:scratched}	{bright green};
+#high {:bruised}		{bright yellow};
+#high {:battered}		{bright yellow};
+#high {:wounded}		{bright yellow};
+#high {:hurt}		{bright yellow};
+#high {:injured}		{bright yellow};
+#high {:mauled} 		{bright red};
+#high {:bleeding}		{bright red}; 
+#high {:crippled}	 	{bright red};
+#high {(Wounded)}		{bright red}; 
+#high {(Bleeding)}	{bright red};
+#high { gives you }	{bright green};
+#high {% is dead! R.I.P.} {bright red}; 
+
+#high {% utters a word of power and % begins to grope around blindly.} {magenta};
+#high {% seems to be silenced!}									{magenta};
+#high {You have been blinded!%}									{bright magenta};
+#high {You have been blinded by the electric current!%}			{bright magenta};
+#high {% stiffens as % muscles freeze in place with paralysis!} {magenta};
+#high {% is paralyzed by the freezing cold!}					{magenta};
+#high {% slumps over in a weakened state.}						{magenta};
+#high {% screams in frustration and begins to grope around blindly!} {magenta};
+
+#high {You hit one of % mirror images%} {cyan};
+
+#high {The white aura around your body fades.%}		{bright magenta};
+#high {You do not have that item.%}					{bright magenta};
+#high {Magical web surrounds you! You can't run.%}	{bright magenta};
+#high {The webs prevent you from fleeing!%}			{bright magenta};
+#high {You sense dangerous terrain %}	 			{bright magenta};
+#high {You sense a dangerous presence %}			{bright magenta}; 
+#high {You hear a shatter from %}					{bright magenta};
+#high {% is burned to ashes !}						{bright magenta};
+#high {% starts smoking.}							{bright magenta};
+#high {% is shattered to pieces !}					{bright magenta};
+#high {% is dissolved !} 							{bright magenta};
+#high {You have been silenced!%}					{bright magenta};
+#high {You feel very uncomfortable as a malignant aura surrounds you.%}	{bright magenta};
+
+#high {% is surrounded by an angry red glow.} 					{bright green};
+#high {% grants you % Quest Points!} 							{bright blue};
+#high {% You quickly pocket some questpoints that %}			{bright blue};
+#high {You resist a spell.%}									{bright green};
+#high {You sigh in pleasure as soultaker feeds you some of %}	{bright green};
+#high {% is entangled in strands of sticky, netting!}			{bright green};
+#high {% chokes as a toxic cloud surrounds %}					{bright green};
+#high {% is injured as a small trap explodes.%} 				{bright green};
+
+#high {That Really did HURT!%} 									{bright red};
+#high {You just calm down.%} 									{bright magenta};
+#high {The rage of the wild leaves your body and you feel no fury.%} {bright magenta};
+
+#// Garotte;
+#high {You skillfully take a stranglehold of %} 				{bright green};
+#high {% skillfully takes a stranglehold of %}					{bright green};
+#high {You try to take a stranglehold of % but fail.%}			{bright magenta};
+#high {% tries to take a stranglehold of % but fails.}			{bright magenta};
+#high {Your stranglehold on % neck breaks.%}					{bright magenta};
+#high {% frees % from % stranglehold.}							{bright magenta};
+
+#high {% is not affected by % half-hearted warcry.} 			{bright magenta};
+#high {% screams a mighty warcry and attacks %!}				{bright green};
+#high {% now the new leader of the group.}						{bright green};
+#high {You have one minute left on '%}							{bright magenta};
+#high {The justified wrath of the Gods suffuses your veins with fury!%} {bright green};
+
+#high {There is nothing to harvest from it%}					{bright magenta};
+#high {You harvest % doses of %}								{bright green};
+#high {You secretly attempt to place dangerous poison on your %} {bright magenta};
+#high {You attempt to place dangerous poison on your %}			{bright magenta};
+#high {The poison on your % is all spent.%}						{bright magenta};
+#high {You secretly place dangerous poison on your %}			{bright green};
+#high {You place dangerous poison on your %}					{bright green};
+
+#high {Your expertly applied poison sinks into the wound and % in pain!%} {bright green};
+
+#high {Due to your masterful rod use, you manage to save some energy.%} {bright green};
+#high {Due to your masterful wand use, you don't spend any charges.%} {bright green};
+#high {You point % at %.}										{bright green};
+#high {The % does not have enough power.%}						{bright magenta};
+#high {The intoxicating effects of the elixir fade and you feel normal.%} {bright magenta};
+#high {The inspiration of the book vacates your mind.}			{bright magenta};
+#high {You feel less righteous.%}								{bright magenta};
+#high {The mystic power of the font ends%}						{bright magenta};
+#high {A malevolent curse chokes the %}							{bright magenta};
+#high {Sif's blessing makes you more able to learn new things.} {bright green};
+#high {You scream violently and make some fast attacks against%} {bright green};
+#high {% illness distracts % and % fails to % the blow.} 		{bright black};
+#high {screams in pain as the fire enveloping you lashes back at%} {bright black};
+#high {% seems to be immune to %.} {bright red};
+#high {% seems to be protected from %.} {bright yellow};
+#high {% seems to be vulnerable to %.} {bright green};
+#high {% writhes in pain as % blood begins to boil!} {bright magenta};
+
+
+#// Anarchist;
+#high {Aristala the Defiler has cast a strange spell dispelling your '%}	{bright magenta};
+#high {Medon the Healer has healed your opponent}							{bright magenta};
+#high {Zamera the Furious chants mystical words sending A Child of the Stars into a frenzy.}							{bright magenta};
+
+#high {%'s Power Armor emits a screeching noise!}				{bright yellow};
+#high {Your Power Armor prevents you from changing form.}		{bright magenta};
+
+#high {You feel very sick.} {bright magenta};
+
+#high {% seems very sick!} {bright green};
+
+#high {A Door appears out of thin air.%} {bright green};
+
+#high {Your blood freezes as you hear someones death cry.%} {bright red};
+#high {Your blood freezes as you hear the death cry of %.} {bright red} {$grp_all.find("%1")>=0};
+
+#high {You lost your concentration!%} {bright magenta};
+#high {Ok.%} {bright green};
+
+#high {You slowly turn to stone as % looks at you%} {bright magenta};
+#high {With pure willpower you resist turning to stone.%} {bright green};
+#high {% chokes on the syllables of % spell.} {bright green};
+
+#high {% is already being strangled.} {magenta};
+
+#high {% gazes at %} {bright magenta};
+
+#high {% has lost % link.} {bright magenta};
+#high {[Link Dead]} {bright red};
+#high {You are now a group member.} {bright green};
+
+#// O'Haran;
+#high {% is hit by an avalanche of junk and knocked out of the battle.} {bright magenta};
+
+#high {(Silence)} {yellow};
+#high {(Blind)} {red};
+#high {(Curse)} {green};
+#high {(Para)} {cyan};
+#high {(Prot Evil)} {bright red};
+#high {(Web)} {blue};
+#high {(Disease)} {bright yellow};
+#high {(vampiric)} {bright green};
+
+#high {You gain % reputation with %} {bright cyan};
+#high {Your powerful protective aura starts to flicker.} {bright magenta};
+
+#high {A wish utters the words "%} {bright blue};
+
+#// Hp on group command;
+#// #high {][%(%)}						{bright green} {%1==%2};
+#// #high {][%(%)}						{green} {%1.0/%2.0>=0.80&&%1.0/%2.0<1.0};
+#// #high {][%(%)}						{yellow} {%1.0/%2.0>=0.30&&%1.0/%2.0<0.80};
+#// #high {][%(%)}						{red} {%1.0/%2.0<0.30};
+
+#// Mana on group command;
+#// #high {h %(%)m}						{bright green} {%1==%2};
+#// #high {h %(%)m}						{green} {%1.0/%2.0>=0.80&&%1.0/%2.0<1.0};
+#// #high {h %(%)m}						{yellow} {%1.0/%2.0>=0.30&&%1.0/%2.0<0.80};
+#// #high {h %(%)m}						{red} {%1.0/%2.0<0.30};
+
+

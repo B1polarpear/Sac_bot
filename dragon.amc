@@ -1,0 +1,33 @@
+#new int dragon;
+
+#action {%sense of vision and smell improves as you become a Granite Drake.%} {#$dragon 1};
+
+#new string dragonskill;
+#$dragonskill "dragon knowledge";
+#new double dragonxp;
+$dragonxp.decimals(2);
+#new int dragongold;
+#new int dragonperc;
+
+#action {$dragonskill %(%)%: % xp and % gold.} {
+        #$dragonperc %1;
+        #$dragonxp %4;
+        #$dragongold %5;
+};
+
+#new string latestForm;;
+
+#alias {dragontrain} {
+	d2n;
+	#if {$form!="Granite Drake" && $dragon==0} {
+		#$latestForm "$shapeName.get()";
+		return;
+		change form
+	};
+	#if {$dragon==1} {#$wasFormed 1};
+	#3 train $dragonskill;
+	train;
+	return;
+	#if {$wasFormed==0} {change $latestForm};
+	#if {$wasFormed==1} {change form};
+};

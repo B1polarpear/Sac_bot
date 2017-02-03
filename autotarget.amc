@@ -1,0 +1,57 @@
+#new string tempTarget;
+#new int autoTarget;
+#new int targetSet;
+
+#alias {doAutoT %} {
+	#$tempTarget %1;
+	#if {$autoTarget==1 && $fightStatus==0 && $target!=$tempTarget && $leader==$me && $targetSet==0} {
+		#$targetSet 1;
+		set $tempTarget
+	};
+};
+
+#//Marienburg;
+#action {%A well-dressed gateguard waves you on, into the city.%} {doAutoT gateguard};
+
+
+#// Selene;
+#action {%A golem of truesilver stands before you, motionless.%} {doAutoT mythril};
+#action {%A golem made of a greyish metal stands before you.%} {doAutoT titanium};
+#action {%A golem of solid gold stands before you.%} {doAutoT gold};
+#action {%A golem that appears to be a milky white color with flecks of red stands here.%} {doAutoT opal};
+
+#// Delenel;
+#action {%The sandy floor suddenly twists beneath your feet and the angel shark bites you!%} {doAutoT shark};
+#action {%A large stonefish rests on the sandy seafloor waiting for its next meal.%} {doAutoT stonefish};
+#action {%Suddenly the dark spot of sand swims away revealing itself to be a black%} {doAutoT skate};
+#action {%A bristle worm burrows out of the sand in front of you.%} {doAutoT worm};
+#action {%A large blue wrasse moves swiftly through the water.%} {doAutoT wrasse};
+#action {%A sea snake writhes along the sandy sea floor.%} {doAutoT snake};
+
+
+#// Lorien;
+#//action {%The Guardian training master is here waiting eagerly for his trainees to};
+#//action {%The head of the craftsmen is standing here, carving some wood};
+#action {%The Elven sailor stands here, dreaming of life at sea.%} {doAutoT sailor};
+
+
+#//An undead gatekeeper is standing here, waiting for more raiders to come.;
+#//The undead towermaster is sitting here, looking over the fields.;
+
+#action {%A hunter just returned from his trip through the force field into the sea.%} {doAutoT hunter};
+
+#//blighted;
+
+#action {%A deformed, hideous creature walks the forest, its eyes glowing a fervent red in the gloom%} {doAutoT creature};
+#action {%An unrecognizable curled tube of flesh unwinds itself on the side of the-snake%} 	       {doAutoT snake};
+#action {%A hunched-over mutilated figure readies himself for battle.%} 			       {doAutoT figure};
+#action {%A horribly twisted, demonic creature walks the endless paths of the%}                        {doAutoT creature};
+
+#action {%A deformed, hideous creature walks the forest, its eyes glowing a fervent red in the gloom.%} {doAutoT creature};
+#action {%A creature with hundreds of tiny limbs, awaits its next meal, hissing in%} {doAutoT creature};
+#action {%Patiently spinning a web in one of the decaying trees, a gigantic spider%} {doAutoT spider};
+#action {%A gaunt figure, wrapped in tattered robes, glares balefully at his%} {doAutoT gaunt};
+#action {%A cowled figure has taken up a position on the path, glaring about him%} {doAutoT cleric};
+
+#action {%An unrecognizable curled tube of flesh unwinds itself on the side of the%} {doAutoT snake};
+

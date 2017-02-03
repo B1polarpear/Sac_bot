@@ -1,0 +1,101 @@
+#alias {lastchan} {
+	#grep 10 {%(honor)%} {%(emperor)%} {%(chat)%} {%(Druid)%} {%(mage)%} {%[honor]%} {%[chat]%} {%[emperor]%}
+};
+
+#alias {lastauc} {#grep 10 {%The Auctioneer tells you '%}};
+#alias {lastgtell} {#grep 10 {%** % tells you '%} {%You tell your group, '%'}};
+
+#alias {_update_windows_}
+{
+	#new int wWidth;
+	#new int wHeight;
+	#new int wPosX;
+	#new int wPosY;
+	#$wWidth $.windowWidth()/3;
+	#if { $wWidth < 90 && $.windowWidth() > 90 }
+	{
+		#$wWidth 90
+	};
+	#$wPosX $.windowWidth() - $wWidth - 1;
+	#$wPosY $.windowHeight()/4 + 1;
+	#$wHeight $wPosY - 1;
+	$gtells.set( $wPosX, $wPosY, $wWidth, $wHeight );
+	#if { $gtells.isVisible() == 1 }
+	{
+		#$wPosY $wPosY + $wHeight
+	};
+	#//$kills.set( $wPosX, $wPosY, $wWidth, $wHeight );
+	#delete gtellWidth gtellHeight gtellPosX gtellPosY
+};
+
+#new window gtells;
+#new int gtellwindow 1;
+#new ticker gtells_window_ticker 30;
+
+$gtells.set( $.windowWidth() - $.windowWidth()/3 - 1, $.windowHeight()/4 + 1, $.windowWidth()/3 ,$.windowHeight()/4 );
+$gtells.setVisible(0);
+$gtells.setColor(cyan);
+
+#action {** % tells you '%'} 
+{
+	#if {$gtellwindow == 1}
+	{
+		#capture gtells {%1 : %2};
+		#if { $gtells.isVisible() == 0}
+		{
+			$gtells.setVisible(1);
+			_update_windows_
+		}
+	};
+};
+
+#action {You tell your group, '%'} {#capture gtells {You : %1}};
+#action {You are no longer a member of the group!} {$gtells.setVisible(0)};
+
+#alias _gtells_window_helper_ {$gtells.setVisible(0);$gtells_window_ticker.stop()};
+$gtells_window_ticker.setText(_gtells_window_helper_);
+
+#//#new window kills;
+#//#new ticker kill_window_ticker 7;
+
+#//$kills.set( $.windowWidth() - $.windowWidth()/3 - 1, 2*($.windowHeight()/4) + 1, $.windowWidth()/3 ,$.windowHeight()/4 );
+
+#//$kills.setVisible(0);
+#//$kills.setColor(green);
+
+#//#alias _kill_window_helper_ {$kills.setVisible(0);$kill_window_ticker.stop()};
+#//$kill_window_ticker.setText(_kill_window_helper_);
+#//#action {You receive % experience points for the %} ;
+#//{;
+#//	$kills.setVisible(1);
+#//	$kill_window_ticker.start();
+#//	_update_windows_;
+#//};
+
+#// Window for gid/id;
+
+#//#new window id_window;
+#//#new ticker id_window_ticker 15;
+
+#//$id_window.set(80,40,69,40);
+#//$id_window.setVisible(0);
+#//$id_window.setColor(red);
+
+#//#alias _id_window_helper_ {$id_window.setVisible(0);$id_window_ticker.stop()};
+#//$id_window_ticker.setText(_id_window_helper_);
+
+#//#action {You discover something from the item.} ;
+#//{;
+#//	#group {id_capture_window_grp};
+#//	{;
+#//		#action {%} {#capture id_window {%%1}};
+#//		$id_window.setVisible(1);
+#//		$id_window_ticker.start();
+#//		#singleaction {level limit:%} ;
+#//		{;
+#//			#groupdelete id_capture_window_grp;
+#//			#capture id_window {level limit:%%1};
+#//			#capture id_window {-----};
+#//		};
+#//	};
+#//};

@@ -1,0 +1,15 @@
+#new int expoint;
+
+
+#alias {doWebStats} {
+	#$expoint $expon.get();
+	#system rm /home/users/joufa/sites/joufa.kapsi.fi/www/mud/stats.txt;
+	#write {/home/users/joufa/sites/joufa.kapsi.fi/www/mud/stats.txt}
+		{$loggedIn.get()}
+		{$me}
+		{$expoint}
+		{$leader}
+		{$groupList.toString("|")}
+		{$expString};
+
+};

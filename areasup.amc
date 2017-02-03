@@ -1,0 +1,192 @@
+#// checks what areas are up and reports them to irc;
+
+#new string tempArea;
+#new int counter;
+#new int totalAreas 15;
+#new list areasUp;
+#new int checkingAreas;
+#new int upCount;
+
+#new int solocheck;
+
+#new string checkAreaString "";
+#alias {lc %} {loc %1};
+
+#alias {checksolo} {
+	#$solocheck 1;
+	#$checkingAreas 1;
+	$areasUp.clear();
+	#$checkAreaString "%1";
+
+        loc gateguard man;
+	loc starving wolf;
+	loc titanium golem;
+	loc elven sailor;
+	loc undead seagull;
+	loc undead gatekeeper;
+        loc talislantian hunter;
+	loc oonai;
+        loc angel shark;
+    
+	whe etana
+};
+
+#//unmaker?;
+#action {Titanium Golem in%} {checkArea Selene(PFF/PFL)};
+#action {A Starving Wolf in%} {checkArea Wolves};
+#action {Talislantian Hunter in%} {checkArea Talislantia};
+#action {Angel Shark in%} {checkArea Delenel(RP)};
+#action {The Elven sailor in%} {checkArea Lorien};
+#action {Oonai in%} {checkArea SeaOfChaos(RP)};
+#action {An undead gatekeeper in%} {checkArea Thiloza(NPP)};
+#action {An undead seagull in%} {checkArea Ark(NPP)};
+#action {Gateguard in%} {checkArea Gateguards};
+
+
+#alias {checkareas%} {
+	#$checkingAreas 1;
+	#$counter 0;
+	#$upCount 0;
+	$areasUp.clear();
+	#$checkAreaString "%1";
+	#if {$checkAreaString.find("small")>=0} {
+		lc jiadhem soldier;
+		lc student magic;
+		lc crowd;
+		lc emperor scorpion;
+		lc helfdane viking;
+		lc love;
+		lc tharoecon;
+		lc animated foot;
+		lc guardian child;
+		
+	} else {
+
+		lc winterwight;
+		lc noble archer;
+		lc gust wind;
+		lc reverse mutinal;
+		lc resident woodhaven;
+		lc eric roergang;
+		lc apprentice cabal;
+		lc witch elf;
+		lc storm demon;
+		lc topaz dragon;
+		lc jaffa warrior;
+		
+	};
+	lc root;
+	whe etana;
+};
+
+#action {[ 1] Sac%} {
+	#if {$checkingAreas==1} {
+		#$checkingAreas 0;
+		#if {$solocheck==0} {
+			doAreaEcho
+		} else {
+			#$solocheck 0;
+			doSoloEcho
+		};
+	};
+	#if {$tavernCheck==1} {
+		#$tavernCheck 0;
+		#if {$tavernUp==1} {
+			#$tavernUp 0;
+			irc INFO: Tavern of Legends is UP! (in the ass of Timo);
+
+		} else {
+
+			irc INFO: No Tavern of Legends this time :(
+		};
+	};
+};
+#//action {Ok.} {
+	#if {$checkingAreas==1} {
+	  	#$counter $counter+1;
+		 #//if {$counter==$totalAreas} {#$checkingAreas 0;doAreaEcho};
+	};	
+};
+#alias {checkArea %} {
+	#$upCount $upCount+1;
+	#$tempArea "%1";
+        $areasUp.pushBack("$tempArea.get()");
+	#echo "$tempArea.get() $counter.get()";
+        #//if {$counter==$totalAreas} {#$checkingAreas 0;doAreaEcho};
+};
+
+#//action {Nobody here by that name.} {
+	#if {$checkingAreas==1} {
+		#$counter $counter+1;
+		#if {$counter==$totalAreas} {#$checkingAreas 0;doAreaEcho};
+	};
+};
+#action {The master student in %} {checkArea Darkirham};
+#action {Gust of Wind in %} {checkArea StormFront};
+#action {A student of the college in The classroom%} {checkArea Darkirham};
+#action {Wendol in%} {checkArea Venden};
+#action {Reverse Mutinal Fzeeker in %} {checkArea Conundrum};
+#action {An Emperor scorpion in %} {checkArea Brute};
+#action {A crowd of people in%} {checkArea Coliseum};
+#action {Chulak citizen in%} {checkArea Chulak(GOS)};
+#action {A Field Gopher in%} {checkArea SavannahHuntingGrounds(GOS)};
+#action {A resident of Woodhaven in%} {checkArea Woodhaven};
+#action {Trojan Charioteer in%} {checkArea Troy};
+#action {A Jiadhem Soldier in%} {checkArea DemonWars(GOS/PS)};
+#action {Animated Foot Rest in%} {checkArea O'Haran};
+#action {Eric Roergang in%} {checkArea Marienburg(GOS)};
+#action {A storm demon in%} {checkArea Vortex(GOS)};
+#action {Topaz Dragon in%} {checkArea Selene(PS)};
+#action {Apprentice of the Cabal in%} {checkArea Cabal(PS)};
+#action {The Guardian Child in The Guardian Child%} {checkArea BlueTree};
+#action {Archer in%} {checkArea Nobles(GOS)};
+#action {Jaffa warrior in%} {checkArea Jaffa};
+#action {The Witch Elf%} {checkArea Naggarond(GOS/PS)};
+#action {Tharoecon%} {checkArea Tharoecon(PS)};
+#action {Helfdane the large in%} {checkArea Venden(GOS)};
+#action {Winterwight in The Plane of Negative Energy%} {checkArea Planes(OMG)};
+
+#action {Root Spider in%} {checkArea Roots(GOS)};
+
+
+#//action {Kate in %} {
+	#if {$counter==$totalAreas} {#$checkingAreas 0;doAreaEcho};
+};
+
+#alias {doAreaEcho} {
+	#echo $areasUp.toString("|");
+	irc Up: $areasUp.toString("|");
+};
+#alias {doSoloEcho} {
+        #echo $areasUp.toString("|");
+
+};
+
+#new int tavernCheck;
+#new int tavernUp;
+
+#alias {checktavern} {
+	#$tavernCheck 1;
+	#$tavernUp 0;
+        cast locate c skizz;
+        cast locate c lone;
+        cast locate c mindaugas;
+        cast locate c esayah;
+        cast locate c rick;
+        cast locate c bronn paladin;
+        cast locate c felix;
+        cast locate c cathedral avenger;
+        cast locate c gedas;
+        cast locate c mablung;
+	whe sac;
+};
+#action {Skizz in%} {#$tavernUp 1};
+#action {Lone in%} {#$tavernUp 1};
+#action {Mindaugas in%} {#$tavernUp 1};
+#action {Esayah in%} {#$tavernUp 1};
+#action {Rick in%} {#$tavernUp 1};
+#action {Bronn in%} {#$tavernUp 1};
+#action {Felix in%} {#$tavernUp 1};
+#action {Cathedral in%} {#$tavernUp 1};
+#action {Gedas in%} {#$tavernUp 1};
+#action {Mablung in%} {#$tavernUp 1};

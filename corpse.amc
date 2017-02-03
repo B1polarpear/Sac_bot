@@ -1,0 +1,97 @@
+#new int corpseEoc;
+#new string templeader;
+#new string tempstring;
+
+
+#alias {clearAffects} {
+	#$font 0;
+	#$shille 0;
+	#$fs 0;
+	#$hob 0;
+	#$regen 0;
+	#$bless 0;
+	#$haste 0;
+	#$npp 0;
+	#$rage 0;
+	#$piezo 0;
+	#$fighting 0;
+	#$fightStatus 0;
+	#$shape 0;
+};
+#action {You are dead!  Sorry...%} {
+	
+	#$corpseEoc 1;
+	#$eocShille 1;
+	#$eocHob 1;
+	#$eocRegen 1;
+	#$eocFs 1;
+	#$eocBless 1;
+	#$eocHaste 1;
+	#$eocShape 1;
+	wait 3 "spell rec ivory"; 	
+};
+
+#action {%molten remains of $me%} {
+	#if {$corpseEoc==1} {
+		#$corpseEoc 0;
+		do_corpse;
+	};
+};
+
+#action {%charred ashes of $me%} {
+        #if {$corpseEoc==1} {
+		#$corpseEoc 0;
+                do_corpse;
+        };
+};
+
+#action {%Corpse of $me%} {
+        #if {$corpseEoc==1} {
+		#$corpseEoc 0;
+                do_corpse;
+        };
+};
+
+#action {%frozen carcass of $me%} {
+        #if {$corpseEoc==1} {
+		#$corpseEoc 0;
+                do_corpse;
+        };
+};
+
+#action {%Statue of $me%} {
+        #if {$corpseEoc==1} {
+                #$corpseEoc 0;
+		do_corpse;
+        };
+};
+
+#action {A sturdy net to hold many items.%[$me]%} {
+        #if {$corpseEoc==1} {
+                #$corpseEoc 0;
+		ground;
+        };
+};
+
+#alias {corpse} {
+	#if {$corpseEoc==0} {#$corpseEoc 1};
+	look;
+};
+#alias {do_corpse} {
+	get all.sac all.sac;
+	wear all;
+	hold $light;
+	hold $hold;
+	hold ioun;
+	checkBag;
+	fol $leader;
+};
+#alias {ground} {
+        get all.sac;
+        wear all;
+        hold seed;
+        hold spirit;
+	checkBag;
+        fol $leader;
+};
+

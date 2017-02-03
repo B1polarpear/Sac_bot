@@ -1,0 +1,8 @@
+#new int looted;
+
+#alias {droploot} {
+	drop all brew;
+	drop all flask;
+	drop all mixture;
+	drop all vial;
+};

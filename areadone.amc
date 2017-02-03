@@ -1,0 +1,67 @@
+#new int areaDoneProcess;
+#new string onAreaDone dragon;
+
+#alias {areadone} {#$areaDoneProcess 1;home};
+
+#action {** $leader tells you 'area done'} {
+	wait $.rand(2,4) areadone;
+};
+
+#new int atNilaahShop;
+
+#new int atRepu1;
+#new int atRepu2;
+#new int atElixir;
+#new int atMana;
+#new int atPiezo;
+
+#action {Staircase} {
+	#if {$areaDoneProcess==1} {
+		u3s;drink font;3nd;
+		#if {$onAreaDone=="dragon" && $expon>$dragonxp} {dragontrain};
+		#if {$onAreaDone=="meta" && $expon>$metaexp} {rec;cast rem curse;metastat};
+	#//if {$manaPotionsLeft<10} {
+                #$atMana 1;
+		nilaah;-nilshop;sw;
+                #10 buy 6;
+                put all.$manaPotion.get() $bag;
+        };
+	#//if {$elixirLeft<6} {
+		#if {$atMana==1} {2e};
+		#if {$atMana==0} {nilaah;-nilshop;se};
+		#$atMana 0;
+		#$atElixir 1;
+		#5 buy 20;
+		put all.inspiration $bag;
+	};
+	#//if {$piezoLeft<5} {
+		#if {$atMana==1} {ennnes};
+		#if {$atMana==0 && $atElixir==0} {nilaah;-nilshop;nnes};
+		#if {$atElixir==1} {wnnnes};
+		#5 buy 2;
+		put all.$piezoPotion.get() $bag;
+                #//osta;
+        };
+
+	area;
+	checkBag;
+	#if {$leader==$me} {gt area done};
+	#//if {$fly==1} {flyoff};
+	#if {$shape!="tiger"} {tiger};
+	#$areaDoneProcess 0;
+	sc;deta;
+	#//if {$ioun==1} {#$ioun 0;rem ioun};
+	};
+};
+
+#new int ioun 0;
+#new int eqCheck;
+
+#action {%<ioun stone>%} {
+	#if {$eqCheck==1} {#$ioun 1};
+};
+
+#action {You are using:%} {
+	#$ioun 0;
+	#$eqCheck 1;
+}; 

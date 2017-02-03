@@ -1,0 +1,197 @@
+#new ticker statusFlagTicker 1.0;
+#new string statusFlags;
+#new string affectFlags;
+
+#new list statusColors;
+$statusColors.pushBack($_B_RED);
+$statusColors.pushBack($_B_GREEN);
+$statusColors.pushBack($_B_MAGENTA);
+
+$statusFlagTicker.setText(_statusflag_updater_);
+$statusFlagTicker.setLoop(1);
+$statusFlagTicker.start();
+
+#alias {_statusflag_updater_}
+{
+
+        #$statusFlags $statusColors.get($fightStatus)+"FS ";
+        #$statusFlags $statusFlags+$statusColors.get($fighting)+"F ";
+	#$statusFlags $statusFlags+$statusColors.get($autoShape)+"AS/";
+	#$statusFlags $statusFlags+$statusColors.get($shapeOn)+"S ";
+        #$statusFlags $statusFlags+$statusColors.get($autoAid)+"Ai ";
+	#$statusFlags $statusFlags+$statusColors.get($autoKill)+"AK ";
+	#$statusFlags $statusFlags+$statusColors.get($autoTarget)+"Target ";
+	 #$statusFlags $statusFlags+$statusColors.get($autoBlind)+"Blind ";
+	#$statusFlags $statusFlags+$_SLINE_COLOR;
+
+        #$affectFlags $statusColors.get($font)+"F ";
+	#$affectFlags $statusColors.get($elixir)+"E ";
+        
+        #//$affectFlags $affectFlags+$statusColors.get($armor)+"A ";
+        #//$affectFlags $affectFlags+$statusColors.get($endure)+"E "; 
+	#$affectFlags $affectFlags+$statusColors.get($shille)+"Sl ";
+        #$affectFlags $affectFlags+$statusColors.get($fs)+"Fs ";
+        #$affectFlags $affectFlags+$statusColors.get($regen)+"Reg ";
+        #$affectFlags $affectFlags+$statusColors.get($hob)+"Hob ";
+	#$affectFlags $affectFlags+$statusColors.get($haste)+"Ha ";
+        #$affectFlags $affectFlags+$statusColors.get($bless)+"B ";
+	#$affectFlags $affectFlags+$statusColors.get($npp)+"Npp ";
+        #$affectFlags $affectFlags+$statusColors.get($rage)+"Rage ";
+	#$affectFlags $affectFlags+$statusColors.get($piezo)+"Pz ";      
+
+
+        #$affectFlags $affectFlags+$_SLINE_COLOR;
+
+   
+};
+
+#new int autoTrain;
+#new int autoCircle;
+#new int autoBash;
+#new int autoQuaff;
+#new int autoKill;
+
+#new int armor;
+#new int endure;
+#new int shrink;
+#new int enlarge;
+#new int strength;
+#new int hob;
+#new int haste;
+#new int sanc;
+#new int ps;
+#new int gos;
+#new int regen;
+#new int piezo;
+#new int font;
+#new int npp;
+#new int pfe;
+#new int pfg;
+#new int fury;
+#new int stoneskin;
+#new int ea;
+#new int eld;
+#new int bless;
+#new int fs;
+#new int ra;
+#new int rp;
+#new int pfl;
+#new int pff;
+#new int shille;
+#new int rage;
+
+#// font (custom);
+
+#action {%You drink from %.%} {#$font 1};
+#action {%The mystic power of the font ends%} {#$font 0};
+
+#//armor;
+
+#action {%A suit of transparent, magical armor is briefly superimposed over your skin.%} {#$armor 1};
+#action {%The protective armor from your spell vanishes.%} {#$armor 0};
+
+#//endure;
+
+#action {%An invisible force pushes out of your body, repelling all physical objects.%} {#$endure 1};
+#action {%You feel less protected.%} {#$endure 0};
+
+#//strength;
+
+#action {%Your muscles begin to bulge with magical strength.%} {#$strength 1};
+#action {%You feel weaker as your magical strength leaves you.%} {#$strength 0};
+
+#//haste;
+
+#action {%Your motions quicken as magical energy courses through your veins.%} {#$haste 1};
+#action {%Your magically enhanced dexterity ebbs.%} {#$haste 0};
+
+#//shrink;
+#action {%Your body shrinks, making you harder to notice.%} {#$shrink 1};
+#action {%Your body shifts back to normal size.%} {#$shrink 0};
+
+#//enlarge;
+
+#action {%Your body grows larger and stronger.%} {#$enlarge 1};
+
+#//stoneskin;
+
+#action {%Your skin gets hard as stone.%} {#$stoneskin 1};
+#action {%Your skin feels natural once again.%} {#$stoneskin 0};
+
+#//hob;
+#action {%You glow with inner strength.%} {#$hob 1;#$eocHob 0;#if {$hobbing==1} {#$hobbing 0}};
+#action {%The glow of your inner strength fades away.%} {#$hob 0;#$eocHob 1};
+
+#//regen;
+#action {%Your veins are filled with blessed vibrancy.%} {#$regen 1;#if {$regening==1} {#$regening 0};#$eocRegen 0};
+#action {%Your metabolism reverts to normal.%} {#$regen 0;#$eocRegen 1};
+
+#//sanc;
+#action {%A powerful protective aura begins to shelter you from harm.%} {#$sanc 1};
+#action {%You glow even brighter.%} {#$sanc 1};
+#action {%The white aura around your body fades.%} {#$sanc 0};
+
+#//piezo;
+#action {%reality, creating a slightly fuzzy piezomagical barrier in front of you!%} {#$piezo 1};
+#action {%The barrier in front of you shatters into millions of glimmering motes of light.%} {#$piezo 0};
+
+#//ea;
+#action {%An elemental aura surrounds you.%} {#$ea 1};
+#action {%Your multi-colored aura fades.} {#$ea 0};
+
+#//eld;
+
+#//npp;
+#action {%Your black shield is renewed.%} {#$npp 1};
+#action {%A black shield envelopes you.%} {#$npp 1};
+#action {%The black shield surrounding you winks out of existence.%} {#$npp 0};
+
+#//bless;
+#action {%A serene sensation fills your body with the presence of the gods.%} {#$bless 1;#$eocBless 0};
+#action {%Nurgle teaches you more of the ways of nature.%} {#$bless 1;#$eocBless 0};
+
+
+#action {%You feel less righteous.%} {#$bless 0};
+#action {%Hel's blessing fills your body with the compulsion to harm others.%} {#$bless 1};
+#action {%Mammon teaches you how to gather wealth.%} {#$bless 1};
+#action {%Dionysus's blessing sounds like music to your ears.%} {#$bless 1};
+#action {%Sif's blessing makes you more able to learn new things.%} {#$bless 1};
+#action {%Tzeentch charges you with magic.%} {#$bless 1};
+
+
+
+#//pfg;
+#//pfe;
+
+#//fury;
+#action {%The justified wrath of the Gods suffuses your veins with fury!%} {#$fury 1};
+#action {%You just calm down.%} {#$fury 0};
+
+#//fs;
+#action {%A swirling nimbus of fire encircles you in a protective sheath.%} {#$fs 1;#$eocFs 0};
+#action {%The fiery shield slowly fades away in a wisp of smoke.%} {#$fs 0};
+
+
+
+#//rp;
+
+#action {%You feel protected from poison.%} {#$rp 1};
+#action {%You no longer resist poison.%} {#$rp 0};
+#//ra;
+
+#action {%You are protected from acid.%} {#$ra 1};    
+#action {%You no longer resist acid.%} {#$ra 0};
+#//pfl;
+#action {%An electrical field surrounds you.%} {#$pfl 1};
+
+#//pff;
+#action {%A fiery field surrounds you.%} {#$pff 1};
+ 
+#//shille;
+#action {Your shillelagh disappears.} {#$shille 0;#$eocShille 1};
+#action {A shillelagh suddenly appears and begins to hover over your head.} {#$shille 1;#$eocShille 0};
+
+#//rage;
+#action {%The rage of the wild suffuses your veins with fury!%} {#$rage 1};
+#action {%The rage of the wild leaves your body and you feel no fury.%} {#$rage 0;#if {$autoRage==1} {rage}};
+

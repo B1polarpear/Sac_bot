@@ -1,0 +1,164 @@
+#// Get commands from irssi and execute them;
+
+#new int auto_irssi 1;
+#new int auto_tells 1;
+#alias {irssi} {
+	#if { $auto_irssi==1 } {
+		#$auto_irssi 0;
+		infoecho Irssi Commands OFF
+	} else {
+		#$auto_irssi 1;
+		infoecho Irssi Commands ON
+	}
+};
+#alias {tells} {
+	#if { $auto_tells==1 } {
+		#$auto_tells 0;
+		infoecho Irssi Tells OFF;
+		irc [Info] Irc Tells OFF;
+	} else {
+		#$auto_tells 1;
+		infoecho Irssi Tells ON;
+		irc [Info] Irc Tells ON;
+	}
+};
+
+#new ticker check_irssi 2;
+$check_irssi.setText(_irssi_check);
+$check_irssi.setLoop(1);
+$check_irssi.start();
+
+#alias {irssi_sc %} {%1};
+#alias {irssi__all %} {%1};
+
+#alias {_irssi_check} {
+	#if {$auto_irssi==1 && $.fileInfo(rcommands.amc)==1} {
+		#read rcommands;
+		#system rm rcommands.amc
+	}
+};
+
+#alias {irc %} {
+	#system echo "%1" >> mudtoirc.amc
+};
+#alias {irc_spam %} {
+        #system echo "%1" >> mudspam.amc
+};
+
+#new list wizlist;
+$wizlist.pushBack("Angelique");
+$wizlist.pushBack("Asterix");
+$wizlist.pushBack("Havoc");
+$wizlist.pushBack("Amon");
+$wizlist.pushBack("Hector");
+$wizlist.pushBack("Milo");
+$wizlist.pushBack("Ra");
+$wizlist.pushBack("Faust");
+$wizlist.pushBack("Foxbat");
+$wizlist.pushBack("Vorn");
+$wizlist.pushBack("Arzka");
+$wizlist.pushBack("Gunnar");
+$wizlist.pushBack("Altma");
+$wizlist.pushBack("Arlad");
+$wizlist.pushBack("Arngrim");
+$wizlist.pushBack("Brax");
+$wizlist.pushBack("Chiad");
+$wizlist.pushBack("Clear");
+$wizlist.pushBack("Gregor");
+$wizlist.pushBack("Howard");
+$wizlist.pushBack("Janus");
+$wizlist.pushBack("Jet");
+$wizlist.pushBack("Jor");
+$wizlist.pushBack("Kelek");
+$wizlist.pushBack("Leon");
+$wizlist.pushBack("Myst");
+$wizlist.pushBack("Nkhar");
+$wizlist.pushBack("Shrike");
+$wizlist.pushBack("Vlad");
+$wizlist.pushBack("Zibens");
+$wizlist.pushBack("Myths");
+$wizlist.pushBack("Adrian");
+$wizlist.pushBack("Amadeus");
+$wizlist.pushBack("Aphrael");
+$wizlist.pushBack("Bam");
+$wizlist.pushBack("Bart");
+$wizlist.pushBack("Benjamin");
+$wizlist.pushBack("Blackthorne");
+$wizlist.pushBack("Brixen");
+$wizlist.pushBack("Caitiff");
+$wizlist.pushBack("Calonis");
+$wizlist.pushBack("Creylin");
+$wizlist.pushBack("Daedalus");
+$wizlist.pushBack("Deldu");
+$wizlist.pushBack("Demise");
+$wizlist.pushBack("Destiny");
+$wizlist.pushBack("Drac");
+$wizlist.pushBack("Draknor");
+$wizlist.pushBack("Einrat");
+$wizlist.pushBack("Elind");
+$wizlist.pushBack("Esko");
+$wizlist.pushBack("Ethelam");
+$wizlist.pushBack("Firestorm");
+$wizlist.pushBack("Gilgalad");
+$wizlist.pushBack("Karma");
+$wizlist.pushBack("Kers");
+$wizlist.pushBack("Klog");
+$wizlist.pushBack("Kriff");
+$wizlist.pushBack("Leagle");
+$wizlist.pushBack("Leviathan");
+$wizlist.pushBack("Micho");
+$wizlist.pushBack("Mox");
+$wizlist.pushBack("Nynaeve");
+$wizlist.pushBack("Pema");
+$wizlist.pushBack("Piotr");
+$wizlist.pushBack("Poseidon");
+$wizlist.pushBack("Qwerty");
+$wizlist.pushBack("Racoon");
+$wizlist.pushBack("Redondo");
+$wizlist.pushBack("Rel");
+$wizlist.pushBack("Roan");
+$wizlist.pushBack("Rorschach");
+$wizlist.pushBack("Rue");
+$wizlist.pushBack("Ruhk");
+$wizlist.pushBack("Sammael");
+$wizlist.pushBack("Shiel");
+$wizlist.pushBack("Slash");
+$wizlist.pushBack("Slip");
+$wizlist.pushBack("Timmorn");
+$wizlist.pushBack("Tiw");
+$wizlist.pushBack("Toby");
+$wizlist.pushBack("Turtle");
+
+#action {% tells you '%'} 
+{ 
+	#new string tell_checker .; 
+	#$tell_checker "%1"; 
+	#new int show_irc 0;
+	#if {"$tell_checker.get(0)"!="*" && $tell_checker.find(" ")==-1 && $tell_checker!=Auctioneer} 
+	{
+		#if {$auto_irssi==1 && $auto_tells==1}
+		{
+			#$show_irc 1;
+		};
+	};
+	
+	#if {$wizlist.find("%1")>=0 && $auto_irssi==1 && $auto_tells==1} 
+	{
+		#$show_irc 1;
+	};
+	
+	#if {$show_irc==1}
+	{
+		irc ALARM: %1 tells Sac: '%2'
+	};
+	#$show_irc 0;
+};
+#action {You tell %, '%'} 
+{
+	#if {$auto_irssi==1 && $auto_tells==1 && "%1"!="your group"}
+	{
+		irc ALARM: Sac tells %1, '%2'
+	};
+};
+#action {% (Druid)[ % ]} {irc ALARM: %1 (Druid)[ %2 ]};
+#action {You [Druid] '%'.} {irc ALARM: Sac (Druid)[ %1 ]};

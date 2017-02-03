@@ -1,0 +1,3 @@
+#!/bin/sh
+mysql -h db1.kapsi.fi -ps2ala212 -D joufa < mud.sql
+rm mud.sql

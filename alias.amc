@@ -1,0 +1,113 @@
+
+#alias {reset} {#purge;#read etana;sc;deta;group;train;aff;checkBag};
+#alias {mobs} {
+	#//echo bear, oak, child, cook, ogre man, grey, dolphin, cleric, gatekeeper, wandering, daughir
+	
+	#echo 1:  Forest of Penura;
+	#echo 2:  Terian's Glade;
+	#echo 3:  Hidala;
+	#echo 4:  Pirates of Nilaah;
+	#echo 5:  Gronaker;
+	#echo 6:  Thiloza;
+	#echo 7:  Marantha Ocean;
+	#echo 8:  Theatre of Dreams/Logging Camp
+	#echo 9:  Temple of Sun;
+	#echo 10:  Orc Camp;
+	#echo 11: Castle Daughir;
+	#echo 12: Petaloudes;
+	#echo -------------------------------;
+	#echo Brute, Stonewind, Students, Coliseum, Troy, Oharan;
+	#echo PS: Vortex, Selene, Demon Wars;
+	#echo GOS: Chulak, Venden, Savannah;
+	#echo Woodhaven, Storm Front, Great War, Marilith, Marienburg, Cabal;
+};
+
+#alias {ovi} {get key;unl door;drop key;open door};
+
+#new string trueTemp1;
+#new string trueTemp2;
+
+#alias {true %} {
+        #$trueTemp1 "%1";
+        irc_spam z cast true sight $trueTemp1.get();
+};
+
+
+#alias {lmob} {
+	loc gateguard man;
+	loc talislantian hunter;
+	loc titanium golem;
+	loc angel shark;
+	loc elven sailor;
+	loc undead gatekeeper;
+	loc ogre gateguard;
+	loc watchman aubric;
+};
+#new string hold;
+#$hold "globe";
+#new string light;
+#$light "globe";
+#new string formlight;
+#new string formhold;
+#new string tail;
+#$formlight "bar";
+#$formhold "paper";
+#$tail "simple";
+
+#alias {dresslight} {
+	rem $formlight;
+	rem $formhold;
+	get $light $bag;
+	get $hold $bag;
+	put $formhold $bag;
+	put $formlight $bag;
+	hold $light;
+	hold $hold;
+};
+#alias {formlight} {
+        rem $light;
+        rem $hold;
+        get $formlight $bag;
+        get $formhold $bag;
+        put $hold $bag;
+        put $light $bag;
+        hold $formlight;
+        hold $formhold;
+};
+
+#alias {phase %} {
+	#if {$dragon==1} {return};
+	rem $hold;
+	hold faltnir;
+	use faltnir %1;
+	rem faltnir;
+	hold $hold;
+};	
+
+#new int fly;
+#new string flyeq winds;
+#new string about skin;
+
+
+#alias {flyon} {
+	#if {$shapeName=="Granite Drake"} {#$wasFormed 1;return};
+	return;
+	change phoenix;
+	#$fly 1;
+	#if {$wasFormed==1} {change form};	
+};
+
+#alias {flyoff} {
+        #if {$shapeName=="Granite Drake"} {#$wasFormed 1;return};
+        rem $flyeq;
+        get $about $bag;
+        wear $about;
+        put $flyeq $bag;
+	#$fly 0;
+        #if {$wasFormed==1} {change form};
+};
+
+
+#action {** $leader tells you 'fly on'} {
+	wait $.rand(1,2) "flyon"
+};

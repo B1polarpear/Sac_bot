@@ -1,0 +1,486 @@
+#// Tracks group membership and room membership;
+
+#new string name;
+#new string healname;
+
+#new int grouped;
+#new list groupList;
+#new list groupCheckList;
+#new list hereList;
+#new int groupCheck 0;
+#new int groupCheckRoutine 0;
+#new int loggedIn 0;
+#new ticker healChecker 2;
+#$healChecker 2;
+
+#new ticker areaChecker 120;
+$areaChecker 120;
+$areaChecker.setText(checkArea);
+$areaChecker.setLoop(1);
+$areaChecker.start();
+
+#alias {checkArea} {
+	#if {$.isConnected()==1 && $fightStatus==0} {area}
+};
+#new ticker groupChecker 300;
+#$groupChecker 300;
+$groupChecker.setText(checkgroup);
+$groupChecker.setLoop(1);
+$groupChecker.start();
+#new int i;
+
+#alias {katsoo} {
+        #$katsoo 0;
+};
+
+#alias {checkgroup}
+{
+	#if {$grouped==1 && $.isConnected()==1}
+	{
+		#$groupCheck 1;
+		group
+	};
+};
+#alias {addgroup %}
+{
+	#if {$groupList.find("%1")==-1}
+	{
+		$groupList.pushBack("%1")
+	};
+	#if {$groupCheckList.find("%1")>=0} {$groupCheckList.delete($groupCheckList.find("%1"))}
+};
+
+#alias {addhere %}
+{
+	#if {$groupList.find("%1")>=0 && $hereList.find("%1")==-1}
+	{
+		$hereList.pushBack("%1");
+	};
+	#if {$fightStatus==0 && $fighting==0 && $standing==1 && $missingSanc.find("%1")>=0} {
+			$missingSanc.delete($missingSanc.find("%1"));
+			#if {$r7clerics.find("%1")==-1} {sanc %1};
+	};
+	 #if {$fightStatus==0 && $fighting==0 && $standing==1 && $missingNpp.find("%1")>=0 && $nppAreas.find($area)>=0} {
+                        $missingNpp.delete($missingNpp.find("%1"));
+                        npp %1;
+        };
+	    #if {$fightStatus==0 && $fighting==0 && $standing==1 && $missingRp.find("%1")>=0 && $rpAreas.find($area)>=0} {
+                        $missingRp.delete($missingRp.find("%1"));
+                        rp %1;
+         };
+     #if {$fightStatus==0 && $fighting==0 && $standing==1 && $missingRa.find("%1")>=0 && $raAreas.find($area)>=0} {
+                        $missingRa.delete($missingRa.find("%1"));
+                        ra %1;
+        };
+    #if {$fightStatus==0 && $fighting==0 && $standing==1 && $missingPff.find("%1")>=0 && $pffAreas.find($area)>=0} {
+                        $missingPff.delete($missingPff.find("%1"));
+                        pff %1;
+        };
+     #if {$fightStatus==0 && $fighting==0 && $standing==1 && $missingPfl.find("%1")>=0 && $pflAreas.find($area)>=0} {
+                        $missingPfl.delete($missingPfl.find("%1"));
+                        pfl %1;
+        };
+    #if {$fightStatus==0 && $fighting==0 && $standing==1 && $missingFa.find("%1")>=0 && $faAreas.find($area)>=0} {
+                        $missingFa.delete($missingFa.find("%1"));
+                        fa %1;
+        };
+
+
+};
+#alias {remgroup %}
+{
+	#if {$groupList.find("%1")>=0}
+	{
+		$groupList.delete($groupList.find("%1"))
+	};
+};
+#alias {remhere %}
+{
+	#if {$hereList.find("%1")>=0}
+	{
+		$hereList.delete($hereList.find("%1"))
+	};
+};
+#action {% arrives suddenly.} {addhere %1};
+#action {% has arrived.} {addhere %1};
+#action {A bolt of lightning slams into the ground with a deafening sound as % suddenly snaps into existence.} {addhere %1};
+#action {A glowing outline of multicolored light appears and with a flash fills out into %.} {addhere %1};
+#action {A shimmering door appears for a second, and % steps out.} {addhere %1};
+#action {Suddenly % arrives to the docks of Scherazon!} {addhere %1};
+
+#action {Emperor % the % is%here.%} {addhere %1};
+#action {King % the % is%here.%} {addhere %1};
+#action {Empress % the % is%here.%} {addhere %1};
+#action {Queen % the % is%here.%} {addhere %1};
+#action {Prince % the % is%here.%} {addhere %1};
+#action {Princess % the % is%here.%} {addhere %1};
+#action {Grand Duke % the % is%here.%} {addhere %1};
+#action {Grand Duchess % the % is%here.%} {addhere %1};
+#action {Duke % the % is%here.%} {addhere %1};
+#action {Duchess % the % is%here.%} {addhere %1};
+#action {Marquess % the % is%here.%} {addhere %1};
+#action {Marchioness % the % is%here.%} {addhere %1};
+#action {Earl % the % is%here.%} {addhere %1};
+#action {Countess % the % is%here.%} {addhere %1};
+#action {Viscount % the % is%here.%} {addhere %1};
+#action {Viscountess % the % is%here.%} {addhere %1};
+#action {Baron % the % is%here.%} {addhere %1};
+#action {Baroness % the % is%here.%} {addhere %1};
+#action {Lord % the % is%here.%} {addhere %1};
+#action {Lady % the % is%here.%} {addhere %1};
+#action {Imper the % is%here.%} {addhere Imper};
+#action {Darqan the % is%here.%} {addhere Darqan};
+#action {Madkow the % is%here.%} {addhere Madkow};
+#action {Eskae the % is%here.%} {addhere Eskae};
+
+
+#action {% disappears as a soft ocean breeze fills the room where%} {remhere %1};
+#action {% disappears in a flash of ivory light.%} {remhere %1};
+#action {% disappears with a brief image of a massive stone flickering in your sight.%} {remhere %1};
+#action {% disappears, a cold howling breeze blasting through where%} {remhere %1};
+#action {% disappears.} {remhere %1};
+#action {% enters%} {remhere %1};
+#action {% falls screaming down.} {remhere %1};
+#action {% flees%} {remhere %1};
+#action {% is dead! R.I.P.}
+{
+	#if {$groupList.find("%1")>=0}
+	{
+		#if {$leader=="you" && $target!="x"} {
+			set x
+		};
+		$deadList.pushBack(%1);
+		remhere %1;
+		remgroup %1
+	};
+};
+#alias {delaysac} {
+	#if {$sacrificed==0} {sacrifice corpse} else {#$sacrificed 0}
+};
+#action {% lays a hand on the glowing stones%} {remhere %1};
+#action {% leaves.} {remhere %1};
+#action {% shimmers with electricity and disappears into the distance as a bolt of lightning.} {remhere %1};
+#action {%A shimmering door appears for a second, and % steps inside.%} {remhere %2};
+
+#action {% is now a group member.}
+{
+	#if {$groupList.find("%1")==-1 && $fightStatus==0 && $fighting==0 && $standing==1 && $grouped==1 && $r7clerics.find("%1")==-1} {
+		wait 1 "sanc %1"
+	} else {
+		 #if {$missingSanc.find("%1")==-1} {$missingSanc.pushBack("%1")}
+	};
+	#if {$groupList.find("%1")==-1 && $fightStatus==0 && $fighting==0 && $standing==1 && $grouped==1 && $nppAreas.find($area)>=0} {
+                wait 1 "npp %1"
+        } else {
+                 #if {$missingNpp.find("%1")==-1} {$missingNpp.pushBack("%1")}
+        };
+	 #if {$groupList.find("%1")==-1 && $fightStatus==0 && $fighting==0 && $standing==1 && $grouped==1 && $rpAreas.find($area)>=0} {
+                wait 1 "rp %1"
+        } else {
+                 #if {$missingRp.find("%1")==-1} {$missingRp.pushBack("%1")}
+        };
+        #if {$groupList.find("%1")==-1 && $fightStatus==0 && $fighting==0 && $standing==1 && $grouped==1 && $raAreas.find($area)>=0} {
+                wait 1 "ra %1"
+        } else { 
+                 #if {$missingRa.find("%1")==-1} {$missingRa.pushBack("%1")}
+        };
+       #if {$groupList.find("%1")==-1 && $fightStatus==0 && $fighting==0 && $standing==1 && $grouped==1 && $pffAreas.find($area)>=0} {
+                wait 1 "pff %1"
+        } else { 
+                 #if {$missingPff.find("%1")==-1} {$missingPff.pushBack("%1")}
+        };
+      #if {$groupList.find("%1")==-1 && $fightStatus==0 && $fighting==0 && $standing==1 && $grouped==1 && $pflAreas.find($area)>=0} {
+                wait 1 "pfl %1"
+        } else {
+                 #if {$missingPfl.find("%1")==-1} {$missingPfl.pushBack("%1")}
+        };
+       #if {$groupList.find("%1")==-1 && $fightStatus==0 && $fighting==0 && $standing==1 && $grouped==1 && $faAreas.find($area)>=0} {
+                wait 1 "fa %1"
+        } else {
+                 #if {$missingFa.find("%1")==-1} {$missingFa.pushBack("%1")}
+        };
+
+
+
+	#if {$grouped==1}
+	{
+		#$groupCheck 1;
+		group
+	};
+};
+#action {%Your group consists of:%}
+{
+	#if {$grouped==0} {#$grouped 1};
+	#if {$groupCheck==0 && $grouped==1} {#$groupCheck 1};
+	#$groupRun 1;
+	clearheals;
+	#if {$healMode==1} {
+	#$healChecker 3;
+        $healChecker.setText(katsoo);
+        $healChecker.start();
+	};
+};
+#action {----front-----}
+{
+	#if {$groupCheck==1}
+	{
+		#$i 0;
+		$groupCheckList.clear();
+		#while {$i<$groupList.size()}
+		{
+			$groupCheckList.pushBack($groupList.get($i));
+			#$i $i+1;
+		};
+		#$groupCheckRoutine 1;
+	};
+};
+#action {%You are now a group member.%}
+{
+	#$grouped 1;
+	checkgroup;
+	#$eocSanc 1;
+	
+		resetsession;
+	l
+};
+
+#new int hpPerc;
+#new list toHealList;
+#new list lowList;
+
+#new list healerList;
+$healerList.pushBack("Iq");
+$healerList.pushBack("Dr");
+
+#new list noHeals;
+$noHeals.pushBack("melian");
+$noHeals.pushBack("wen");
+$noHeals.pushBack("kevin");
+$noHeals.pushBack("evalin");
+$noHeals.pushBack("sorgath");
+$noHeals.pushBack("erkki");
+$noHeals.pushBack("iame");
+$noHeals.pushBack("detra");
+$noHeals.pushBack("raiven");
+$noHeals.pushBack("knast");
+$noHeals.pushBack("olber");
+$noHeals.pushBack("rennard");
+$noHeals.pushBack("keno");
+$noHeals.pushBack("arna");
+$noHeals.pushBack("erock");
+$noHeals.pushBack("olber");
+
+
+#new int tempHp;
+#new int tempHpMax;
+#new int erotus;
+#new list bigDam;
+
+#new list clList;
+#new list hsList;
+#new list cureList;
+#new list healList;
+#new list miraList;
+
+#new int cureLimit 300;
+#new int healLimit 750;
+#new int miraLimit 1300;
+
+#new int dangerHeal 600;
+#new int dangerMira 1100;
+
+#alias {newLimits % % %} {
+	#$cureLimit %1;
+	#$healLimit %2;
+	#$miraLimit %3;
+};
+
+#action {[% %][%(%)h %(%)m %(%)v]%}
+{
+
+
+	#$name "%9";
+	$name.remove(0);
+	#if {$name.find(" ")>0}
+	{
+		#$name $name.substr(0,$name.find(" "))
+	};
+	addgroup $name.get();
+
+	#$tempHp %3;
+	#$tempHpMax %4;
+	#$erotus $.math($tempHpMax-$tempHp);	
+
+	#if {$groupList.find("Keno")>=1 && $hereList.find($name)>=0} {
+
+        	#if {$erotus>550 && $erotus<700} {
+			$name.tolower();
+               		$cureList.pushBack($name);
+			#//echo -> cureList with -$erotus;
+		};
+		#if {$erotus>750 && $erotus<1250} {
+			$name.tolower();
+			$healList.pushBack($name);
+			#//echo -> healList with -$erotus;
+		};
+
+		#if {$erotus>1300} {
+			$name.tolower();
+                	$miraList.pushBack($name);
+			#//echo -> miraList with -$erotus;
+        	};
+	};
+
+	#if {$groupList.find("Keno")==-1} {
+
+		#if {$dangerMobs.find($targetDesc)==-1} {
+
+        		#if {$erotus>$cureLimit && $erotus<$healLimit && $hereList.find($name)>=0} {
+                		$name.tolower();
+				$cureList.pushBack($name);
+                		#//echo -> cureList with -$erotus;
+        		};
+        		#if {$erotus>$healLimit && $erotus<$miraLimit && $hereList.find($name)>=0} {
+                		$name.tolower();
+				$healList.pushBack($name);
+                		#//echo -> healList with -$erotus;
+        		};
+
+       		 	#if {$erotus>$miraLimit && $hereList.find($name)>=0} {
+        	       	 	$name.tolower();
+				$miraList.pushBack($name);
+               		 	#//echo -> miraList with -$erotus;
+        		};
+		};
+
+		#if {$dangerMobs.find($targetDesc)>=0} {
+
+                        #if {$erotus>$dangerHeal && $erotus<$dangerMira && $hereList.find($name)>=0} {
+                                $name.tolower();
+                                $healList.pushBack($name);
+                                #//echo DANGER: healList with -$erotus;
+                        };
+
+                        #if {$erotus>$dangerMira && $hereList.find($name)>=0} {
+                                $name.tolower();
+                                $miraList.pushBack($name);
+                                #//echo DANGER: miraList with -$erotus;
+                        };
+
+		};
+	};	
+
+
+
+};
+#alias {dumpgroup}
+{
+	$groupList.dump();
+	$hereList.dump()
+};
+#action {%You pray for swift transportation to%} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+	#//if {$autoAreaCheck==1} {areacheck}
+};
+#action {%You create a shimmering door and enter it.%} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+	#if {$autoAreaCheck==1} {areacheck}
+};
+#action {%You scream as you fall down.%} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+#action {%You lay a hand on the glowing stones and in an instant%} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+#action {%Stairway to Heaven%} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+#action {%Ivory Gardens Resting Room} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+#action {%Tesuit Dome} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+#action {%The Central Spire of the Crystal Dome} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+#action {%Cromlech} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+#action {%You barely escape when the roof starts to fall down.%} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+	l
+};
+#action {%You scream as you flee%} {
+	$hereList.clear();
+	$hereList.pushBack($me);
+};
+
+#new int bufStatus;
+
+#action {%Buf:healthy%} {#$bufHeal 0;#$bufStatus 0};
+#action {%Buf:fine%} {#$bufHeal 0;#$bufStatus 1};
+#action {%Buf:scratched%} {#$bufHeal 0;#$bufStatus 2};
+#action {%Buf:bruised%} {#$bufHeal 1;#$bufStatus 3};
+#action {%Buf:battered%} {#$bufHeal 1;#$bufStatus 4};
+#action {%Buf:wounded%} {#$bufHeal 1;#$bufStatus 5};
+#action {%Buf:hurt%} {#$bufHeal 1;#$bufStatus 6};
+#action {%Buf:injured%} {#$bufHeal 1;#$bufStatus 7};
+#action {%Buf:mauled%} {#$bufHeal 1;#$bufStatus 8};
+#action {%Buf:bleeding%} {#$bufHeal 1;#$bufStatus 9};
+#action {%Buf:crippled%} {#$bufHeal 1;#$bufStatus 10};
+
+#new string omaStatus;
+
+#action {% Kate:% } {
+	#$omaStatus "%2";
+	#if {$watchHeals.find($omaStatus)>=0 && $healing2==0} {
+		#$healing2 1;
+		cast 'heal'
+	};
+};
+
+#new list watchHeals;
+$watchHeals.pushBack("crippled");
+$watchHeals.pushBack("bleeding");
+$watchHeals.pushBack("mauled");
+$watchHeals.pushBack("injured");
+$watchHeals.pushBack("hurt");
+$watchHeals.pushBack("wounded");
+$watchHeals.pushBack("battered");
+$watchHeals.pushBack("bruised");
+
+
+
+#new int healing2;
+
+#action {A feeling of celestial power washes over you, healing your wounds.} {#$healing2 0};
+
+#new int dangerDesc;
+
+#action {% is healthy.} {
+	#if {$dangerDesc==1} {
+		#$dangerDesc 0; 
+		#if {$dangerMobs.find("%1")==-1} {
+                        $dangerMobs.pushBack("%1");
+                };
+        };
+};
+
+#alias {laitaD} {
+	#$dangerDesc 1;
+	look $target;
+};
+
+#new list dangerMobs;
+

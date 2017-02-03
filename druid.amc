@@ -1,0 +1,512 @@
+
+#new int autoRegen 1;
+#new int regening;
+#new int eocRegen;
+#new int autoHob 1;
+#new int hobbing;
+#new int autoRage 1;
+#new int eocRage;
+#new int autoKill;
+#new int autoAid 1;
+#new string reSpell;
+#$reSpell "";
+#new int sancing;
+#new int wasFormed;
+
+#alias {cb} {cast cure blind};
+#action {You have been blinded!} {cb};    
+#action {You have been blinded by the electric current!%} {cb};
+    
+
+#alias {octopus} {
+        #if {$mana>400} {
+                #if {$dragon==1} {
+                        return;
+                        change tiger;
+                        dresslight;
+                };
+                #if {$shapeName!="octopus"} {
+                        return;
+                        change octopus;
+                };
+                #if {$shapeName=="octopus"} {
+                        infoecho Already an octopus.
+                };
+
+        } else {
+                infoecho Mana too low.
+        };
+};
+
+#alias {tiger} {
+	#if {$mana>200} {
+		#if {$dragon==1} {
+			return;
+			change tiger;
+			dresslight;
+		};
+		#if {$shapeName!="tiger"} {
+			return;
+			change tiger;
+		};
+		#if {$shapeName=="tiger"} {
+                     	infoecho Already tiger.
+                };
+
+	} else {
+		infoecho Mana too low.
+	};
+};
+#alias {displacer} {
+        #if {$mana>600} {
+                #if {$dragon==1} {
+                        return;
+                        change disp;
+                        dresslight;
+                };
+                #if {$shapeName!="displacer beast"} {
+                        return;
+                        change disp;
+                };
+                #if {$shapeName=="displacer beast"} {
+                        infoecho Already a displacer.
+                };
+
+        } else {
+                infoecho Mana too low.
+        };
+};
+#alias {dragon} {
+        #if {$dragon!=1} {
+		return;
+		change form;
+		formlight;
+
+        } else {
+                infoecho Already a dragon.
+        };
+};
+
+#new int shatterMode;
+
+#//action {The rage of the wild leaves your body and you feel no fury.} {
+	#if {$autoRage==1 && $standing==1} {rage};
+};
+
+#new string shapeName;
+#new int eocBless;
+#new int eocShille;
+#new int eocFs;
+#new int eocHob;
+#action {%shrinks and changes to your normal form.%} {#$dragon 0};
+#action {You return to what you were.} {#$shapeOn 0;#$shapeName "elf"};
+
+
+#action {You change form.} {#$shapeOn 1;deta};
+#action {You are Sac, a % year old % male % Druid%} {
+	#if {"%3"!="elf"} {#$shapeOn 1};
+	#if {"%3"=="elf"} {#$shapeOn 0};
+	#$shapeName "%3";
+};
+
+#new list leaderList;
+$leaderList.pushBack("Darqan");
+$leaderList.pushBack("Imper");
+$leaderList.pushBack("Lazy");
+$leaderList.pushBack("Turska");
+
+#//alias {crom} {home;uus};
+#alias {bt} {kill $target};
+
+
+#alias {pff} {cast protection from fire};
+#alias {pff %} {#$groupSpell "protection from fire";cast protection from fire %1};
+#alias {pfl} {cast protection from lightning};
+#alias {pfl %} {#$groupSpell "protection from lightning";cast protection from lightning %1};
+
+#alias {rel %} {spell rel %1};
+#alias {cm %} {cast cure moderate wounds %1};
+#alias {cm} {cast cure moderate wounds};
+#alias {sanc} {cast sanctuary};
+
+#alias {sanc %} {#$groupSpell "sanctuary";cast sanctuary %1};
+#alias {bless} {cast bless};
+#alias {bless %} {cast bless %1};
+#alias {sat} {cast satiate};
+#alias {sat %} {cast satiate %1};
+#alias {lo %} {cast locate object %1};
+#alias {loc %} {cast locate char %1};
+#alias {shille} {cast 'shillelagh'};
+#alias {fs} {cast 'fire shield'};
+#alias {hob} {cast 'heart of the bear'};
+#alias {fseed} {cast 'fire seeds';throw};
+
+#new list missingHob;
+#new int x;
+#new string groupSpell "";
+
+#alias {hob %} {
+
+#if {$dragon==1} {#$wasFormed 1;return};
+
+         #if {%1=="group"}
+         {
+                    #if {$hob==1 || $hob==0}   
+                    {
+                                   #$groupSpell "heart of the bear";
+
+                                   $missingHob.clear();
+                                   #$x 0;
+
+                                   #while {$x<$groupList.size()}
+                                   {
+                                        #if {$hereList.find($groupList.get($x))==-1} {$missingHob.pushBack($groupList.get($x))};
+
+                                        #$x $x+1;
+                                    };
+
+                                   cast 'heart of the bear' group;
+                    };
+
+
+        };
+
+	#if {%1!="group"} 
+	{
+		cast 'heart of the bear' %1
+	};
+
+#if {$wasFormed==1} {#$wasFormed 0;change form};
+
+};
+
+#alias {regen} {cast 'regeneration'};
+#alias {regen %} {
+
+#if {$dragon==1} {#$wasFormed 1;return};
+
+
+         #if {%1=="group"}
+         {
+                    #if {$regen==1 || $regen==0}
+                    {
+                                   #$groupSpell "regeneration";
+
+                                   $missingRegen.clear();
+                                   #$x 0;
+
+                                   #while {$x<$groupList.size()}
+                                   {
+                                        #if {$hereList.find($groupList.get($x))==-1} {$missingRegen.pushBack($groupList.get($x))};
+
+                                        #$x $x+1;
+                                    };
+
+                                   cast 'regeneration' group;
+                    };
+
+
+        };
+
+        #if {%1!="group"}
+        {
+                cast 'regeneration' %1
+        };
+#if {$wasFormed==1} {#$wasFormed 0;change form};
+
+
+};
+
+#alias {rel %} {spell rel %1};
+#alias {reloc %} {cast 'relocation' %1};
+#alias {vita} {cast vitality};
+#alias {vita %} {cast vitality %1};
+#alias {sp} {cast 'spiritual hammer' $target};
+#alias {detect} {cast 'detect invis';cast 'detect alignment';cast 'detect undead'};
+#alias {wb} {cast water breathing};
+#alias {wb %} {cast water breathing %1};
+#alias {npp} {cast 'negative plane protection'};
+#alias {npp %} {cast 'negative plane protection' %1};
+#alias {nilaah} {home;dw};
+#alias {blind} {cast 'blindness' $target};
+#alias {ent} {cast 'entangle' $target};
+#alias {rage} {spell fury};
+#alias {tog} {cast 'touch of gaea'};
+#alias {tog %} {cast 'touch of gaea' %1};
+#alias {heb} {cast 'heal' buffer};
+#alias {sum %} {
+	cast 'summon' 0.%1
+};
+#alias {cs} {cast 'cure serious wounds'};
+#alias {cs %} {cast 'cure serious wounds' %1};
+#alias {heal} {cast 'heal'};
+#alias {heal %} {cast 'heal' %1};
+#alias {turn} {turn $target};
+#alias {lt} {look $target};
+#alias {qh} {quaff healing};
+
+
+
+#action {You lost your concentration when targeting %.} {
+	#sing {<%} {#$sancing 0};
+	#if {$sancing==1} {
+		sanc %1;
+	};
+};
+
+
+#alias {doRecast %} {
+        #$reSpell "%1";
+         #if {$fighting==0 && $fightStatus==0} {
+                   #if {$standing==0} {st;cast '$reSpell.get()';re} else {cast $reSpell}
+        };
+};
+
+
+#action {You have one minute left on '%'.} {
+	#if {"%1"=="haste"} {
+		#$eocHaste 1;
+		#if {$fightStatus==0 && $hasteLeft>1 && $groupList.find("Darqan")==-1} {haste};
+	};
+	#if {"%1"=="heart of the bear"} {
+		#$eocHob 1;
+		#if {$fightStatus==0 && $fighting==0 && $standing==1 && $autoHob==1 && $hobbing==0 && $groupList.find("Iame")==-1 && $groupList.find("Jokeri")==-1} {
+			 #if {$grouped==1} {
+                                #if {$hereList.size()>=(($groupList.size()*3)/4) && $mana>(($hereList.size()*50)+(($maxmana*15)/100))}
+                                {
+                                        #$hobbing 1;
+                                        hob group
+                                };
+                        } else {
+                                #$hobbing 1;
+                                hob
+                        };
+
+		};
+		
+	};
+	 #if {"%1"=="regeneration"} {
+                #$eocRegen 1;
+                #if {$standing==1 && $autoRegen==1 && $regening==0 && $groupList.find("Iame")==-1 && $groupList.find("Jokeri")==-1} {
+                         #if {$grouped==1} {
+                                #if {$hereList.size()>=(($groupList.size()*3)/4) && $mana>(($hereList.size()*55)+(($maxmana*15)/100))}
+                                {  
+                                        #$regening 1;
+                                        regen group
+                                };
+                        } else {
+                                #$regening 1;
+                                regen
+                        };
+
+                };
+
+        };
+
+	 #if {"%1"=="fire shield"} {
+                #$eocFs 1;
+                doRecast fire shield;
+        };
+	  #if {"%1"=="rage of the wild"} {
+                #$rage 2
+        };
+	  #if {"%1"=="sanctuary"} {
+                #$sanc 2
+        };
+
+};
+#action {Your shillelagh disappers.} {
+	#$eocShille 1
+};
+#action {You feel less righteous.} {
+	#$eocBless 1;
+	doRecast bless;
+};
+#action {%Your magically enhanced dexterity ebbs.%} {
+	#if {$hasteLeft>0} {haste};
+};
+
+
+#action {** $leader tells you 'sanc %'} {
+	#if {$leaderList.find($leader)>=0} {
+		#$sancing 1;
+		wait $.rand(1,2) "sanc %1";
+	};
+};
+#action {** $leader tells you 'hob %'} {
+        #if {$leaderList.find($leader)>=0} {
+                
+                wait $.rand(1,2) "hob %1";
+        };
+};
+#action {** $leader tells you 'wb %'} {
+        #if {$leaderList.find($leader)>=0} {
+               
+                wait $.rand(1,2) "wb %1";
+        };
+};
+#action {** $leader tells you 'regen %'} {
+        #if {$leaderList.find($leader)>=0} {
+                
+                wait $.rand(1,2) "regen %1";
+        };
+};
+
+#action {You lost your concentration when targeting %.} {
+	cast $groupSpell %1;
+};
+
+
+#action {** $leader tells you 'come'} {
+	wait $.rand(2,5) "checkCome $leader.get()"
+};
+#action {** $leader tells you 'comegsum'} {
+        wait $.rand(2,5) "checkCome $leader.get()"
+};
+
+
+#alias {checkCome %} {
+	rel %1;
+};
+
+
+#new list enterlist;
+$enterlist.pushBack("portal");
+$enterlist.pushBack("cave");
+$enterlist.pushBack("shaft");
+$enterlist.pushBack("boulder");
+$enterlist.pushBack("mirror");
+$enterlist.pushBack("ring");
+$enterlist.pushBack("city");
+
+
+
+#action {** $leader tells you 'en %'} {
+	#if {$enterlist.find("%1")>=0} {
+		wait $.rand(2,3) "enter %1"
+	};
+};
+
+#action {** $leader tells you 'leave'} {
+	wait $.rand(2,4) "leave"
+};
+
+#action {** $leader tells you 'kneel palace'} {
+        wait $.rand(2,4) "kneel palace"
+};
+
+#action {** $leader tells you 'nilaah'} {
+	#if {$atNilaah==0} {
+        	wait $.rand(2,4) nilaah
+	};
+	
+};
+
+#new int atNilaah;
+
+#action {Nilaah's Market Center} {#$atNilaah 1};
+
+#new list missingRegen;
+
+#alias {heb} {cast heal buffer};
+#alias {tob} {tog buffer};
+
+#// shapebot;
+
+#new int autoShape 1;
+#new int shapeOn;
+
+#new string shape; 
+#$shape "tiger";
+#new int eocShape;
+
+#new string shapeTemp;
+
+#action {You have one minute left on 'shapechange'.} {
+	#$eocShape 1;
+	#if {$fightStatus==0} {
+		#if {$mana>400 && $autoShape==1} {change $shape};
+	};
+};
+
+#action {%you will stay longer in your form.%} {
+	 #if {$shapeOn==0} {#$shapeOn 1};
+        #if {$eocShape==1} {#$eocShape 0};
+};
+
+
+#action {You change form.} {
+	#if {$shapeOn==0} {#$shapeOn 1};
+	#if {$eocShape==1} {#$eocShape 0};
+};
+
+#action {You return to what you were.} {
+	#$shapeOn 0
+};
+
+#action {You are Etana, a % year old % Druid.} {
+	#$shapeTemp "%2";
+	#if {$shapeTemp.find("tiger")>=0} {#$shapeOn 1};
+};
+
+#alias {go} {
+	#if {$groupList.find("Eskae")>=0} {
+		irc_spam es wc
+	} else {
+		#if {$groupList.find("Daryl")>=0} {
+			irc_spam c bash $target.get();
+		};
+	};
+};
+
+#alias {para} {
+	#if {$groupList.find("Darqan")>=0} {
+		irc d para
+	} else {
+reci book $target.get();
+	};
+};
+	
+#alias {pwb} {
+        #if {$groupList.find("Philo")>=0} {
+                irc p pwb
+        };
+};
+
+#alias {sile} {
+        #if {$groupList.find("Wen")>=0} {
+                irc z cst
+        };
+};
+
+#alias {cleargt} {
+	#echo gtells cleared!;
+	$gtells.setVisible(0);
+};
+
+#new int bufHeal;
+
+#action {Ok.} {
+	#if {$bufHeal==1} {#$bufHeal 0};
+};
+
+#action {%Buf:crippled %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;tob}};
+#action {%Buf:bleeding %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;tob}};
+#action {%Buf:mauled %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;tob}};
+#action {%Buf:injured %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;tob}};
+#action {%Buf:hurt %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;tob}};
+
+#alias {cmt %} {cast 'mana trans' %1};
+
+#new string healCharOne;
+#$healCharOne "Gawk";
+
+#action {%$healCharOne.get():crippled %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;heal $healCharOne.get()}};
+#action {%$healCharOne.get():bleeding %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;heal $healCharOne.get()}};
+#action {%$healCharOne.get():mauled %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;heal $healCharOne.get()}};
+#action {%$healCharOne.get():injured %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;heal $healCharOne.get()}};
+#action {%$healCharOne.get():hurt %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;heal $healCharOne.get()}};
+#action {%$healCharOne.get():wounded %} {#if {$mana>100 && $bufHeal==0} {#$bufHeal 1;heal $healCharOne.get()}};
+
+#action {%A lord of Law is being held captive here.%} {say cure me};
+

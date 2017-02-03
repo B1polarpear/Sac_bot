@@ -1,0 +1,147 @@
+#// Taisteluuun littyvät;
+
+#new int fighting;
+#new int fightStatus;
+#new string fightCheck;
+#new ticker assistTimer 1;
+#new timer killTimer 1;
+#new int autoAssist 1;
+#new double killTime 0.00;
+#new int lastKillTime;
+#new string target;
+#new string tank;
+#new string starter;
+#new string starter;
+#new ticker assistTimer 1;
+
+#alias {autoassist} {
+
+	#if {$fighting==0 && $groupList.find($starter)>=0 && $fightStatus==1} {
+	
+		
+			$starter.tolower();
+			ass $starter
+		
+	};
+};
+
+#//fightstatus: killtimer;
+
+#alias {fightstatus} {
+	#if {$fightStatus==0} {
+		#if {$killTimer.isRunning()==0} {
+			#$killTime 0.00;
+			$killTimer.start();
+		};
+		#$fightStatus 1;
+		
+		#if {$dragon==1 && $indoor==1 && $fighting==0 && $autoEval==1} {tiger};	
+		#if {$autoRage==1 && $rage==0 && $mana>200} {rage};
+		#//if {$ioun==0} {#$ioun 1;hold ioun};
+		#if {$autoAssist==1}
+                {
+                        #$assistTimer $.rand(1,2);
+                        $assistTimer.setText(autoassist);
+                        $assistTimer.start()
+                };
+	
+	};
+
+};
+#alias {fightoff} {
+	#$fighting 0;
+	#$fightStatus 0;
+};
+
+#alias {set %} {
+	#$target %1;
+	$target.tolower();
+	#if {$leader==$me} {gt target=%1};
+	l;
+};
+
+#alias {tank %} {
+	#$tank %1;
+	$tank.tolower();
+};
+
+#action {% assists%} {
+	#if {$groupList.find("%1")>=0} {#$starter "%1";fightstatus}
+};
+
+
+#action {% tried to backstab %, but was evaded nimbly.} {#$starter "%1";fightstatus};
+#action {%'s swift kick misses %'s head completely.} {#$starter "%1";fightstatus};
+#action {%'s flawless kick connects violently with %, sending % stumbling.} {#$starter "%1";fightstatus};
+#action {% has time to utter a strangled sound before your % pierces % heart and bursts out of % chest forcefully!} {fightstatus};
+#action {$leader the % is here, fighting%}             {fightstatus};
+#action {% notices %'s intentions, and quickly attacks%} {#$starter "%1";fightstatus};
+#action {% tries to strike % down with a spiritual hammer, but narrowly misses%} {#$starter "%1";fightstatus};
+#action {% screams a mighty warcry and attacks%}        {#$starter "%1";fightstatus};
+#action {%body spasms with pain as % rips%}             {#$starter "%2";fightstatus};
+#action {%is not affected by %'s half-hearted warcry%}    {#$starter "%2";fightstatus};
+#action {%manages to sidestep a deadly strike from % tail%}     {#$starter "%2";fightstatus};
+#action {% sends % sprawling with a powerful bash%}     {#$starter "%1";fightstatus};
+#action {% thrusts % into the back of%}                         {#$starter "%1";fightstatus};
+#action {% shoots %} {#$starter "%1";fightstatus};
+#action {%Vic:%} {fightstatus};
+
+#action {%You join the fight!%} {
+        #if {$fighting==0}
+        {
+                #$fighting 1
+        };
+        fightstatus;
+        #$standing 1
+};
+#action {%Loki disappears in a puff of smoke%} {fightoff};
+#action {You now follow %.} {#$leader %1};
+#action {** $leader tells you 'target=%'} {
+	set %1;
+};
+#action {% is now the new leader of the group.} {#$leader %1};
+
+#alias {wt} {where $target};
+
+#action {** $leader tells you 'quaff mixture'} {quaff mixture};
+
+
+#//alias {corpse}{
+	checkresu;
+	return;
+	healon;
+	#$eocHaste 1;
+	#$eocInvul 1;
+	#$eocPfe 1;
+	g all.kate all.kate;
+	wear all;
+	
+	wield club;
+	change form;
+	hold $light;
+	hold $formhold;
+	fol $leader;
+	
+
+};
+
+#//alias {ground} {
+	checkresu;
+	return;
+        healon;
+        #$eocHaste 1;
+        #$eocInvul 1;
+        #$eocPfe 1;
+        g all.kate;
+        wear all;
+	
+
+        wield club;
+	change form;
+	hold $light;
+	hold $formhold;
+        fol $leader;
+
+};
+
+#//alias {$leader tells you 'corpse'} {corpse};

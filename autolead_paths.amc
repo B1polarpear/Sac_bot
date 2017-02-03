@@ -1,0 +1,120 @@
+#//---------AUTOLEAD PATHIT-----------------------------------------------------------;
+
+
+#new map autoLeadPaths;
+$autoLeadPaths.set("delenel","eewwssesseeewwwnneeneeeseeeeseeennwwwnwessw");
+$autoLeadPaths.set("orccamp","nnwswnnesennenwwneennsswssswnwwsnnswsnnseeesesesennneeenwweenwwenseswws");
+$autoLeadPaths.set("vortex","sennwwssseeennnnwwwwssssseeeeee");
+$autoLeadPaths.set("talislantia","wwwwwwwwweeeeeeeeeeeeeeeeee");
+$autoLeadPaths.set("oharan","nwwnnneeeessswwnwenweewseuwwnneeesswsndsenen");
+$autoLeadPaths.set("troy","nnnnnwwssennessennessww");
+$autoLeadPaths.set("savannah","neeesdnnesneenssnenn");
+#//$autoLeadPaths.set("chulak","eswwnneeswswnnneewwswnseswsnesswenesewn");
+$autoLeadPaths.set("demonwars","nnwnnwwnnwnswnnwwnnnssseenenee");
+$autoLeadPaths.set("selene","nweewnnwwwwenssneeeeeeewnssnwwwnnwnneesswnwwwwwwwswwennweessneeeeeeeeeeeeeeneewssewwnwwwwwwwnnnnwneeswssssu");
+#//out 32, in 43, out 48, in 69, out 74, in 94, out 96;
+$autoLeadPaths.set("coliseum","nnnnnuuuwwwwwnnnnwesssseeeeeeeeeennnnsssswwwwwdwwwwnnnssseeeeeeeennnssswwwwdeeennsswwwwwwnnss");
+$autoLeadPaths.set("cabal","nneenwenewnwenwwnnsweewssuesswwnnednwwsewswesewsee");
+$autoLeadPaths.set("conundrum","wswswswsweneneeesswennnessssseneeeeeenwnwnwnwnwnsssssennessee");
+$autoLeadPaths.set("woodhaven","eessewsnnnenwenssenssnesnnseennssssnnenewseenssnesnnseesenswseew");
+$autoLeadPaths.set("brute","nwwnensswnunswe");
+$autoLeadPaths.set("stonewind","sunnudeeeudsssudwwwud");
+$autoLeadPaths.set("darkirham","eeeeeennwnsudeenssnwnenssnwnenssnwsssswwwsswwsudnwsudnwudennens");
+$autoLeadPaths.set("chulak1","eenssewswssennssenn");
+$autoLeadPaths.set("chulak2","wssewwnssweewnwwennenweewswwueeswnwddesseew");
+$autoLeadPaths.set("marienburg","eeneswssnenswneeeeesesnenweesneewnewnsswwnwwnsswwnnws");
+$autoLeadPaths.set("sf1","wwsswwwssssnnnnwwnnnwweesswwwssw");
+$autoLeadPaths.set("sf2","uuuussswweeeewwswennnnwnssnwwswennwnseseeennweewnwweeeenweswwsssenssneesnnesn");
+$autoLeadPaths.set("stormfront","wwsswwwssssnnnnwwnnnwweesswwwsswuuuussswweeeewwswennnnwnssnwwswennwnseseeennweewnwweeeenweswwsssenssneesnnesn");
+$autoLeadPaths.set("venden","nnnwnnnneewwsswnudswwww");
+$autoLeadPaths.set("council","nweewnnweewnwweeeeww");
+$autoLeadPaths.set("naggarond","swseneseeewwnewswwwwweenwweeseswsweneesewnwsuswwnseeeenswwssnweewnnuswewendddnweewnssu");
+$autoLeadPaths.set("wights","nwseeswwnneenwwnnsseennssws");
+$autoLeadPaths.set("fires","nnnnwsssswnnnnwsssswnnnnwssss");
+$autoLeadPaths.set("airs","ssssennnnessssennnnessssennnn");
+$autoLeadPaths.set("earths","nnnnessssennnnessssennnnessss");
+$autoLeadPaths.set("waters","ssssennnnessssennnnessssennnn");
+$autoLeadPaths.set("pyramid","ssssswwwssweewnnwsnuwdsenseeeessssssswwnneeeeeddswwwwwwwweeeeeesssswwweeennnneennennnnnneeeewwwwssuueeeeewwwnnnnnssssswwwwwwnnnnneeeeneseee");
+$autoLeadPaths.set("shrineofgods","nnnnssssssssnnnnwwwwwueeeeenweewssweewnuuuwnwnssssnewwnnsw");
+$autoLeadPaths.set("arena","nnnnnnnnnnnnnnnun");
+$autoLeadPaths.set("canvas","sswneswsswnnnwnwwseessswwnnsseeeennnen");
+
+#new list chulakDoors;
+$chulakDoors.pushBack("0");
+$chulakDoors.pushBack("3");
+$chulakDoors.pushBack("4");
+$chulakDoors.pushBack("5");
+$chulakDoors.pushBack("7");
+$chulakDoors.pushBack("8");
+$chulakDoors.pushBack("11");
+$chulakDoors.pushBack("19");
+
+#new list chulakIndoors;
+
+#new string conodPath wswswswsweneneeesswennnessssseneeeeeenwnwnwnwnwnsssssennessee;
+#new string woodPath eessewsnnnenwenssenssnesnnseennssssnnenewseenssnesnnseesenswseew;
+#new string aaina nnnwswnwwnwwuwuwnnnunwdddwwwnnneeeeswwwwseeewwwseseeseswnwswnwsnnneeeuuu;
+#//new string darkirham1 eennewnewnnsswnnsssnwnssneessseeeennwnsweeensewwnwweeeewwnensewssssw;
+#new string naggarond1 swwweeswweenesenseeewwnewswwswsweneesewnwsusssnweewnwwnewseeeenweswwnusweewnuddddnweewnns;
+#new string naggarondpath swseneseeewwnewswwwwweenwweeseswsweneesewnwsuswwnseeeenswwssnweewnnuswewendddnweewnssu;
+#// 1 gate, ,8 indoors,12 op door,18 op door;
+#//viimeinen numero 79?;
+#//20,26,51,53,59,61,79,80;
+#new string sf_alakerta wwsswwwssssnnnnwwnnnwweesswwwssw;
+#new string sf_ylakerta uuuussswweeeewwswennnnwnssnwwswennwnseseeennweewnwweeeenweswwsssenssneesnnesn;
+#new string pillars nnwwiuuuddddnnnniuuuddddeeeeiuuuddddssssiuuudddd;
+#new string kialtest ,wwwwwwswwnnnn,uuuu;
+#new string councilpath nweewnnweewnwweeeew;
+#new string vortex sennwwssseeennnnwwwwssssseeeeee;
+#new string marienburg eneswssnenswneeeeesesnenweesnenewnsswwnwwnss;
+#new string wights nwseeswwnneenwwnnsseennssws;
+#new string greatwar weeenunnwwsseedswnnwwsneeeesnnswwnnwweeeewwnnnwwwwwwsssesuwwse;
+#new string fires nnnnwsssswnnnnwsssswnnnnwssss;
+#new string earths nnnnessssennnnessssennnnessss;
+#new string waters ssssennnnessssennnnessssennnn;
+#new string airs ssssennnnessssennnnessssennnn;
+
+#new string mapmaker sseen;
+#new string logger swnnnenwnn;
+#new string peta wsdswsweennunnenneuen;
+#new string peron swueessswwwnnnedswessweneeneewsnnswswnwenenswnsss;
+#new string terian nwweeeewwndweewdueww;
+#new string dgrove ensenenwsnwenweewswesneswswnsw;
+#new string orccamp nnwswnnesennenwwneennsswssswnwwsnnswsnnseeesesesennneeenwweenwwenseswws;
+
+#//$autoLeadPaths.set("orccamp","nnwswnnesennenwwneennsswssswnwwsnnswsnnseeesesesennneeenwweenwwenseswws");
+
+#new string wyvern ssweewsweews;
+#new string moose sssssseenwwneenwwneenwn;
+#new string toho swuenenesee;
+#new string templesun nnennwnnnweewnueennwwwwsseedssswwee;
+
+
+#new string selene nweewnnwwwwenssneeeeeeewnssnwwwnnwnwwwwwwwwnssennessneeeeeenennnnweeswwessseseeeeeeeensswnnwssnwwwwwwwunnns; 
+
+#new string shrine ssssnnnnnnnnsssswwwwwueeeeeuunwsnnwnssssnwnnsw;
+#new string venden nnnwnnnneewwsswnudswwww;
+
+#new string ironhome wnssnwnssnwwwnssnd;
+#new string dreamisle swwssseesseennes;
+
+#new string serpents wwnswwsswennnnnswwnssnwwee;
+
+#new string daughir1 wwsudnenwenweeeewsewsesudnwwsssnnnnn;
+#new string daughir2 wnsenewseunewssnwnsenswwee;
+
+#new string corne sssssssseeessnnwsnwssswnnnwssswsnnnnwwswn;
+
+#new string gronaker sseeneeswwseewseeewwwwsseeenewssweewsewnnwwwssnnnnwwssnwwwweeeennn;
+#new string thiloza nwudnnnudeeudsssudnws;
+#new string gpob eeeenwwwwwnweeeeeenwwwwwseenneessss;
+#new string hidala wwwwwwwwsswwssssssennesnewwwswwwwwnweeeenenn;
+
+#new string oharan wwnnneeeessswwnwenweewseuwwnneeesswsndsenen;
+#new string troy nnnnnwwssennessennessww;
+#new string brute nwwnenswsewn;
+#new string ark snnwnnensesswenwdnswesnewuusweewnweewnweewusnd;
+
+#//3;
+
+#//---------------------------------------------------------------------------------------;

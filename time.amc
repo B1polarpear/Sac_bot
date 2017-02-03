@@ -1,0 +1,87 @@
+#new int time;
+#new int seconds;
+#new int minutes;
+#new int hours;
+#new int days;
+#new string timeString;
+#new string expRateString;
+
+#alias {convertTime %} {
+	#$time %1;
+	#$timeString "";
+	
+	#$days $.math($time/(60*60*24));
+	#$time $.math($time-($days*(60*60*24)));
+
+	#$hours $.math($time/(60*60));
+        #$time $.math($time-($hours*(60*60)));
+  
+	#$minutes $.math($time/60);
+        #$time $.math($time-($minutes*60));
+
+	#$seconds $time;
+	#$time $.math($time-$seconds);
+
+	#if {$days>0} {
+		#$timeString "$days.get() d ";
+	};
+	#if {$hours>0} {
+		#$timeString $timeString+"$hours.get() h ";
+	};
+	 #if {$minutes>0} {
+                #$timeString $timeString+"$minutes.get() m ";
+        };
+        #if {$seconds>0} {
+                #$timeString $timeString+"$seconds.get() s";
+        };
+
+}; 
+
+#new int dateCheck;
+#new string dateTemp;
+
+#alias {checkDate} {
+	};
+
+#new int metaExpNeeded;
+#new int metaSecNeeded;
+#new string metaLeftString "unknown";
+#new int metaTime;
+#new int metaDays;
+#new int metaHours;
+#new int metaMin;
+
+#alias {countMetaLeft} {
+	#$metaExpNeeded $.math($metaexp-$expon);
+	#$metaSecNeeded $.math($metaExpNeeded/$sessionRate);
+	
+	#$metaTime $metaSecNeeded;
+        #$metaLeftString "";
+
+        #$metaDays $.math($metaTime/(60*60*24));
+        #$metaTime $.math($metaTime-($metaDays*(60*60*24)));
+
+        #$metaHours $.math($metaTime/(60*60));
+        #$metaTime $.math($metaTime-($metaHours*(60*60)));
+
+        #$metaMin $.math($metaTime/60);
+        #$metaTime $.math($metaTime-($metaMin*60));
+
+        #//$seconds $time;
+        #//$time $.math($time-$seconds);
+
+        #if {$metaDays>0} {
+                #$metaLeftString "$metaDays.get() days ";
+        };
+        #if {$metaHours>0} {
+                #$metaLeftString $metaLeftString+"$metaHours.get() hours ";
+        };
+        #if {$metaMin>0} {
+                #$metaLeftString $metaLeftString+"$metaMin.get() min";
+        };
+        #//if {$seconds>0} {
+                #$timeString $timeString+"$seconds.get() s";
+        };
+};
+		
+

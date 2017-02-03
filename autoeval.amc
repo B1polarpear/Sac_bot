@@ -1,0 +1,141 @@
+#new int autoAreaCheck 1;
+#new int areaCheckRoutine;
+#new string currentArea;
+#$currentArea "";
+#new int autoEval 1;
+#new int eocEval;
+
+#new int weather;
+#new int weatherCheckRoutine;
+
+#action {The sky is%} {#$weather 1};
+#action {You have no feeling about the weather at all.} {#$weather 0};
+
+
+#action {Swirling Mists Glow with Power} {area};
+
+#action {% has summoned you!}
+{
+        #if {$fightStatus==1 || $fighting==1} {fightoff};
+        #if {$standing==0} {st};
+        #if {$autoAreaCheck==1} {areacheck};
+	#//if {$ioun==0} {hold ioun}
+};
+
+#new ticker areaCheckTimer 180;
+#$areaCheckTimer 180;
+$areaCheckTimer.setLoop(1);
+$areaCheckTimer.setText(areacheck);
+$areaCheckTimer.start();
+
+#alias {areacheck} {
+        #if {$.isConnected()==1 && $loggedIn==1 && $autoAreaCheck==1} {
+                #if {$areaCheckRoutine==0} {
+                        #$areaCheckRoutine 1;
+                        area;
+                };
+                #if {$autoEval==1} {evaltarget};
+        };
+};
+
+#action {%Zone name: %}
+{
+        #$currentArea "%2";
+        #if {$areaCheckRoutine==1} {#$areaCheckRoutine 0};
+	#if {$shapeName=="elf" && $fightStatus==0 && $mana>400} {tiger};
+        #if {$autoEval==1} {evaltarget};
+};
+
+
+#alias {evaltarget} {
+        #if {$fightStatus==1} {
+                #if {$eocEval==0} {#$eocEval 1}
+        } else {
+                #if {$eocEval==1} {#$eocEval 0};
+                #//if {$currentArea=="The Blighted Forest"} {checkblighted};
+                #//if {$currentArea=="Darkirham"} {checkdarkirham};
+		#if {$currentArea=="The Planes of Elemental Fury"} {checkplanes};
+     	        #if {$currentArea=="The Argo"} {checkargo};
+		#if {$currentArea=="Ivan's Home"} {checkivan};
+		#//if {$currentArea=="The Veiled Cabal"} {checkcabal};
+		#//if {$currentArea=="Expansion of Conundrum"} {checkconu};
+		#//if {$currentArea=="The Demon Wars"} {checkdw};
+		#//if {$currentArea=="O'Haran's Cottage"} {checkoharan};	
+		#//if {$currentArea=="Shrine of Selene and Den of Darkness"} {checkselene};
+		#//if {$currentArea=="Chulak"} {checkchulak};
+		#//if {$currentArea=="Naggarond"} {checknagga};
+		#//if {$currentArea=="High skies"} {checkskies};
+		#//if {$currentArea=="Land of Venden"} {checkvenden};
+		#//if {$currentArea=="The Heart of Blue Tree Forest"} {checkbluetree};
+		#//if {$currentArea=="Talislantia"} {checktalis};
+		#//if {$currentArea=="Bufeo Village"} {checktalis};
+		#//if {$currentArea=="Storm Front"} {checkstormfront};
+		#//if {$currentArea=="Pillars of Light"} {checkstormfront};
+	};
+};
+
+#action {A Well Built Cottage} {area};
+
+#alias {checkdarkirham} {
+	#if {$shapeName!="tiger"} {tiger};
+};
+#alias {checkblighted} {
+        #if {$shapeName!="tiger"} {tiger};
+	#$blastLimit 50;
+};
+#alias {checkargo} {
+        #if {$shapeName!="displacer beast"} {disp};
+        #//$blastLimit 90;
+};
+
+#alias {checkplanes} {
+	#//if {$fly==0} {flyon};
+	#if {$shapeName!="displacer beast"} {disp};
+	#//$blastLimit 90;
+};
+#alias {checkivan} {
+	#if {$fly==0} {flyon};
+	#if {$shapeName!="displacer beast"} {disp}
+};
+#alias {checkcabal} {
+	#if {$shapeName!="tiger"} {tiger}
+};
+#alias {checkconu} {
+        #if {$shapeName!="Granite Drake"} {dragon}
+};
+#alias {checkdw} {
+        #if {$shapeName!="Granite Drake"} {dragon}
+};
+#alias {checkoharan} {
+        #if {$shapeName!="Granite Drake"} {dragon}
+};
+#alias {checkselene} {
+        #if {$shapeName!="tiger"} {tiger}
+};
+#alias {checkchulak} {
+        #if {$shapeName!="tiger"} {tiger}
+};
+#alias {checknagga} {
+        #if {$shapeName!="tiger"} {tiger}
+};
+#alias {checkskies} {
+        #if {$shapeName!="Granite Drake"} {dragon}
+};
+#alias {checkvenden} {
+        #if {$shapeName!="Granite Drake"} {dragon}
+};
+#alias {checkbluetree} {
+        #if {$shapeName!="tiger"} {tiger}
+};
+
+#alias {checktalis} {
+        #if {$shapeName!="octopus"} {octopus}
+};
+
+#alias {checkstormfront} {
+        #if {$fly==0} {flyon}
+};
+
+#new map evalMap;
+$evalMap.set("The Argo","disp|0");
+

@@ -1,0 +1,35 @@
+#alias {_wait_ticker_creator[%][%][%]}
+{
+	#new ticker %2 %1;
+	#new string %2_text;
+	#$%2_text %3+\;+"$"+%2+".stop()"+\;+"#singleaction {%} {#delete %2 %2_text}";
+	$%2.setText($%2_text);
+	$%2.start()
+};
+
+#alias {_wait_ticker_checker % %}
+{
+	#if {$%2_text}
+	{
+		#$%1 1
+	} else {
+		#$%1 0
+	}
+};
+
+#alias {wait % %}
+{
+	#new int tmp_wait_index 0;
+	#new string tmp_wait_name;
+	#$tmp_wait_name wait_ticker_0;
+	#new int tmp_wait_boolean 0;
+	_wait_ticker_checker tmp_wait_boolean $tmp_wait_name.get();
+	#while {$tmp_wait_boolean}
+	{
+		#$tmp_wait_index $tmp_wait_index+1;
+		#$tmp_wait_name wait_ticker_+$tmp_wait_index;
+		_wait_ticker_checker tmp_wait_boolean $tmp_wait_name.get()
+	};
+	_wait_ticker_creator[%1][$tmp_wait_name.get()][%2];
+	#delete tmp_wait_index tmp_wait_boolean tmp_wait_name
+};

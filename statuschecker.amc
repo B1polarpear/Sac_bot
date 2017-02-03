@@ -1,0 +1,259 @@
+#// Keraa statistiikkaa hahmosta;
+
+#alias {laitaSql % % % %} {
+        #system echo "%1" >> lastKill.txt;
+        #system echo "%2" >> lastKill.txt;
+        #system echo "%3" >> lastKill.txt;
+        #system echo "%4" >> lastKill.txt;
+
+};
+#new int expReport 1;
+#//new int faith;
+#new double expon 0.00;
+$expon.decimals(2);
+#new double goldon;
+$goldon.decimals(2);
+
+#new int goldbank;
+#new int level;
+#new int mission;
+#new int standing;
+#new int hunger;
+#new int thirst;
+#new int drinking;
+#new breadLeft;
+#new int hp;
+#new int maxhp;
+#new int mana;
+#new int maxmana;
+#new int mv;
+#new int maxmv;
+#new string fightCheck;
+#new int hpVar;
+#new int manaVar;
+#new int moveVar;
+#new int hpChange;
+#new int manaChange;
+#new int moveChange;
+#new string changeString;
+#new string lastMob;
+#new int lastKillTime;
+#new string expString;
+#new int perHour;
+#new int killLog;
+#new int autoAid;
+#new int lastKillAt;
+#new int autoKill;
+#new int autoSac 1;
+#new int sacced;
+#new string $leader;
+
+
+#action {You have collected % exp, and have %(%) gold coins.} {
+	#$expon %1;
+	#$goldon %2;
+	#$goldbank %3;
+};
+
+#action {You have % xp to spend.} {#$expon %1};
+#action {You are level %.} {#$level %1};
+#action {Your mission is:} {#if {$mission==0} {#$mission 1}};
+#action {Mission solved} {#$if {$mission==1} {#$mission 0}};
+#action {You sit down and rest your tired bones.} {#$standing 0};
+#action {You stop resting, and stand up.} {#$standing 1};
+#action {You sit down.} {#$stading 0};
+#action {You stand up} {#$standing 1};
+#action {% tells you 'That'll be % coins, please.'} {#$goldon $goldon-%2};
+#action {$me, I will take % gold coins as a training fee.} {#$goldon $goldon-%1};
+#action {You are hungry.} {#$hunger 1;#if {$fightStatus==0} {sat}};
+#action {You are thirsty.} {#$thirst 1};
+#action {You are full.} {#$hunger 0};
+#action {You do not feel thirsty.} {#$thirst 0};
+#action {You eat the bread.} {#$breadLeft $breadLeft-1;};
+#action {You drink the water.} {#$drinking 0};
+
+#//donations;
+#action {rank % : %} {};
+#action {level % : %} {
+	#if {%1<=$level} {#echo CAN USE!};
+};
+
+#// PROMPT;
+
+#action {< %(%)hp %(%)mana %(%)mv %} {
+	#$hp %1;
+	#$maxhp %2;
+	#$mana %3;
+	#$maxmana %4;
+	#$mv %5;
+	#$maxmv %6;
+	 #$hpChange %1-$hpVar;
+        #$manaChange %3-$manaVar;
+        #$moveChange %5-$moveVar;
+        #$changeString "";
+        #if {$hpChange!=0}
+        {
+                #if {$hpChange>0} {#$changeString "+$hpChange.get() hp"};
+                #if {$hpChange<0} {#$changeString "$hpChange.get() hp"};
+                #$hpVar %1
+        };
+	 #if {$manaChange!=0}
+        {
+                #if {$changeString.length()>0}
+                {
+                        #if {$manaChange>0} {#$changeString "$changeString.get() +$manaChange.get() mana"};
+                        #if {$manaChange<0} {#$changeString "$changeString.get() $manaChange.get() mana"}
+                } else {
+                        #if {$manaChange>0} {#$changeString "+$manaChange.get() mana"};
+                        #if {$manaChange<0} {#$changeString "$manaChange.get() mana"}
+                };
+                #$manaVar %3
+        };
+        #$moveVar %5;
+        #if {$changeString.length()>0} {#echo $changeString};
+	#$fightCheck "%7";
+	#if {$fightCheck.find("Vic:")>=0} {
+		#if {$fighting==0} {#$fighting 1};
+		fightstatus;
+		#$standing 1;
+	};
+		
+};
+
+#// AFTERKILL;
+
+
+
+#alias {last} {#echo $expString};
+#action {% is dead! R.I.P%} {
+        #if {$groupList.find("%1")==-1} {
+                #$lastMob "%1"
+        };
+};
+
+
+#action {You receive % experience points%} {
+	#if {$killTimer.isRunning()==1} {$killTimer.stop()};
+	#$lastKillTime $killTimer;
+        #if {$expReport==1} {
+                #$perHour $.math((%1/$lastKillTime)*3600/1000000);
+                #$expString "Killing $lastMob.get() took $lastKillTime.get() seconds and was worth %1 exp = $.math(%1/$lastKillTime) exp/s = $perHour.get() M/h";
+                #echo $expString;
+        
+      
+        };
+	#$lastKillAt $.time();
+
+	#$fightStatus 0;
+        #$fighting 0;
+	#$sacced 0;	
+	#if {$prepRoutine==1} {#$prepRoutine 0};
+	#if {$standing==0} {stand};
+	#if {$autoSac==1} {
+		#if {$faith<7} {
+			doSac;
+		};
+		#if {$faith==7} {
+			delaySac;
+		};
+		worship;
+	};
+	#$expon (%1+$expon);
+	#//if {$eocHaste==1 && $hasteLeft>1} {haste};
+	 #if {$eocFs==1} {fs};
+	 #if {$eocShille==1} {shille};
+
+	#//if {$targetSet==1} {#$targetSet 0};
+	#$blinded 0;
+	#if {$healing==1} {healoff};
+	#//if {$manaQuaffing==1} {#$manaQuaffing 0};
+	#if {$blasting==1} {#$blasting 0};
+
+	#if {$autotrain==1 && $expon>$cheapExp} {train all $cheapest};
+	#//if {$leadWalk==0} {l};
+	#if {$eocBless==1 && $mana>5} {bless};
+	#//if {$eocHob==1 && $mana>50} {hob};
+	#if {$autoAid==1} {aid group};
+	#//if {$autoLoot==1} {loot};
+	#//if {$autoKill==1 && $mana>100} {sp};
+	#if {$atNilaah==1} {#$atNilaah 0};
+	#if {$eocShape==1} {change $shape};
+	
+};
+
+
+#//AUTOSAC;
+
+#action {% performs a ritual sacrifice.} {#$sacced 1};
+#action {Sacrifice what?} {#$sacced 1};
+#action {You perform a ritual sacrifice.} {#$sacced 1};
+#alias {doSac} {#if {$sacced==0} {sacrifice corpse}};
+#alias {delaySac} {wait 1 doSac};
+
+#action {Your share is % coins.} {
+	#$goldon (%1+$goldon);
+};
+
+#alias {disp} {displacer};
+
+
+#//CONSIDER;
+#new string healthTemp;
+#$healthTemp "";
+#new string damageTemp;
+#$damageTemp "";
+#new string armorTemp;
+#$armorTemp "";
+#new string groupTemp;
+#$groupTemp "";
+#new string magicTemp;
+#$magicTemp "";
+
+#action {Health:% :} {
+	#$healthTemp "%1";
+	$healthTemp.trim();
+	infoecho $healthTemp.length()
+};
+#action {Damage:% :} {
+	#$damageTemp "%1";
+        $damageTemp.trim();
+        infoecho $damageTemp.length()
+};
+#action {Magic: %} {
+        #$magicTemp "%1";
+        $magicTemp.trim();
+        infoecho $magicTemp.length()
+};
+#action {Armor: %} {
+        #$armorTemp "%1";
+        $armorTemp.trim();
+        infoecho $armorTemp.length()
+};
+#action {Group: %} {
+        #$groupTemp "%1";
+        $groupTemp.trim();
+        infoecho $groupTemp.length()
+};
+
+#alias {infoecho %} {#echo %1};
+
+#action {You are now the new leader of the group.} {#$leader $me};
+
+#new int indoorRoom;
+#new int indoor;
+
+#action {%You have difficulty moving around here%} {
+        #if {$indoorRoom==0} {#$indoorRoom 1}
+};
+#action {   Obvious Exits:%} {
+        #if {$indoorRoom==1} {
+                #if {$indoor==0} {#$indoor 1};
+                #$indoorRoom 0
+        } else {#if {$indoor==1} {#$indoor 0}}
+};
+
+
+#action {%A pile of junk comes tumbling down on you knocking you out of the battle.%} {
+        fightoff;
+        2wn4w3n4w4se
+};

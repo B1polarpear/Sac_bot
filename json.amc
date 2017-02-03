@@ -1,0 +1,176 @@
+#new int json;
+#new int jsonNatHp;
+#new int jsonNatMana;
+#new int jsonWeight;
+#new int jsonMaxWeight;
+#new int jsonExpon;
+#new int jsonGold;
+#new int jsonGoldBank;
+#new string jsonLeader "";
+#new string jsonRow "";
+#new int jsonEmplevel;
+#new int jsonQp;
+#new int jsonGarrotte;
+#new int jsonElem;
+#new int jsonKryptoz;
+#new int jsonToTrain;
+
+#alias {writeJson} {
+	#if {$onAreaDone=="meta"} {
+		#$jsonToTrain $metaexp;
+	} else {
+		#$jsonToTrain $dragonxp;
+	};
+	insertToJson $jsonNatHp.get() $jsonNatMana.get() $jsonWeight.get() $jsonMaxWeight.get() $expon.get() $goldon.get() $jsonGoldBank.get() $leader.get() $jsonRow.get() $jsonEmplevel.get() $jsonQp.get() $jsonGarrotte.get() $jsonElem.get() $jsonKryptoz.get() $onAreaDone.get() $jsonToTrain.get() $dragonperc.get();
+	#system bash json.sh;
+};
+
+#alias {insertToJson % % % % % % % % % % % % % % % % %} {
+	generateJson %1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14 %15 %16 %17;
+};
+#alias {generateJson % % % % % % % % % % % % % % % % %} {
+	#system echo "%1" > json.txt;
+	#system echo "%2" >> json.txt;
+	#system echo "%3" >> json.txt;
+        #system echo "%4" >> json.txt;
+	#system echo "%5" >> json.txt;
+        #system echo "%6" >> json.txt;
+	#system echo "%7" >> json.txt;
+        #system echo "%8" >> json.txt;
+	#system echo "%9" >> json.txt;
+        #system echo "%10" >> json.txt;
+	#system echo "%11" >> json.txt;
+        #system echo "%12" >> json.txt;
+	#system echo "%13" >> json.txt;
+        #system echo "%14" >> json.txt; 
+	#system echo "%15" >> json.txt;
+        #system echo "%16" >> json.txt;
+	#system echo "%17" >> json.txt;
+
+};
+
+#action {Your Armor Class is%} {
+	#$json 1;
+};
+
+#//You have 24 STR, 20 INT, 18 WIS, 25 DEX, 24 CON, 90 KAR;
+#action {Natural: % STR, % INT, % WIS, % DEX, % CON, % hit, % mana} {
+	#if {$json==1} {
+		#$jsonNatHp %6;
+		#$jsonNatMana %7;
+	};
+
+	
+};
+#action  {You are carrying % weight, and the max weight you can carry is %.} {
+	#if {$json==1} {
+                #$jsonWeight %1;
+                #$jsonMaxWeight %2;
+        };
+};
+
+#action {You have collected % exp, and have %(%) gold coins.} {
+	#if {$json==1} {
+                #$jsonExpon %1;
+                #$jsonGold %2;
+		#$jsonGoldBank %3;
+        };
+};
+
+#//You have killed 20924 monsters, and gotten yourself killed 36 times;
+
+#action {Your group leader is %, and you are in the % row.} {
+	#if {$json==1} {
+                #$jsonLeader %1;
+                #$jsonRow %2;
+        };	
+};
+
+#action {You can type 'details' to see more information.} {
+	#if {$json==1} {#$json 0};
+	
+};
+
+#action {You are $me, a%} {
+	#$json 1;
+};
+#//Your title is:the Dickie old chum;
+#//You created your character on Sat Jan 23 20:53:34 2016.;
+#//You have been playing for 11 days and 13 hours.;
+
+#action {You have % Quest Points.} {
+	#if {$json==1} {
+                #$jsonQp %1;
+        };
+};
+#action {Your empress rating is that of % %.} {
+	#if {$json==1} {
+                #$jsonEmplevel $emplevels.find("%2");
+        };
+};
+
+#action {You are % with Garrotte. (% rep)} {
+	#if {$json==1} {
+                #$jsonGarrotte %2;
+        };
+};
+
+#action {You are % with Elementum Trucido. (% rep)} {
+	#if {$json==1} {
+                #$jsonElem %2;
+        };
+};
+
+#action {You are % with Kryptoz. (% rep)} {
+	#if {$json==1} {
+                #$jsonKryptoz %2;
+        };
+};
+
+#action {You can type 'score' to see more information.} {
+	#if {$json==1} {#$json 0};
+	#//writeJson;
+};
+
+#new list emplevels;
+$emplevels.pushBack("null");
+$emplevels.pushBack("Apprentice");
+$emplevels.pushBack("Page");
+$emplevels.pushBack("Squire");
+$emplevels.pushBack("Errant");
+$emplevels.pushBack("Constable");
+$emplevels.pushBack("Knight");
+$emplevels.pushBack("Commander");
+$emplevels.pushBack("Marshal");
+$emplevels.pushBack("Warden");
+$emplevels.pushBack("Governor");
+$emplevels.pushBack("Advisor");
+$emplevels.pushBack("Steward");
+$emplevels.pushBack("Lady Chamberlain");
+$emplevels.pushBack("Overlord");
+$emplevels.pushBack("Magistrate");
+$emplevels.pushBack("Justiciar");
+$emplevels.pushBack("Chancellor");
+$emplevels.pushBack("Mistress");
+$emplevels.pushBack("Dignitary");
+$emplevels.pushBack("Vizier");
+$emplevels.pushBack("Viceroy");
+$emplevels.pushBack("Arbitress of Justice");
+$emplevels.pushBack("Grand Vizier");
+$emplevels.pushBack("Grand Empress");
+$emplevels.pushBack("Grand Mistress Empress");
+
+
+#action {You gain % reputation with %.} {
+	#if {"%2"=="Garrotte"} {
+		#$jsonGarrotte $jsonGarrotte+%1;
+	};
+	#if {"%2"=="Elementum Trucido"} {
+                #$jsonElem $jsonElem+%1;
+        };
+	#if {"%2"=="Kryptoz"} {
+                #$jsonKryptoz $jsonKryptoz+%1;
+        };
+
+};
+

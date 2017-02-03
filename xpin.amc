@@ -1,0 +1,153 @@
+#//Usage: xpin <time in minutes>;
+#new int i;
+#new int irssiXpin 1;
+#new int xpInLog 1;
+
+#new list xpList;
+#//$xpList.pushBack("TestMob of Mulkero,123345,500000,Kate");
+#//$xpList.pushBack("Traetar,123466,120000,11000,Daryl");
+
+
+#//new list targetXpList;
+#new string xpinString "";
+
+#new double targetTotalXp;
+$targetTotalXp.decimals(2);
+#new int targetTotalSecs;
+
+
+#new string parseNameTemp "";
+#new int parseXpTemp;
+#new int parseTime;
+#new int curTime;
+#new int lowRange;
+#new int wantedSecs;
+#new int parseXpRate;
+#new string parseLeader;
+
+#alias {parseXp %|%|%|%|%} {
+	#$parseNameTemp "";
+	#$parseTime "";
+	#$parseXpTemp "";
+	#$parseXpRate "";;
+	#$parseLeader "";
+
+	#$parseNameTemp "%1";
+        #$parseTime "%2";
+        #$parseXpTemp "%3";
+	#$parseXpRate "%4";
+	#$parseLeader "%5";
+	#//echo Name: $parseNameTemp.get();
+	#//echo KillTime: $parseTime.get();
+	#//echo Exp: $parseXpTemp.get();
+};
+
+#alias {checkXp %} {
+	parseXp $xpList.get(%1);
+
+};
+
+
+#alias {xpin %} {
+	#if {%1<1000} {kato_xpin %1} else {irc INFO: trololololollololollololoo!};
+};
+#alias {kato_xpin %} {
+	#//to reset variables;
+	#$targetTotalXp 0;
+	#$wantedSecs 0;
+	#$lowRange 0;
+	#$xpinString "";
+
+	#//to check if minute is correct;
+	
+	#$curTime $.time();
+	
+	#//minutes to seconds;
+	#$wantedSecs $.math(%1*60);
+
+	#//the search range;
+	#$lowRange $curTime-$wantedSecs;
+
+
+	#//the loop;
+	#$i 0;
+	#while {$i<$xpList.size()} {
+		checkXp $i.get();
+		
+		#if {$parseTime>$lowRange} {
+			#//echo FOUND MATCH! $parseNameTemp.get();
+			#$targetTotalXp $targetTotalXp+$parseXpTemp;			
+		};
+		#$i $i+1;
+	};
+	#//echo Total exp in %1 minutes: $.math($targetTotalXp/1000000)M;
+	#//echo Rate: $.math($targetTotalXp/$wantedSecs) xp/s, $.math(($targetTotalXp/$wantedSecs)*3600/1000000) M/h.;
+	#$xpinString "INFO: Total exp in %1 minutes: $.math($targetTotalXp/1000000)M, $.math($targetTotalXp/$wantedSecs) xp/s, $.math(($targetTotalXp/$wantedSecs)*3600/1000000) M/h.";
+	#echo $xpinString;
+	#if {$irssiXpin==1} {irc $xpinString.get()};
+
+};
+
+
+#new string highExpString "";
+#new string lowExpString "";
+
+#new int lowestRate;
+#new int highestRate;
+
+#new int lowestId;
+#new int highestId;
+
+#new string bestLeader;
+#new string lowLeader;
+
+#alias {countBestWorst} {
+	#$highestRate 0;
+	#$lowestRate 0;
+	#$lowestId 0;
+	#$highestId 0;	
+	#$bestLeader "";
+	#$lowLeader "";
+
+	#$i 0;
+	#while {$i<$xpList.size()} {
+		checkXp $i.get();
+		#if {$i==0} {#$lowestRate $parseXpRate;#$lowLeader $parseLeader};		
+		
+		#if {$parseXpRate<$lowestRate} {
+			#$lowestRate $parseXpRate;
+			#$lowestId $i;
+			#$lowLeader $parseLeader;
+		};
+		#if {$parseXpRate>$highestRate} {
+			#$highestRate $parseXpRate;
+			#$highestId $i;
+			#$bestLeader $parseLeader;
+		};
+
+		#$i $i+1;
+	}
+};
+
+#new string dayExpString;
+#new int dayExpTemp;
+
+#alias {expinfo} {
+	countBestWorst;
+
+	#$dayExpTemp $dayexp;
+	#$dayExpString "INFO: $expDate.get(): $.math($dayExpTemp.get()/1000000) M";
+	#echo $dayExpString;
+	#if {$irssiXpin==1} {irc $dayExpString.get()};
+
+	checkXp $highestId.get();
+	#$highExpString "INFO: The best kill: $parseNameTemp.get(), $parseXpTemp.get() xp, $parseXpRate.get() xp/s, $.math(($parseXpRate*3600)/1000000) M/h, Leader: $bestLeader.get()";
+	#echo $highExpString;
+	#if {$irssiXpin==1} {irc $highExpString.get()};
+	
+	checkXp $lowestId.get();
+        #$lowExpString "INFO: The worst kill: $parseNameTemp.get(), $parseXpTemp.get() xp, $parseXpRate.get() xp/s, $.math(($parseXpRate*3600)/1000000) M/h, Leader: $lowLeader.get()";
+        #echo $lowExpString;
+	#if {$irssiXpin==1} {irc $lowExpString.get()};
+
+};

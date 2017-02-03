@@ -1,0 +1,67 @@
+#// LOGIN JA LOGOUT;
+
+
+#// Save;
+#alias {doSave} {
+	#save expon goldon cheapest cheapExp level metastat metaamount metaexp metagold;
+	#save tank target leader;
+	 #save dayexp expDate;
+};
+
+#new int autoLogin 1;
+#new int autoLogout 0;
+#new int loginRoutine 1;
+#new int loggedIn;
+#new int logOutProcess;
+
+#action {%Internet connection provided by:%} {
+	#if {$autoLogin==1} {#$loginRoutine 1};
+	#if {$loggedIn==1} {#$loggedIn 0};
+};
+
+#action {%By what name do you wish to be known?%} {#if {$loginRoutine==1} {$me}};
+#action {%Password:%} {#if {$loginRoutine==1} {$passu}};
+#action {%The Implementors of Imperial can be reached by%} {#if {$loginRoutine==1} {l}};
+#action {%Enter the game.%} {#if {$loginRoutine==1} {#$loginRoutine 0};1};
+
+#action {Welcome to the land of DikuMUD. May your visit here be... Interesting.} {
+	#$loggedIn 1;
+	resetsession;
+	sc;
+	deta;
+	group;
+	aff;
+	train;
+	ss;
+	#if {$mana>200} {tiger;wear all};
+	
+	
+};
+
+
+#action {%You store your stuff in the safe, and leave%} {logoutDone};
+#action {%Green Cables Inn Keeper stores your stuff in the safe, and helps you into your chamber%} {logoutDone};
+#action {%The Receptionist stores your stuff in the safe, and helps you into your chamber%} {logoutDone};
+
+#alias {logoutDone} {
+	#if {$logOutProcess==1} {#$logOutProcess 0};
+	#if {$loggedIn==1} {#$loggedIn 0};
+	$sessiontime.stop();
+};
+
+#alias {logout} {
+	#$logOutProcess 1;
+	#if {$standing==0} {stand};
+	home;
+	nn;
+	return;
+	rent;
+	0;
+};
+
+#alias {login} {
+	#if {$loggedIn==0} {
+		#disc;
+		#reco
+	};
+};

@@ -1,0 +1,217 @@
+#new int healing;
+#new int healLimit 75;
+#new int groupHealing;
+#new int heal;
+#new string Weather "sunny";
+#new string BlastSpell sunray;
+
+#alias {healoff} {#$healing 0};
+#action {The bruises on your body fade away and wounds begin to seal up!} {healoff};
+#action {Your wounds cease flowing as you feel better!} {healoff};
+#action {A feeling of celestial power washes over you, healing your wounds.} {healoff};
+#action {The forces of nature heal your intense wounds.} {healoff};
+
+#action {You lost your concentration!} {healoff};
+
+#new int manaQuaffing;
+#new int manaQuaff 1;
+#new int manaQuaffLimit 20;
+#action {You quaff Vial of Arcane Recovery which dissolves.} {#$manaQuaffing 0};
+
+#new int autoBlast 1;
+#new int blastLimit 60;
+#new int blasting;
+
+#new int SunCount 0;
+#new int LightningCount 0;
+#new int FlameCount 0;
+#new int SpellsTotal 0;
+
+#alias {spellinfo} {irc INFO: Flamestrike: $.math(($FlameCount/$SpellsTotal)*100)% Sunray: $.math(($SunCount/$SpellsTotal)*100)% Call Lightning: $.math(($LightningCount/$SpellsTotal)*100)%};
+
+#action {You call down cleansing flames to strike down % with purifying fire!} {
+	#$FlameCount $FlameCount+1;
+	#$SpellsTotal $SpellsTotal+1;
+	#if {$blasting==1}{#$blasting 0};
+
+};
+#action {A blinding beam of light streaks down from the skies above, scorching % with solar flames!} {
+	#$SunCount $SunCount+1;
+	#$SpellsTotal $SpellsTotal+1;
+	#if {$blasting==1}{#$blasting 0};
+};
+#action {You call down a bolt of thunderous energy to strike between the eyes of %.} {
+	#$LightningCount $LightningCount+1;
+	#$SpellsTotal $SpellsTotal+1;
+	#if {$blasting==1}{#$blasting 0};
+};
+
+
+#action {The sky is % %} {
+	#$Weather "%1";
+	#if {$Weather == "rainy"} {#$BlastSpell "call lightning";}
+	 else {
+		#if {$Weather == "sunny" || $Weather == "cloudless" || $Weather == "cloudy"} { 
+		#$BlastSpell "sunray";
+		};
+	};
+};
+#action {You have no feeling about the weather at all.}  {
+	#$Weather "indoors";
+	#$BlastSpell "flamestrike"; 
+};
+
+
+
+
+#new int kenoGmira;
+#action {Keno makes a mystic hand position and utters the words, 'great miracle'} {
+	#if {$currentArea=="The Planes of Elemental Fury" && $fightStatus==1} {
+		#$kenoGmira 1;
+	};
+};
+#new ticker breathtimer;
+#alias {breathdone} {#$breathing 0};
+#new int breathing;
+#new int autoBreath 1;
+#new string breath heal;
+
+#action {% >%} {
+  #if {$hereList.find($me)==-1} {$hereList.pushBack($me)};
+	#if {$groupCheck==1 && $groupCheckRoutine==1}
+        {
+                #$groupcheck 0;
+                #$groupcheckroutine 0;
+                #if {$groupCheckList.size()>0}
+                {
+                        #while {$groupCheckList.size()>0}
+                        {
+                                #if {$groupList.find($groupCheckList.front())>=0}
+                                {
+                                        $groupList.delete($groupList.find($groupCheckList.front()));
+                                };
+                                $groupCheckList.popFront();
+                        };
+                };
+	};
+	#if {$fightStatus==1 && $fighting==1 && $healing==0 && $.math(($hp*100)/$maxhp)<$healLimit} {
+		#if {$shapeName=="Granite Drake" || $currentArea=="The Planes of Elemental Fury"} {
+			#$healing 1;
+			tog;
+		} else {
+			#$healing 1;
+			heal
+		};
+	};
+	#//if {$fightStatus==1 && $kenoGmira==1} {
+		#$kenoGmira 0;
+		#if {$mana>200} {cast 'heal spray'};
+	};
+	#//if {$manaQuaff==1 && $.math(($mana*100)/$maxmana)<$manaQuaffLimit && $manaPotionsLeft>=1 && $manaQuaffing==0} {
+		#$manaQuaffing 1;
+		quaffmana;
+	};
+	#if {$fightStatus==1 && $fighting==1 && $autoBlast==1 && $.math(($mana*100)/$maxmana)>$blastLimit && $blasting==0 && $bufHeal==0 && $healing==0 && $currentArea!="The Planes of Elemental Fury"} {
+                #$blasting 1;
+                cast $BlastSpell;
+        };
+
+        #if {$autoBreath==1 && $fighting==1 && $breathing==0 && $dragon==1 && $healing==0}
+        {
+                #$breathing 1;
+                breath $breath;
+                #$breathtimer 6;
+                $breathtimer.setText(breathdone);
+                $breathtimer.start()
+        };
+
+	   #if {$autoBlind==1 && $blindProcess==1 && $blinding==0 && $blinded==0 && $fightStatus==0} {
+                #$blinding 1;
+                blind
+        };
+	 #if {$eocHob==1} 
+        {
+                #if {$fightStatus==0 && $fighting==0 && $standing==1 && $autoHob==1 && $hobbing==0 && $groupList.find("Iame")==-1 && $groupList.find("Etana")==-1}
+                {      
+                        #if {$grouped==1} {
+                                #if {$hereList.size()>=(($groupList.size()*3)/4) && $mana>(($hereList.size()*50)+(($maxmana*15)/100))}
+                                {
+                                        #$hobbing 1;
+                                        hob group
+                                };
+                        } else {
+                                #$hobbing 1;
+                                hob
+                        };
+                };
+        };
+	#if {$eocRegen==1}
+        {
+                #if {$fightStatus==0 && $fighting==0 && $standing==1 && $autoRegen==1 && $regening==0 && $groupList.find("Iame")==-1 && $groupList.find("Etana")==-1}
+                {
+                        #if {$grouped==1} {
+                                #if {$hereList.size()>=(($groupList.size()*3)/4) && $mana>(($hereList.size()*55)+(($maxmana*15)/100))}
+                                {
+                                        #$regening 1;
+                                        regen group
+                                };
+                        } else {
+                                #$regening 1;
+                                regen
+                        };
+                };
+        };
+	#if {$autoTrans==1 && $fightStatus==0 && $fighting==0 && $.math(($mana*100)/$maxmana)>95 && $hereList.find($transTarget)>=0 && $trans==0} {
+		#$trans 1;
+		cmt $transTarget;
+	};
+	#//if {$heal==1 && $fighting==1 && $fightstatus==1 && $hsList.size()>=3 && $healing==0} {
+		#$healing 1;
+		$hsList.clear();
+		cast heal spray;
+	};
+	#//if {$leader==$me && $comeNilaah==1} {
+		#if {$hereList.size()==$groupList.size()} {
+			#$comeNilaah 0;
+			#echo kaikki paikalla;
+			#if {$coming==1} {
+				$comeMap.find($targetArea);
+			};
+		};
+	};
+	#//if {$leader==$me && $comeElse==1} {
+		#if {$hereList.size()==$groupList.size()} {
+                        #$comeElse 0;
+                        #echo kaikki paikalla;
+                        #if {$coming==1} {
+                                lead $comeMap.key($comePathTemp);
+				gt come;
+                        };
+                };
+        };
+
+	 #//if {$promptTrigu==1} {
+		
+          #$promptTrigu 0;
+                #//if {$speedWalking==0 && $mobOnWay==0} {count_step};
+                #if {$speedWalking==1} {swkaytos};
+                #if {$mobOnWay==1}     {mobikaytos};
+                #if {$leadWalk==1 && $canStep==1 && $mobOnWay==0 && $saakavella==1 && $obvioussi==1} {
+                        count_step;
+                        #$obvioussi 0;
+                        #$canStep 0;
+                        _suunta;
+                };
+        };
+	#if {$eqCheck==1} {
+		#$eqCheck 0;
+	};
+	
+};
+
+
+#//tavoitetreenit;
+
+#new int metaTarget 5000;
+#new int trainTargetDone;
+

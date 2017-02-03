@@ -1,0 +1,21 @@
+#new int faith 7;
+#ac {%You are a saint of %.} {#$faith 7};
+#ac {%You are a champion of %.} {#$faith 6};
+#ac {%You have good faith in %.} {#$faith 5};
+#ac {%You have faith in %.} {#$faith 4};
+#ac {%Your faith in % seems weak.} {#$faith 3};
+#ac {%Your faith in % seems very weak.} {#$faith 2};
+#ac {%You claim to be a worshipper of %.} {#$faith 1};
+
+
+#action {** $leader tells you 'sac off'} {
+	#if {$autosac==1} {#$autoSac 0};
+};
+#action {** $leader tells you 'sac on'} {
+        #if {$autosac==0} {#$autoSac 1};
+};
+
+
+
+
+	

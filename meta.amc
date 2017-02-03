@@ -1,0 +1,38 @@
+#new int metaamount 5;
+#new int metastat 6;
+#new double metaexp 0.00;
+$metaexp.decimals(2);
+#new int metagold;
+
+
+#alias {metastat} {
+        #//rec;
+        wwnnwn;
+	#if {$dragon==1} {#$wasFormed 1};
+	return;
+        
+        #if {($metaamount*3)>100} {meta $metastat.get() 100} else {meta $metastat.get() $.math($metaamount.get()*3)};
+        #if {($metaamount*2)>100} {meta $metastat.get() 100} else {meta $metastat.get() $.math($metaamount.get()*2)};
+        meta $metastat.get() $metaamount.get();
+        meta x $metaamount.get();
+       
+        
+                #//change form;
+  		#//hold $light;
+		#//hold $formhold;      
+        sc;
+	#//if {$wasFormed==0 && $autoShape==1} {change $shape};
+	#if {$wasFormed==1} {
+		#$wasFormed 0;
+		change form	
+	};
+};
+
+#action {% -> Increase %----  % exp and % gold}
+{
+        #if {%1==$metastat} {
+                #$metaexp %3;
+                #$metagold %4
+        };
+};
+

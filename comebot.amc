@@ -1,0 +1,122 @@
+#new int coming;
+#new int comePathTemp;
+#new int comeNilaah;
+#new int comeElse;
+#new int lookTemp;
+#new string targetArea "";
+#new string areasString;
+
+#alias {selenetotal} {-Selene;-Selene2;gt en shaft;irc zz stab sight;irc z cmt keno};
+
+#alias {leadareas} {
+	#$i 0;
+	#$areasString "";
+	#while {$i<$comeMap.size()} {
+		#$areasString $areasString+"|"+$comeMap.key($i);
+		#$i $i+1;	
+	};
+	irc Available areas: $areasString.get();
+};
+#new map comeMap;
+$comeMap.set("woodhaven","-woodhaven");
+$comeMap.set("conundrum","-conod");
+$comeMap.set("oharan","-oharan");
+$comeMap.set("vortex","-vortex");
+$comeMap.set("demonwars","-demonwars");
+$comeMap.set("selene","selenetotal");
+
+#new list nilaahAreas;
+$nilaahAreas.pushBack("woodhaven");
+$nilaahAreas.pushBack("vortex");
+$nilaahAreas.pushBack("oharan");
+$nilaahAreas.pushBack("selene");
+
+#alias {wencome} {
+	#if {$leader==$me} {
+		irc_spam z stand;
+		irc_spam z spell rel $me.get();
+		irc_spam z cgsum
+	};
+};
+
+#alias {autolead %} {
+	#if {$leader==$me} {
+		#$comePathTemp $comeMap.has("%1");
+		#if {$comePathTemp>0} {
+			#$coming 1;
+			#$targetArea %1;
+			#if {$nilaahAreas.find($targetArea)>=0} {
+				#echo nilaah;
+				cometonilaah;
+			} else {
+				#echo not nilaah!;
+				#$comeElse 1;
+				$comeMap.find("%1");
+				#if {$targetArea=="demonwars"} {#sing {A Splendid Waterfall} {wencome;wait $.rand(4,6) "checkleadstart demonwars"}};
+				#if {$targetArea=="conundrum"} {#sing {South of the Shore} {wencome;wait $.rand(5,7) "checkleadstart conundrum"}};
+				#if {$groupList.find("Wen")==-1} {gt come};
+			};
+		} else {
+			#echo Path not found;
+		};
+	} else {
+		#echo Not the leader;
+	};
+};
+
+#alias {cometonilaah} {
+	#$comeNilaah 1;
+		#if {$leader==$me} {
+			nilaah;
+			gt nilaah;
+		};
+};
+		
+#action {A Well Built Cottage} {
+	
+	wait $.rand(8,10) "checkleadstart oharan";
+	
+};
+
+#//action {A Splendid Waterfall} {
+	#if {$groupList.find("Wen")>=0 && $coming==1} {wencome};
+        wait $.rand(5,7) "checkleadstart demonwars";
+
+};
+
+#action {Floating Vapors} {
+        wait $.rand(5,7) "checkleadstart vortex";
+
+};
+
+#//action {South of the Shore} {
+	#if {$groupList.find("Wen")>=0 && $coming==1} {wencome};
+	wait $.rand(5,7) "checkleadstart conundrum";
+
+};
+
+#action {Nilaah's Market Center} {
+	#if {$coming==1 && $leader==$me} {wait $.rand(5,6) look};
+};	
+
+#action {At the Foot of a Grassy Hill} {
+	#if {$groupList.find("Wen")>=0 && $coming==1} {wencome};
+        wait $.rand(5,7) "checkleadstart savannah";
+
+};
+#action {A Small Path in the Forest} {
+	wait $.rand(2,7) "checkleadstart woodhaven"
+};
+#action {Destroyed Foyer} {
+	wait $.rand(7,11) "checkleadstart selene";
+};
+#alias {checkleadstart %} {
+	 #if {$coming==1 && $hereList.size()==$groupList.size() && $leader==$me} {
+                #$coming 0;
+                #$autoLead 1;
+
+                lead %1;
+        };
+	
+
+};

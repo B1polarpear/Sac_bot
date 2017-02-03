@@ -1,0 +1,118 @@
+#new int potionsLeft;
+#new int hasteLeft;
+#new int hasting;
+#new string hasteScroll protection;
+#new int eocHaste;
+#new int elixirLeft;
+#new int elixir;
+
+#new int manaPotionsLeft;
+#new string manaPotion arcane;
+
+#new int piezoLeft;
+#new string piezoPotion fragile;
+
+#new int manaQuaffing;
+
+#action {You recite Scroll of Magical Protection which dissolves.} {#$hasteLeft $hasteLeft-1};
+#action {You quaff Vial of Arcane Recovery which dissolves.} {#if {$manaQuaffing==1} {#$manaQuaffing 0};#$manaPotionsLeft $manaPotionsLeft-1};
+#action {You quaff Fragile Vial which dissolves.} {#$piezoLeft $piezoLeft-1};
+#action {You quaff Bottle of Nature's Inspiration which dissolves.} {#$elixir 1;#$elixirLeft $elixirLeft-1};
+#action {The intoxicating effects of the elixir fade and you feel normal.} {#$elixir 0;elixir};
+
+#//Alkuun tarvittavat tsekit: onko paljon ennen nostoja;
+
+#alias {checkBag}
+{
+        #$hasteLeft 0;
+        #$manaPotionsLeft 0;
+	#$piezoLeft 0;
+	#$elixirLeft 0;
+        #singleaction {%$bag (carried)%}
+        {
+                #$checkBag 1;
+                #sing {<%} {#$checkBag 0}
+        };
+        exa $bag.get();
+};
+#action {Scroll of Magical Protection} {
+        #if {$checkBag==1} {
+
+                #$hasteLeft 1;
+
+        };
+};
+#action {Scroll of Magical Protection [%]} {
+        #if {$checkBag==1} {
+
+                #$hasteLeft %1;
+        };
+};
+#action {Vial of Arcane Recovery <Etana> [%]} {
+        #if {$checkBag==1} {
+
+                #$manaPotionsLeft %1;
+        };
+};
+#action {Vial of Arcane Recovery <Etana>} {
+        #if {$checkBag==1} {
+
+                #$manaPotionsLeft 1;
+        };
+};
+#action {Fragile Vial <Etana> [%]} {
+        #if {$checkBag==1} {
+
+                #$piezoLeft %1;
+        };
+};
+#action {Fragile Vial <Etana>} {
+        #if {$checkBag==1} {
+
+                #$piezoLeft 1;
+        };
+};
+#action {Bottle of Nature's Inspiration <Etana> [%]} {
+        #if {$checkBag==1} {
+
+                #$elixirLeft %1;
+        };
+};
+#action {Bottle of Nature's Inspiration <Etana>} {
+        #if {$checkBag==1} {
+
+                #$elixirLeft 1;
+        };
+};
+
+
+#alias {haste} {
+	#$hasting 1;
+	get $hasteScroll $bag;
+	reci $hasteScroll
+};
+#alias {piezo} {
+	get $piezoPotion $bag;
+	quaff $piezoPotion;
+};
+#alias {quaffmana} {
+        get $manaPotion $bag;
+        quaff $manaPotion;
+};
+#alias {elixir} {
+	get inspiration $bag;
+	quaff inspiration;
+};
+
+#action {You try to read Scroll of Magical Protection, but it is too complicated.} {
+        #if {$hasting==1} {
+                reci $hasteScroll
+        };
+};
+
+#action {Your motions quicken as magical energy courses through your veins.} {
+	#if {$hasting==1} {#$hasting 0};
+	#if {$eocHaste==1} {#$eocHaste 0};
+	};
+
+
